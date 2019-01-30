@@ -1,0 +1,10 @@
+{
+  "name": "stutter",
+  "version": "1.0.0",
+  "description": "RSVP for browsers",
+  "main": "index.js",
+  "repository": "https://github.com/jamestomasino/stutter",
+  "author": "James Tomasino <james@tomasino.org>",
+  "license": "GPL3",
+  "private": false
+}
