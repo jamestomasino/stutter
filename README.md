@@ -1,4 +1,4 @@
-# stutter
+# stutter ![status](https://travis-ci.com/jamestomasino/stutter.svg?branch=master) ![license](https://img.shields.io/badge/license-GPL3-blue.svg?style=flat-square)
 
 _Did I stutter?_
 
