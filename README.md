@@ -1,6 +1,6 @@
 # stutter ![status](https://travis-ci.com/jamestomasino/stutter.svg?branch=master) ![license](https://img.shields.io/badge/license-GPL3-blue.svg?style=flat-square)
 
-**stutter.** _(noun)_
+**stutter** _(noun)_
 
 1. Distorted speech characterized principally by blocks or spasms interrupting the rhythm.
 
