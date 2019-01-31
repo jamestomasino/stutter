@@ -2,9 +2,9 @@ var path = require('path')
 
 module.exports = {
   'mode': 'development',
-  'entry': './index',
+  'entry': './src-bg/index',
   'output': {
-    'path': path.resolve(__dirname, './dist'),
+    'path': path.resolve(__dirname, './dist-bg'),
     'filename': 'index.js'
   },
   'devtool': 'source-map',
@@ -12,12 +12,12 @@ module.exports = {
     'rules': [
       {
         'enforce': 'pre',
-        'test': /\.(js|jsx)$/,
+        'test': /src-bg\/.*\.js$/,
         'exclude': /node_modules/,
         'use': 'eslint-loader'
       },
       {
-        'test': /\.js$/,
+        'test': /src-bg\/.*\.js$/,
         'exclude': /node_modules/,
         'use': {
           'loader': 'babel-loader',
@@ -30,7 +30,7 @@ module.exports = {
         }
       },
       {
-        'test': /\.scss$/,
+        'test': /src-bg\/.*\.scss$/,
         'use': [
           'style-loader',
           'css-loader',

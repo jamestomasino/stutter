@@ -1,3 +1,4 @@
+/*
 const browser = window.msBrowser || window.browser || window.chrome
 
 function onContextCLick (info) {
@@ -37,3 +38,4 @@ for (var i = 0; i < contexts.length; i++) {
 
 // Handle clicking on the browser icon
 browser.browserAction.onClicked.addListener(() => { onIconClick() })
+*/

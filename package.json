@@ -9,7 +9,8 @@
   "private": false,
   "scripts": {
     "extension": "web-ext run --verbose",
-    "build": "web-ext build",
+    "package": "web-ext build",
+    "build": "webpack --config 'webpack.bg.js' && webpack --config 'webpack.content.js'",
     "test": "web-ext lint && eslint \"./**/*.js\""
   },
   "browserslist": "> 0.25%, not dead",
