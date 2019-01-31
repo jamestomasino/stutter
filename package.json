@@ -9,8 +9,9 @@
   "private": false,
   "scripts": {
       "extension": "yarn run web-ext run --verbose",
-      "build": "yarn run web-ext build",
-      "test": "yarn audit && yarn run web-ext lint"
+      "build": "web-ext build",
+      "lint": "eslint \"./**/*.js\"",
+      "test": "yarn audit && web-ext lint"
   },
   "devDependencies": {
     "eslint": "^5.12.1",
