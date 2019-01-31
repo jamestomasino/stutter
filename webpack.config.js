@@ -24,7 +24,8 @@ module.exports = {
           'options': {
             'presets': [
               'env'
-            ]
+            ],
+            plugins: ['@babel/plugin-transform-runtime']
           }
         }
       },
