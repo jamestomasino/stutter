@@ -3,11 +3,9 @@
   "name": "stutter",
   "description": "RSVP for browsers",
   "version": "0.0.1",
-  "icons": [
-    {
-      "64": "icons/icon.png"
-    }
-  ],
+  "icons": {
+    "64": "icons/icon.png"
+  },
   "background": {
     "scripts": [
       "/dist-bg/index.js"
