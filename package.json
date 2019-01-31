@@ -8,11 +8,12 @@
   "license": "GPL-3.0",
   "private": false,
   "scripts": {
-      "extension": "web-ext run --verbose",
-      "build": "web-ext build",
-      "test": "web-ext lint && eslint \"./**/*.js\""
+    "extension": "web-ext run --verbose",
+    "build": "web-ext build",
+    "test": "audit-ci --moderate && web-ext lint && eslint \"./**/*.js\""
   },
   "devDependencies": {
+    "audit-ci": "^1.3.0",
     "eslint": "^5.12.1",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.16.0",
