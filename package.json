@@ -12,15 +12,30 @@
     "build": "web-ext build",
     "test": "web-ext lint && eslint \"./**/*.js\""
   },
+  "browserslist": "> 0.25%, not dead",
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.3.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.5",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^2.1.0",
     "eslint": "^5.12.1",
     "eslint-config-standard": "^12.0.0",
+    "eslint-loader": "^2.1.1",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0"
+    "eslint-plugin-standard": "^4.0.0",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "web-ext": "^2.9.3",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
   },
   "dependencies": {
-    "web-ext": "^2.9.3"
+    "babel-polyfill": "^6.26.0"
   }
 }

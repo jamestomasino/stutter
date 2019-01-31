@@ -1,5 +1,5 @@
+/*
 const browser = window.msBrowser || window.browser || window.chrome
-
 const Stutter = require('./lib/stutter')
 
 var stutter // stutter Object
@@ -30,3 +30,4 @@ function playStutter (text) {
   stutter.setText(text)
   stutter.play()
 }
+*/
