@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": "https://github.com/jamestomasino/stutter",
   "author": "James Tomasino <james@tomasino.org>",
-  "license": "GPL3",
+  "license": "GPL-3.0",
   "private": false,
   "scripts": {
       "extension": "yarn run web-ext run --verbose"
