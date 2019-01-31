@@ -8,9 +8,9 @@
   "license": "GPL-3.0",
   "private": false,
   "scripts": {
-      "extension": "yarn run web-ext run --verbose",
+      "extension": "web-ext run --verbose",
       "build": "web-ext build",
-      "test": "yarn audit && web-ext lint && eslint \"./**/*.js\""
+      "test": "web-ext lint && eslint \"./**/*.js\""
   },
   "devDependencies": {
     "eslint": "^5.12.1",
