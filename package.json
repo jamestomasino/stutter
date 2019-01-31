@@ -10,8 +10,7 @@
   "scripts": {
       "extension": "yarn run web-ext run --verbose",
       "build": "web-ext build",
-      "lint": "eslint \"./**/*.js\"",
-      "test": "yarn audit && web-ext lint"
+      "test": "yarn audit && web-ext lint && eslint \"./**/*.js\""
   },
   "devDependencies": {
     "eslint": "^5.12.1",
