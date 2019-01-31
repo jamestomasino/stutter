@@ -1,4 +1,5 @@
-/* global browser */
+const browser = window.msBrowser || window.browser || window.chrome
+
 function onContextCLick (info) {
   browser.tabs.query({
     'active': true,

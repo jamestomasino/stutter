@@ -1,4 +1,4 @@
-/* global browser */
+const browser = window.msBrowser || window.browser || window.chrome
 
 const Stutter = require('./lib/stutter')
 
