@@ -5,7 +5,7 @@ module.exports = {
   'entry': './index',
   'output': {
     'path': path.resolve(__dirname, './dist'),
-    'filename': '[name].[chunkhash:8].js'
+    'filename': 'index.js'
   },
   'devtool': 'source-map',
   'module': {

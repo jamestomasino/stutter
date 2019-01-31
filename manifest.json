@@ -15,10 +15,7 @@
     {
       "matches": ["<all_urls>"],
       "js": [
-        "index.js",
-        "lib/block.js",
-        "lib/parts.js",
-        "lib/word.js"
+        "/dist/index.js"
       ]
     }
   ],
