@@ -1,6 +1,6 @@
 # stutter ![status](https://travis-ci.com/jamestomasino/stutter.svg?branch=master) ![license](https://img.shields.io/badge/license-GPL3-blue.svg?style=flat-square)
 
-**noun.** _distorted speech characterized principally by blocks or spasms interrupting the rhythm._
+**stutter.** _(noun)_ distorted speech characterized principally by blocks or spasms interrupting the rhythm.
 
 **stutter** is a [Rapid Serial Visual Presentation](https://en.wikipedia.org/wiki/Rapid_serial_visual_presentation) (RSVP) extension for modern web browsers. It is based upon my initial work in a Google Chrome extension, [read](https://github.com/jamestomasino/read_plugin). This is an attempt to modernize the code and offer cross-browser support.
 
