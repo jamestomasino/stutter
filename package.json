@@ -8,7 +8,7 @@
   "license": "GPL3",
   "private": false,
   "scripts": {
-      "extension": "yarn run web-ext run --verbose --firefox=\"/snap/firefox/current/firefox-bin\""
+      "extension": "yarn run web-ext run --verbose"
   },
   "devDependencies": {
     "eslint": "^5.12.1",
