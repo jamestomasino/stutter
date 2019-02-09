@@ -1,7 +1,7 @@
-/*
-const browser = window.msBrowser || window.browser || window.chrome
+/* global browser */
 
-function onContextCLick (info) {
+function onContextClick (info) {
+  console.log('onContextClick')
   browser.tabs.query({
     'active': true,
     'currentWindow': true
@@ -14,6 +14,7 @@ function onContextCLick (info) {
 }
 
 function onIconClick () {
+  console.log('onIconClick')
   browser.tabs.query({
     'active': true,
     'currentWindow': true
@@ -32,10 +33,9 @@ for (var i = 0; i < contexts.length; i++) {
   browser.contextMenus.create({
     'title': title,
     'contexts': [context],
-    'onclick': onContextCLick
+    'onclick': onContextClick
   })
 }
 
 // Handle clicking on the browser icon
-browser.browserAction.onClicked.addListener(() => { onIconClick() })
-*/
+browser.browserAction.onClicked.addListener(onIconClick)
