@@ -8,14 +8,16 @@
   },
   "background": {
     "scripts": [
-      "dist-bg/index.js"
+      "dist-bg/index.js",
+      "dist-bg/index.js.map"
     ]
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": [
-        "dist-content/index.js"
+        "dist-content/index.js",
+        "dist-content/index.js.map"
       ]
     }
   ],
