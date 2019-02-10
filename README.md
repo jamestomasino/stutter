@@ -6,6 +6,34 @@
 
 2. A [Rapid Serial Visual Presentation](https://en.wikipedia.org/wiki/Rapid_serial_visual_presentation) (RSVP) extension for modern web browsers. It is based upon my initial work in a Google Chrome extension, [read](https://github.com/jamestomasino/read_plugin). This is an attempt to modernize the code and offer cross-browser support.
 
+## Install
+
+**stutter** is built using webpack and babel, with sass support and eslint styling. Code for the backend and content-scripts are maintained separately with individual webpack configurations.
+
+To install all dependencies:
+
+    $ yarn
+
+To build the project:
+
+    $ yarn build
+
+To lint the source:
+
+    $ yarn test
+
+To lint the extension configuration (_must build first_):
+
+    $ yarn webext-test
+
+To locally test the extension in Firefox:
+
+    $ yarn extension
+
+To package the extension for production:
+
+    $ yarn package
+
 ## TODO
 
 This extension will require work to catch up to the functionality of my previous one. I'll start by creating a minimum viable product (MVP) via the following:
