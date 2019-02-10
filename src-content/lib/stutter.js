@@ -2,12 +2,13 @@ import Block from './block'
 
 export default class Stutter {
   constructor (options) {
+    this.block = null
     this.currentWord = null
     this.delay = 0
-    this.timer = null
-    this.isPlaying = false
     this.isEnded = false
+    this.isPlaying = false
     this.options = options
+    this.timer = null
     this.setWPM(this.options.wpm)
   }
 
@@ -44,6 +45,12 @@ export default class Stutter {
   pause () {
     clearTimeout(this.timer)
     this.isPlaying = false
+  }
+
+  destroy () {
+    clearTimeout(this.timer)
+    this.isPlaying = false
+    this.block = null
   }
 
   restart () {

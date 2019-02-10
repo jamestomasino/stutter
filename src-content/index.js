@@ -14,6 +14,9 @@ var stutterOptions = {
 }
 
 function playStutter (text) {
+  if (stutter) {
+    stutter.destroy()
+  }
   stutter = new Stutter(stutterOptions)
   stutter.setText(text)
   stutter.play()
