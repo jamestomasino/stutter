@@ -2,7 +2,9 @@
   display: block;
   position: relative;
   height: 50px;
-  width: 100vw;
+  margin: 15px 0;
+  width: 100%;
+  overflow: hidden;
   z-index: 999999999;
   background: black;
   color: white;
@@ -10,6 +12,7 @@
   font-size: 30px;
   text-align: center;
   top: 0;
+  border-radius: 15px;
 
   .__stutter_text {
     position: relative;
