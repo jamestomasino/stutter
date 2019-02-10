@@ -1,5 +1,3 @@
-/* global browser */
-
 export default class StutterOptions {
   constructor () {
     // Default settings
@@ -9,23 +7,27 @@ export default class StutterOptions {
     this._otherPuncDelay = 1.5
     this._shortWordDelay = 1.3
     this._longWordDelay = 1.4
-
-    // TODO: refactor this with the options panel
-
-    // Attempt to use browser sync for options
-    var getting = browser.storage.local.get('color')
-    getting.then(result => {
-      if (result && result.stutterOptions) {
-        this._wpm = result.stutterOptions.wpm || this._wpm
-        this._slowStartCount = result.stutterOptions.slowStartCount || this._slowStartCount
-        this._sentenceDelay = result.stutterOptions.sentenceDelay || this._sentenceDelay
-        this._otherPuncDelay = result.stutterOptions.otherPuncDelay || this._otherPuncDelay
-        this._shortWordDelay = result.stutterOptions.shortWordDelay || this._shortWordDelay
-        this._longWordDelay = result.stutterOptions.longWordDelay || this._longWordDelay
-      }
-    })
-
     this._delay = 1 / (this._wpm / 60) * 1000
+  }
+
+  set settings (val) {
+    if (val['wpm']) this.wpm = val['wpm']
+    if (val['slowStartCount']) this.slowStartCount = val['slowStartCount']
+    if (val['sentenceDelay']) this.sentenceDelay = val['sentenceDelay']
+    if (val['otherPuncDelay']) this.otherPuncDelay = val['otherPuncDelay']
+    if (val['shortWordDelay']) this.shortWordDelay = val['shortWordDelay']
+    if (val['longWordDelay']) this.longWordDelay = val['longWordDelay']
+  }
+
+  get settings () {
+    return {
+      wpm: this.wpm,
+      slowStartCount: this.slowStartCount,
+      sentenceDelay: this.sentenceDelay,
+      otherPuncDelay: this.otherPuncDelay,
+      shortWordDelay: this.shortWordDelay,
+      longWordDelay: this.longWordDelay
+    }
   }
 
   get delay () {
@@ -34,6 +36,7 @@ export default class StutterOptions {
 
   set wpm (val) {
     val = Number(val)
+    if (isNaN(val)) return
     val = Math.max(1, val)
     val = Math.min(1500, val)
     this._wpm = val
@@ -46,6 +49,7 @@ export default class StutterOptions {
 
   set sentenceDelay (val) {
     val = Number(val)
+    if (isNaN(val)) return
     val = Math.max(1, val)
     val = Math.min(10, val)
     this._sentenceDelay = val
@@ -57,6 +61,7 @@ export default class StutterOptions {
 
   set otherPuncDelay (val) {
     val = Number(val)
+    if (isNaN(val)) return
     val = Math.max(1, val)
     val = Math.min(10, val)
     this._otherPuncDelay = val
@@ -68,6 +73,7 @@ export default class StutterOptions {
 
   set shortWordDelay (val) {
     val = Number(val)
+    if (isNaN(val)) return
     val = Math.max(1, val)
     val = Math.min(10, val)
     this._shortWordDelay = val
@@ -79,6 +85,7 @@ export default class StutterOptions {
 
   set longWordDelay (val) {
     val = Number(val)
+    if (isNaN(val)) return
     val = Math.max(1, val)
     val = Math.min(10, val)
     this._longWordDelay = val
@@ -90,6 +97,7 @@ export default class StutterOptions {
 
   set numericDelay (val) {
     val = Number(val)
+    if (isNaN(val)) return
     val = Math.max(1, val)
     val = Math.min(10, val)
     this._numericDelay = val
@@ -101,6 +109,7 @@ export default class StutterOptions {
 
   set slowStartCount (val) {
     val = Number(val)
+    if (isNaN(val)) return
     val = Math.max(0, val)
     val = Math.min(10, val)
     this._slowStartCount = val

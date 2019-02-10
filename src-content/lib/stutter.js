@@ -6,7 +6,17 @@ export default class Stutter {
     this.currentWord = null
     this.isEnded = false
     this.isPlaying = false
-    this.options = options
+    this.options = {
+      wpm: 700,
+      slowStartCount: 5,
+      sentenceDelay: 2.5,
+      otherPuncDelay: 1.5,
+      shortWordDelay: 1.3,
+      longWordDelay: 1.4
+    }
+    this.options = Object.assign(this.options, options)
+    console.log(this.options)
+    this.options.delay = 1 / (this.options.wpm / 60) * 1000
     this.timer = null
   }
 

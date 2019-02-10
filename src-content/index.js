@@ -2,18 +2,29 @@
 
 import Readability from './lib/Readability'
 import Stutter from './lib/stutter'
-import StutterOptions from './lib/stutterOptions'
 
 var stutter
-var stutterOptions = new StutterOptions()
 
 function playStutter (text) {
   if (stutter) {
     stutter.destroy()
   }
-  stutter = new Stutter(stutterOptions)
-  stutter.setText(text)
-  stutter.play()
+
+  browser.storage.local.get('stutterOptions').then(result => {
+    if (result.stutterOptions) {
+      stutter = new Stutter(result.stutterOptions)
+    } else {
+      stutter = new Stutter()
+    }
+    stutter.setText(text)
+    stutter.play()
+  },
+  () => {
+    console.log('No settings found, use defaults')
+    stutter = new Stutter()
+    stutter.setText(text)
+    stutter.play()
+  })
 }
 
 function onMessage (request) {
