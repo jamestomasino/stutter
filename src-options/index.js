@@ -16,10 +16,14 @@ var options = {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  browser.storage.sync.get('stutterOptions').then(result => {
+  browser.storage.local.get('stutterOptions').then(result => {
     if (result.stutterOptions) {
       for (let key in options) {
         document.getElementById(key).value = result.stutterOptions[key] || options[key]
+      }
+    } else {
+      for (let key in options) {
+        document.getElementById(key).value = options[key]
       }
     }
   },
@@ -32,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let key in options) {
       options[key] = document.getElementById(key).value
     }
-    browser.storage.sync.set({
+    browser.storage.local.set({
       stutterOptions: options
     })
   })

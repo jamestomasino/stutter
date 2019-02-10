@@ -13,7 +13,7 @@ export default class StutterOptions {
     // TODO: refactor this with the options panel
 
     // Attempt to use browser sync for options
-    var getting = browser.storage.sync.get('color')
+    var getting = browser.storage.local.get('color')
     getting.then(result => {
       if (result && result.stutterOptions) {
         this._wpm = result.stutterOptions.wpm || this._wpm
