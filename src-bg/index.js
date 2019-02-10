@@ -7,7 +7,7 @@ function onContextClick (info) {
     'currentWindow': true
   }, function (tabs) {
     browser.tabs.sendMessage(tabs[0].id, {
-      'functiontoInvoke': 'readSelectedText',
+      'functiontoInvoke': 'stutterSelectedText',
       'selectedText': info.selectionText
     })
   })
@@ -20,7 +20,7 @@ function onIconClick () {
     'currentWindow': true
   }, function (tabs) {
     browser.tabs.sendMessage(tabs[0].id, {
-      'functiontoInvoke': 'readFullPage'
+      'functiontoInvoke': 'stutterFullPage'
     })
   })
 }
@@ -29,7 +29,7 @@ function onIconClick () {
 var contexts = ['selection']
 for (var i = 0; i < contexts.length; i++) {
   var context = contexts[i]
-  var title = 'Read Selected Text'
+  var title = 'Stutter Selection'
   browser.contextMenus.create({
     'title': title,
     'contexts': [context],

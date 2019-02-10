@@ -1,8 +1,8 @@
-const Block = require('./block')
+import Block from './block'
 
-var whiteSpace = /[\n\r\s]/
+const whiteSpace = /[\n\r\s]/
 
-module.exports = class Stutter {
+export default class Stutter {
   constructor (options) {
     this._currentWord = null
     this._delay = 0

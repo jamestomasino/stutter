@@ -1,5 +1,5 @@
-const Word = require('./word')
-const { wordRegex, presuf, vccv, puncSplit } = require('./parts')
+import Word from './word'
+import { wordRegex, presuf, vccv, puncSplit } from './parts'
 
 function puncBreak (word) {
   let parts = puncSplit.exec(word)
@@ -29,7 +29,7 @@ function breakLongWord (word) {
   return (parts[1] || '') + ret.join('-') + (parts[5] || '')
 }
 
-module.exports = class Block {
+export default class Block {
   constructor (val) {
     this.words = []
     this.index = 0

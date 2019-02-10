@@ -1,7 +1,6 @@
 /* global browser */
-// const browser = window.msBrowser || window.browser || window.chrome
-/*
-const Stutter = require('./lib/stutter')
+
+import Stutter from './lib/stutter'
 
 var stutter // stutter Object
 var stutterOptions = {
@@ -18,14 +17,13 @@ function playStutter (text) {
   stutter.setText(text)
   stutter.play()
 }
-*/
 
 function onMessage (request) {
   console.log('onMessage', request)
   switch (request.functiontoInvoke) {
     case 'stutterSelectedText':
       console.log('stutterSelectedText')
-      // playStutter(request.selectedText)
+      playStutter(request.selectedText)
       break
     case 'stutterFullPage':
       console.log('stutterFullPage')

@@ -1,7 +1,7 @@
 const textRegex = /\w/g
 const numRegex = /\d/g
 
-module.exports = class Word {
+export default class Word {
   constructor (val) {
     this.val = val
 
