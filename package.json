@@ -11,7 +11,7 @@
     "extension": "web-ext run --verbose",
     "package": "web-ext build",
     "build": "webpack --config 'webpack.bg.js' && webpack --config 'webpack.content.js' && webpack --config 'webpack.options.js'",
-    "test": "eslint \"./**/*.js\"",
+    "test": "eslint \"./src-*/*.js\"",
     "webext-test": "web-ext lint"
   },
   "browserslist": "> 0.25%, not dead",
