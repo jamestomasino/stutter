@@ -30,7 +30,7 @@
     "default_icon": {
       "64": "icons/stutter.svg"
     },
-    "default_title": "stutter"
+    "default_title": "Stutter"
   },
   "options_ui": {
     "page": "options/index.html"
