@@ -28,6 +28,12 @@ Areas to explore after the MVP is completed:
 - [ ] Syncing of personalization settings through browser sync
 - [ ] Client-side full-page parsing for readable content (like old Readability API)
 
+## 3rd Party Runtime Libraries
+
+Full page content is analyzed and isolated by means of the [Mozilla Readability Library](https://github.com/mozilla/readability). The version in this project is modified for linting and exported as an es6 module.
+
+[babel-polyfill](https://babeljs.io/docs/en/babel-polyfill) is used during runtime to emulate a full ES2015+ where a browser may be insufficient.
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to
 discuss what you would like to change.
