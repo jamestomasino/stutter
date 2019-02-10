@@ -44,8 +44,12 @@ Full page content is analyzed and isolated by means of the [Mozilla Readability 
 [babel-polyfill](https://babeljs.io/docs/en/babel-polyfill) is used during runtime to emulate a full ES2015+ where a browser may be insufficient.
 
 ## Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to
 discuss what you would like to change.
 
 ## License
+
 [GPL3](LICENSE)
+
+Mozilla's Readability library - http://www.apache.org/licenses/LICENSE-2.0
