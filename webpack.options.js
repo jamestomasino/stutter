@@ -1,4 +1,5 @@
 var path = require('path')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   'mode': 'development',
@@ -7,6 +8,12 @@ module.exports = {
     'path': path.resolve(__dirname, './dist-options'),
     'filename': 'index.js'
   },
+  'plugins': [
+    new HtmlWebpackPlugin({
+      title: 'Stutter options',
+      template: './src-options/index.html'
+    })
+  ],
   'devtool': 'source-map',
   'module': {
     'rules': [
