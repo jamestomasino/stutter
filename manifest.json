@@ -21,7 +21,6 @@
   ],
   "permissions": [
     "activeTab",
-    "clipboardRead",
     "contextMenus",
     "storage"
   ],
