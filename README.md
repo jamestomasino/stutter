@@ -1,6 +1,6 @@
 # stutter ![status](https://travis-ci.com/jamestomasino/stutter.svg?branch=master) ![license](https://img.shields.io/badge/license-GPL3-blue.svg?style=flat-square)
 
-<img src="./icons/stutter.svg" width="100">
+<a href="https://addons.mozilla.org/en-US/firefox/addon/stutter/"><img src="./icons/stutter.svg" width="100"></a>
 
 **stutter** _(noun)_
 
@@ -8,7 +8,9 @@
 
 2. A [Rapid Serial Visual Presentation](https://en.wikipedia.org/wiki/Rapid_serial_visual_presentation) (RSVP) extension for modern web browsers. It is based upon my initial work in a Google Chrome extension, [read](https://github.com/jamestomasino/read_plugin). This is an attempt to modernize the code and offer cross-browser support.
 
-## Install and Testing
+[Get the FF Extension](https://addons.mozilla.org/en-US/firefox/addon/stutter/)
+
+## Source Install and Testing
 
 **stutter** is built using webpack and babel, with sass support and eslint styling. The code is written using es6 classes. Backend and content-scripts are maintained separately with individual webpack configurations.
 
