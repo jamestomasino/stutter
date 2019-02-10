@@ -46,10 +46,10 @@ export default class Block {
           let brokenSubWord = breakLongWord(subWord)
           let subSubWords = brokenSubWord.match(wordRegex)
           subSubWords.map(subSubWord => {
-            this.words.unshift(new Word(subSubWord))
+            this.words.push(new Word(subSubWord))
           })
         } else {
-          this.words.unshift(new Word(subWord))
+          this.words.push(new Word(subWord))
         }
       })
     })
