@@ -4,7 +4,7 @@ module.exports = {
   'mode': 'development',
   'entry': './src-options/index',
   'output': {
-    'path': path.resolve(__dirname, './options'),
+    'path': path.resolve(__dirname, './dist-options'),
     'filename': 'index.js'
   },
   'devtool': 'source-map',

@@ -33,6 +33,7 @@
     "default_title": "Stutter"
   },
   "options_ui": {
-    "page": "options/index.html"
+    "page": "dist-options/index.html",
+    "browser_style": true
   }
 }
