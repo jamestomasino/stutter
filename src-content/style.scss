@@ -12,6 +12,9 @@
   top: 0;
 
   .__stutter_text {
+    position: relative;
+    padding-top: 8px;
+
     .__stutter_left {
       display: block;
       text-align: right;
