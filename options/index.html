@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8">
-    <link href="style.css" rel="stylesheet" />
+    <meta charset="utf-8">
   </head>
   <body>
-    <h1 id="myHeading">My content</h1>
+    <form>
+      <label>WPM<input type="text" id="wpm" ></label>
+      <label>Slow Start Count<input type="text" id="slowStartCount" ></label>
+      <label>Sentence Delay<input type="text" id="sentenceDelay" ></label>
+      <label>Other Punctuation Delay<input type="text" id="otherPuncDelay" ></label>
+      <label>Short Word Delay<input type="text" id="shortWordDelay" ></label>
+      <label>Long Word Delay<input type="text" id="longWordDelay" ></label>
+      <button type="submit">Save</button>
+    </form>
     <script src="script.js"></script>
   </body>
 </html>
