@@ -4,7 +4,9 @@
   "description": "RSVP for browsers",
   "version": "0.0.1",
   "icons": {
-    "64": "icons/icon.png"
+    "48": "icons/stutter.svg",
+    "64": "icons/stutter.svg",
+    "96": "icons/stutter.svg"
   },
   "background": {
     "scripts": [
@@ -26,7 +28,7 @@
   ],
   "browser_action": {
     "default_icon": {
-      "64": "icons/icon.png"
+      "64": "icons/stutter.svg"
     },
     "default_title": "stutter"
   },
