@@ -14,9 +14,19 @@ This extension will require work to catch up to the functionality of my previous
 
 Required the addition of webpack and babel to transpile. Browser support for all the necessary package loading is not in place natively yet.
 
-- [ ] Create selection context-menu as trigger
-- [ ] Pass selection data to RSVP processor
-- [ ] Create data structures for calculation of display sequence
+- [x] Client-side full-page parsing for readable content (like old Readability API)
+
+Mozilla exposed their Readability library on github. It is not a very friendly node module, but the raw source of the core library was enough for this project. It has been incorporated and is described in the 3rd Party Runtime Libraries section below.
+
+- [x] Create selection context-menu as trigger
+
+The Chrome API was slightly different, but this was an easy fix.
+
+- [x] Pass selection data to RSVP processor
+- [x] Create data structures for calculation of display sequence
+
+Data processes and outputs in the console in real-time.
+
 - [ ] Create on-screen display for RSVP
 
 Areas to explore after the MVP is completed:
@@ -26,7 +36,6 @@ Areas to explore after the MVP is completed:
 - [ ] Options for speed personalization
 - [ ] Saving of personalization settings
 - [ ] Syncing of personalization settings through browser sync
-- [ ] Client-side full-page parsing for readable content (like old Readability API)
 
 ## 3rd Party Runtime Libraries
 
