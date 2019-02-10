@@ -45,6 +45,7 @@ export default class Stutter {
       if (this.options.slowStartCount) {
         this.slowStartCount = this.options.slowStartCount
       }
+      this.ui.reveal()
       this.display()
       this.isPlaying = true
     }
@@ -90,15 +91,15 @@ export default class Stutter {
       time = time * this.slowStartCount
       this.timer = setTimeout(() => { this.next() }, time)
     } else {
+      this.ui.hide()
       this.isPlaying = false
       this.isEnded = true
     }
   }
 
   showWord () {
-    var word = this.currentWord.val
-    if (!word.match(/[\n\r\s]+/)) {
-      this.ui.show(word)
+    if (!this.currentWord.val.match(/[\n\r\s]+/)) {
+      this.ui.show(this.currentWord)
     }
   }
 

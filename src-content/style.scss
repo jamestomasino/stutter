@@ -1,0 +1,33 @@
+.__stutter {
+  display: block;
+  position: relative;
+  height: 50px;
+  width: 100vw;
+  z-index: 999999999;
+  background: black;
+  color: white;
+  font-family: arial;
+  font-size: 30px;
+  text-align: center;
+  top: 0;
+
+  .__stutter_text {
+    .__stutter_left {
+      display: block;
+      text-align: right;
+      position: absolute;
+      right: 50%;
+    }
+
+    .__stutter_right {
+      display: block;
+      text-align: left;
+      position: absolute;
+      left: 50%;
+
+      &::first-letter {
+        color: #f5f;
+      }
+    }
+  }
+}
