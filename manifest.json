@@ -15,7 +15,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "stutter@jamestomasino.com"
+      "id": "{8cc45662-d58a-4a06-bf7b-4fcdf1d54b8d}"
     }
   },
   "content_scripts": [
