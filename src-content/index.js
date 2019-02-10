@@ -1,5 +1,6 @@
 /* global browser */
 
+import Readability from './lib/Readability'
 import Stutter from './lib/stutter'
 
 var stutter // stutter Object
@@ -24,7 +25,12 @@ function onMessage (request) {
       playStutter(request.selectedText)
       break
     case 'stutterFullPage':
-      playStutter('This is just a test. Eventually this method will be replaced with a parser of page content to extract all the readable text on page.')
+      var documentClone = document.cloneNode(true)
+      var article = new Readability(documentClone).parse()
+      var div = document.createElement('div')
+      div.innerHTML = article.content
+      var pureText = div.innerText
+      playStutter(pureText)
       break
     default:
       break
