@@ -1,5 +1,6 @@
 var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   'mode': 'development',
@@ -12,7 +13,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Stutter options',
       template: './src-options/index.html'
-    })
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
+    }),
   ],
   'devtool': 'source-map',
   'module': {
@@ -38,7 +42,7 @@ module.exports = {
       {
         'test': /src-options\/.*\.scss$/,
         'use': [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader'
         ]

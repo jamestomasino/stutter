@@ -1,4 +1,5 @@
 /* global browser */
+import './main.scss'
 
 /* TODO: storage changes do not publish events.
  * we must fire a message to inform the rest of the
