@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "stutter",
   "description": "RSVP for browsers",
-  "version": "2019.02.10",
+  "version": "0.0.1",
   "icons": {
     "48": "icons/stutter.svg",
     "64": "icons/stutter.svg",

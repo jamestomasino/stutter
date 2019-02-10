@@ -57,14 +57,14 @@ The Chrome API was slightly different, but this was an easy fix.
 
 Data processes and outputs in the console in real-time.
 
-- [ ] Create on-screen display for RSVP
+- [x] Create on-screen display for RSVP
+- [x] Options for speed personalization
+- [x] Saving of personalization settings
 
 Areas to explore after the MVP is completed:
 
 - [ ] Progress display
 - [ ] Seek-bar
-- [ ] Options for speed personalization
-- [ ] Saving of personalization settings
 - [ ] Syncing of personalization settings through browser sync
 
 ## 3rd Party Runtime Libraries
