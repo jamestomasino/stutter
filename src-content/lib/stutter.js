@@ -15,7 +15,6 @@ export default class Stutter {
       longWordDelay: 1.4
     }
     this.options = Object.assign(this.options, options)
-    console.log(this.options)
     this.options.delay = 1 / (this.options.wpm / 60) * 1000
     this.timer = null
   }
