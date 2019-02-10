@@ -145,9 +145,9 @@ export default class Stutter {
   }
 
   showWord () {
+    console.log(this.currentWord.val)
     if (this.displayElement) {
       var word = this.currentWord.val
-      console.log(word)
 
       var before = word.substr(0, this.currentWord.index)
       var letter = word.substr(this.currentWord.index, 1)
