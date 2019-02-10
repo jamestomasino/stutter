@@ -2,6 +2,7 @@
 
 import Readability from './lib/Readability'
 import Stutter from './lib/stutter'
+import { ui } from './lib/ui'
 
 var stutter
 
@@ -12,16 +13,16 @@ function playStutter (text) {
 
   browser.storage.local.get('stutterOptions').then(result => {
     if (result.stutterOptions) {
-      stutter = new Stutter(result.stutterOptions)
+      stutter = new Stutter(ui, result.stutterOptions)
     } else {
-      stutter = new Stutter()
+      stutter = new Stutter(ui)
     }
     stutter.setText(text)
     stutter.play()
   },
   () => {
     console.log('No settings found, use defaults')
-    stutter = new Stutter()
+    stutter = new Stutter(ui)
     stutter.setText(text)
     stutter.play()
   })

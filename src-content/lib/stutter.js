@@ -1,11 +1,12 @@
 import Block from './block'
 
 export default class Stutter {
-  constructor (options) {
+  constructor (ui, options) {
     this.block = null
     this.currentWord = null
     this.isEnded = false
     this.isPlaying = false
+    this.ui = ui
     this.options = {
       wpm: 700,
       slowStartCount: 5,
@@ -96,7 +97,9 @@ export default class Stutter {
 
   showWord () {
     var word = this.currentWord.val
-    console.log(word)
+    if (!word.match(/[\n\r\s]+/)) {
+      this.ui.show(word)
+    }
   }
 
   next () {

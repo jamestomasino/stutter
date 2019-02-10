@@ -7,7 +7,6 @@ export default class StutterOptions {
     this._otherPuncDelay = 1.5
     this._shortWordDelay = 1.3
     this._longWordDelay = 1.4
-    this._delay = 1 / (this._wpm / 60) * 1000
   }
 
   set settings (val) {
@@ -30,17 +29,12 @@ export default class StutterOptions {
     }
   }
 
-  get delay () {
-    return this._delay
-  }
-
   set wpm (val) {
     val = Number(val)
     if (isNaN(val)) return
     val = Math.max(1, val)
     val = Math.min(1500, val)
     this._wpm = val
-    this._delay = 1 / (val / 60) * 1000
   }
 
   get wpm () {
