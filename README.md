@@ -6,9 +6,9 @@
 
 2. A [Rapid Serial Visual Presentation](https://en.wikipedia.org/wiki/Rapid_serial_visual_presentation) (RSVP) extension for modern web browsers. It is based upon my initial work in a Google Chrome extension, [read](https://github.com/jamestomasino/read_plugin). This is an attempt to modernize the code and offer cross-browser support.
 
-## Install
+## Install and Testing
 
-**stutter** is built using webpack and babel, with sass support and eslint styling. Code for the backend and content-scripts are maintained separately with individual webpack configurations.
+**stutter** is built using webpack and babel, with sass support and eslint styling. The code is written using es6 classes. Backend and content-scripts are maintained separately with individual webpack configurations.
 
 To install all dependencies:
 
@@ -67,7 +67,7 @@ Areas to explore after the MVP is completed:
 
 ## 3rd Party Runtime Libraries
 
-Full page content is analyzed and isolated by means of the [Mozilla Readability Library](https://github.com/mozilla/readability). The version in this project is modified for linting and exported as an es6 module.
+Full page content is analyzed and isolated by means of the [Mozilla Readability Library](https://github.com/mozilla/readability). The version in this project is modified for linting and exported as an es6 module. No changes have been made to the library logic.
 
 [babel-polyfill](https://babeljs.io/docs/en/babel-polyfill) is used during runtime to emulate a full ES2015+ where a browser may be insufficient.
 
