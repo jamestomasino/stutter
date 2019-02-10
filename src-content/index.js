@@ -19,15 +19,12 @@ function playStutter (text) {
 }
 
 function onMessage (request) {
-  console.log('onMessage', request)
   switch (request.functiontoInvoke) {
     case 'stutterSelectedText':
-      console.log('stutterSelectedText')
       playStutter(request.selectedText)
       break
     case 'stutterFullPage':
-      console.log('stutterFullPage')
-      // playStutter('This is just a test.')
+      playStutter('This is just a test. Eventually this method will be replaced with a parser of page content to extract all the readable text on page.')
       break
     default:
       break
