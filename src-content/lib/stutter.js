@@ -106,8 +106,10 @@ export default class Stutter {
   }
 
   showWord () {
-    this.ui.show(this.currentWord)
-    this.ui.progress = parseInt(this.block.progress * 100, 10)
+    if (!this.currentWord.val.match(/[\n\r\s]+/)) {
+      this.ui.show(this.currentWord)
+      this.ui.progress = parseInt(this.block.progress * 100, 10)
+    }
   }
 
   next () {

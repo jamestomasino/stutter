@@ -1,7 +1,7 @@
 /* Styles here are explicitly as targeted as possible
  * to ensure they have priority over page styles.
  */
-div.__stutter {
+.__stutter {
   display: block;
   position: relative;
   height: 50px;
@@ -20,24 +20,25 @@ div.__stutter {
     }
   }
 
-  span.__stutter_text {
+  .__stutter_text {
+    display: block;
     position: relative;
     padding-top: 8px;
+    color: white !important;
+    font-family: arial !important;
+    font-size: 30px !important;
+    line-height: 1em !important;
 
-    span.__stutter_left {
+    .__stutter_left {
       display: block;
       text-align: right;
       position: absolute;
       right: 66%;
       cursor: pointer;
       user-select: none;
-      color: white;
-      font-family: arial;
-      font-size: 30px;
-      line-height: 1em;
     }
 
-    span.__stutter_right {
+    .__stutter_right {
       display: block;
       text-align: left;
       position: absolute;
@@ -45,24 +46,14 @@ div.__stutter {
       cursor: pointer;
       user-select: none;
 
-      span.__stutter_center {
-        color: #f5f;
+      .__stutter_center {
+        color: #f6f !important;
         cursor: pointer;
         user-select: none;
-        font-family: arial;
-        font-size: 30px;
-        line-height: 1em;
-      }
-
-      span.__stutter_reminder {
-        color: white;
-        font-family: arial;
-        font-size: 30px;
-        line-height: 1em;
       }
     }
 
-    span.__stutter_close {
+    .__stutter_close {
       display: block;
       text-align: right;
       position: absolute;
@@ -74,14 +65,14 @@ div.__stutter {
 }
 
 @media screen and (min-width: 700px) {
-  div.__stutter {
-    span.__stutter_text {
-      span.__stutter_left {
-        right: 55%;
+  .__stutter {
+    .__stutter_text {
+      .__stutter_left {
+        right: 53%;
       }
 
-      span.__stutter_right {
-        left: 45%;
+      .__stutter_right {
+        left: 47%;
       }
     }
   }
