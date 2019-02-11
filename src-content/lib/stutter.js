@@ -14,7 +14,7 @@ export default class Stutter {
       this.playPauseToggle()
     })
     this.options = {
-      wpm: 700,
+      wpm: 400,
       slowStartCount: 5,
       sentenceDelay: 2.5,
       otherPuncDelay: 1.5,

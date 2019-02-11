@@ -1,7 +1,7 @@
 export default class StutterOptions {
   constructor () {
     // Default settings
-    this._wpm = 700
+    this._wpm = 400
     this._slowStartCount = 5
     this._sentenceDelay = 2.5
     this._otherPuncDelay = 1.5
