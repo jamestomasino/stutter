@@ -29,7 +29,7 @@
       display: block;
       text-align: right;
       position: absolute;
-      right: 50%;
+      right: 66%;
       cursor: pointer;
       user-select: none;
     }
@@ -44,7 +44,7 @@
       display: block;
       text-align: left;
       position: absolute;
-      left: 50%;
+      left: 34%;
       cursor: pointer;
       user-select: none;
     }
@@ -56,6 +56,24 @@
       right: 15px;
       cursor: pointer;
       user-select: none;
+    }
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .__stutter {
+    .__stutter_text {
+      .__stutter_left {
+        right: 55%;
+      }
+      .__stutter_right {
+        display: block;
+        text-align: left;
+        position: absolute;
+        left: 45%;
+        cursor: pointer;
+        user-select: none;
+      }
     }
   }
 }
