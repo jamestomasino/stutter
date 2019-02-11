@@ -1,4 +1,7 @@
-.__stutter {
+/* Styles here are explicitly as targeted as possible
+ * to ensure they have priority over page styles.
+ */
+div.__stutter {
   display: block;
   position: relative;
   height: 50px;
@@ -7,10 +10,6 @@
   overflow: hidden;
   z-index: 999999999;
   background: black;
-  color: white;
-  font-family: arial;
-  font-size: 30px;
-  line-height: 1em;
   text-align: center;
   top: 0;
   border-radius: 15px;
@@ -21,35 +20,49 @@
     }
   }
 
-  .__stutter_text {
+  span.__stutter_text {
     position: relative;
     padding-top: 8px;
 
-    .__stutter_left {
+    span.__stutter_left {
       display: block;
       text-align: right;
       position: absolute;
       right: 66%;
       cursor: pointer;
       user-select: none;
+      color: white;
+      font-family: arial;
+      font-size: 30px;
+      line-height: 1em;
     }
 
-    .__stutter_center {
-      color: #f5f;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .__stutter_right {
+    span.__stutter_right {
       display: block;
       text-align: left;
       position: absolute;
       left: 34%;
       cursor: pointer;
       user-select: none;
+
+      span.__stutter_center {
+        color: #f5f;
+        cursor: pointer;
+        user-select: none;
+        font-family: arial;
+        font-size: 30px;
+        line-height: 1em;
+      }
+
+      span.__stutter_reminder {
+        color: white;
+        font-family: arial;
+        font-size: 30px;
+        line-height: 1em;
+      }
     }
 
-    .__stutter_close {
+    span.__stutter_close {
       display: block;
       text-align: right;
       position: absolute;
@@ -61,18 +74,14 @@
 }
 
 @media screen and (min-width: 700px) {
-  .__stutter {
-    .__stutter_text {
-      .__stutter_left {
+  div.__stutter {
+    span.__stutter_text {
+      span.__stutter_left {
         right: 55%;
       }
-      .__stutter_right {
-        display: block;
-        text-align: left;
-        position: absolute;
+
+      span.__stutter_right {
         left: 45%;
-        cursor: pointer;
-        user-select: none;
       }
     }
   }
