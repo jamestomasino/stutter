@@ -10,6 +10,9 @@ export default class Stutter {
     this.ui.addListener('close', () => {
       this.destroy()
     })
+    this.ui.addListener('pauseToggle', () => {
+      this.playPauseToggle()
+    })
     this.options = {
       wpm: 700,
       slowStartCount: 5,

@@ -30,10 +30,14 @@
       text-align: right;
       position: absolute;
       right: 50%;
+      cursor: pointer;
+      user-select: none;
     }
 
     .__stutter_center {
       color: #f5f;
+      cursor: pointer;
+      user-select: none;
     }
 
     .__stutter_right {
@@ -41,6 +45,8 @@
       text-align: left;
       position: absolute;
       left: 50%;
+      cursor: pointer;
+      user-select: none;
     }
 
     .__stutter_close {

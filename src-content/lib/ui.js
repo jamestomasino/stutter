@@ -15,12 +15,26 @@ class UI extends EventEmitter {
     this.holder = document.createElement('div')
     this.holder.classList.add('__stutter')
     this.holder.innerHTML = this.template
+
+    // UI Elements
+    this.text = this.holder.getElementsByClassName('__stutter_text')[0]
     this.left = this.holder.getElementsByClassName('__stutter_left')[0]
     this.center = this.holder.getElementsByClassName('__stutter_center')[0]
     this.remainder = this.holder.getElementsByClassName('__stutter_remainder')[0]
     this.close = this.holder.getElementsByClassName('__stutter_close')[0]
+
+    // Interaction Events
     this.close.addEventListener('click', () => {
       this.emit('close')
+    })
+    this.left.addEventListener('click', () => {
+      this.emit('pauseToggle')
+    })
+    this.center.addEventListener('click', () => {
+      this.emit('pauseToggle')
+    })
+    this.remainder.addEventListener('click', () => {
+      this.emit('pauseToggle')
     })
     this.progress = 0
   }
