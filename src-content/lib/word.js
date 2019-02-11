@@ -48,7 +48,7 @@ export default class Word {
       lastChar = this.val.substr(-2, 1)
     }
 
-    this.isNumeric = this.val.match(numRegex)
+    this.isNumeric = numRegex.test(this.val)
 
     switch (lastChar) {
       case '.':

@@ -19,7 +19,8 @@ export default class Stutter {
       sentenceDelay: 2.5,
       otherPuncDelay: 1.5,
       shortWordDelay: 1.3,
-      longWordDelay: 1.4
+      longWordDelay: 1.4,
+      numericDelay: 1.8
     }
     this.options = Object.assign(this.options, options)
     this.options.delay = 1 / (this.options.wpm / 60) * 1000
@@ -97,6 +98,7 @@ export default class Stutter {
       if (this.currentWord.isNumeric) time *= this.options.numericDelay
       this.slowStartCount = (this.slowStartCount - 1) || 1
       time = time * this.slowStartCount
+      console.log(this.currentWord.val, time)
       this.timer = setTimeout(() => { this.next() }, time)
     } else {
       this.destroy()
@@ -104,10 +106,8 @@ export default class Stutter {
   }
 
   showWord () {
-    if (!this.currentWord.val.match(/[\n\r\s]+/)) {
-      this.ui.show(this.currentWord)
-      this.ui.progress = parseInt(this.block.progress * 100, 10)
-    }
+    this.ui.show(this.currentWord)
+    this.ui.progress = parseInt(this.block.progress * 100, 10)
   }
 
   next () {

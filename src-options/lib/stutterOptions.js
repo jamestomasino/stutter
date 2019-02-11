@@ -7,6 +7,7 @@ export default class StutterOptions {
     this._otherPuncDelay = 1.5
     this._shortWordDelay = 1.3
     this._longWordDelay = 1.4
+    this._numericDelay = 1.8
   }
 
   set settings (val) {
@@ -16,6 +17,7 @@ export default class StutterOptions {
     if (val['otherPuncDelay']) this.otherPuncDelay = val['otherPuncDelay']
     if (val['shortWordDelay']) this.shortWordDelay = val['shortWordDelay']
     if (val['longWordDelay']) this.longWordDelay = val['longWordDelay']
+    if (val['numericDelay']) this.numericDelay = val['numericDelay']
   }
 
   get settings () {
@@ -25,7 +27,8 @@ export default class StutterOptions {
       sentenceDelay: this.sentenceDelay,
       otherPuncDelay: this.otherPuncDelay,
       shortWordDelay: this.shortWordDelay,
-      longWordDelay: this.longWordDelay
+      longWordDelay: this.longWordDelay,
+      numericDelay: this.numericDelay
     }
   }
 
