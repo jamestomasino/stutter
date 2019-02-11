@@ -1,11 +1,16 @@
 import '../style.scss'
+import { EventEmitter } from 'events'
 
-class UI {
+class UI extends EventEmitter {
   constructor () {
+    super()
     this.template = `
     <div class="__stutter_text">
       <span class="__stutter_left"></span>
-      <span class="__stutter_right"><span class="__stutter_center"></span><span class="__stutter_remainder"></span></span>
+      <span class="__stutter_right">
+        <span class="__stutter_center"></span><span class="__stutter_remainder"></span>
+      </span>
+      <span class="__stutter_close">&#x24e7;</span>
     </div>`
     this.holder = document.createElement('div')
     this.holder.classList.add('__stutter')
@@ -13,6 +18,10 @@ class UI {
     this.left = this.holder.getElementsByClassName('__stutter_left')[0]
     this.center = this.holder.getElementsByClassName('__stutter_center')[0]
     this.remainder = this.holder.getElementsByClassName('__stutter_remainder')[0]
+    this.close = this.holder.getElementsByClassName('__stutter_close')[0]
+    this.close.addEventListener('click', () => {
+      this.emit('close')
+    })
   }
 
   show (word) {

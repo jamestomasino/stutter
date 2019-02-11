@@ -7,6 +7,9 @@ export default class Stutter {
     this.isEnded = false
     this.isPlaying = false
     this.ui = ui
+    this.ui.addListener('close', () => {
+      this.destroy()
+    })
     this.options = {
       wpm: 700,
       slowStartCount: 5,
@@ -58,8 +61,10 @@ export default class Stutter {
 
   destroy () {
     clearTimeout(this.timer)
+    this.ui.hide()
     this.isPlaying = false
     this.block = null
+    this.isEnded = true
   }
 
   restart () {
@@ -91,9 +96,7 @@ export default class Stutter {
       time = time * this.slowStartCount
       this.timer = setTimeout(() => { this.next() }, time)
     } else {
-      this.ui.hide()
-      this.isPlaying = false
-      this.isEnded = true
+      this.destroy()
     }
   }
 

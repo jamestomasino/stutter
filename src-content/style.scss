@@ -35,5 +35,14 @@
       position: absolute;
       left: 50%;
     }
+
+    .__stutter_close {
+      display: block;
+      text-align: right;
+      position: absolute;
+      right: 15px;
+      cursor: pointer;
+      user-select: none;
+    }
   }
 }

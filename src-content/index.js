@@ -49,16 +49,4 @@ function onMessage (request) {
       break
   }
 }
-
-// Logic belonging to front-end display
-// var before = word.substr(0, this.currentWord.index)
-// var letter = word.substr(this.currentWord.index, 1)
-// var $before = this.options.element.find('._read_before').html(before).css('opacity', '0')
-// var $letter = this.options.element.find('._read_letter').html(letter).css('opacity', '0')
-// var calc = $before.textWidth() + Math.round($letter.textWidth() / 2)
-// if (!word.match(/[\n\r\s]/)) {
-//   this.displayElement.html(this.currentWord.val)
-//   this.displayElement.css('margin-left', -calc)
-// }
-
 browser.runtime.onMessage.addListener(onMessage)
