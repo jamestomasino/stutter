@@ -25,15 +25,15 @@
       right: 50%;
     }
 
+    .__stutter_center {
+      color: #f5f;
+    }
+
     .__stutter_right {
       display: block;
       text-align: left;
       position: absolute;
       left: 50%;
-
-      &::first-letter {
-        color: #f5f;
-      }
     }
   }
 }
