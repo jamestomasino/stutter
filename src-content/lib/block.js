@@ -75,7 +75,7 @@ export default class Block {
     this.index = 0
   }
 
-  progress () {
+  get progress () {
     return this.index / this.words.length
   }
 }

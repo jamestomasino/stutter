@@ -22,6 +22,11 @@ class UI extends EventEmitter {
     this.close.addEventListener('click', () => {
       this.emit('close')
     })
+    this.progress = 0
+  }
+
+  set progress (val) {
+    this.holder.dataset.progress = val
   }
 
   show (word) {
