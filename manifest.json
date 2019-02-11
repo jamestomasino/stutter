@@ -3,6 +3,7 @@
   "name": "stutter",
   "description": "RSVP for browsers",
   "version": "0.1.2",
+  "homepage_url": "https://github.com/jamestomasino/stutter",
   "icons": {
     "48": "icons/stutter.svg",
     "64": "icons/stutter.svg",
@@ -26,6 +27,7 @@
       ]
     }
   ],
+  "default_locale": "en",
   "permissions": [
     "activeTab",
     "contextMenus",
@@ -38,7 +40,6 @@
     "default_title": "Stutter"
   },
   "options_ui": {
-    "page": "dist-options/index.html",
-    "browser_style": true
+    "page": "dist-options/index.html"
   }
 }
