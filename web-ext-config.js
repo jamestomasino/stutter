@@ -1,6 +1,9 @@
 module.exports = {
   ignoreFiles: [
     'yarn.lock',
-    'web-ext-config.js'
+    'web-ext-config.js',
+    'webpack*',
+    'src*',
+    'package.json'
   ],
 }
