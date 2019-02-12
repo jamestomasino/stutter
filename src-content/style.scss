@@ -66,7 +66,11 @@
 
 @media screen and (min-width: 700px) {
   .__stutter {
+    height: 80px;
+
     .__stutter_text {
+      font-size: 60px !important;
+
       .__stutter_left {
         right: 53%;
       }
