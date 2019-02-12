@@ -4,6 +4,9 @@ module.exports = {
     'web-ext-config.js',
     'webpack*',
     'src*',
-    'package.json'
+    'package.json',
+    'README.md',
+    '**/*.log',
+    '**/*.map'
   ],
 }
