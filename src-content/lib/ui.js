@@ -40,7 +40,6 @@ class UI extends EventEmitter {
       this.emit('pauseToggle')
     })
     this.options.addEventListener('click', () => {
-      console.log('openOptionsPage')
       browser.runtime.sendMessage({
         'functiontoInvoke': 'openSettings'
       })
@@ -53,6 +52,7 @@ class UI extends EventEmitter {
   }
 
   show (word) {
+    window.scrollTo(0, 0)
     this.left.textContent = word.val.substr(0, word.index)
     this.center.textContent = word.val.substr(word.index, 1)
     this.remainder.textContent = word.val.substr(word.index + 1)

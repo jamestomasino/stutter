@@ -14,6 +14,13 @@ export default class StutterOptions extends EventEmitter {
     this._longWordDelay = 1.4
     this._numericDelay = 1.8
 
+    this.checkSaved()
+    browser.runtime.onMessage.addListener(message => { this.onMessage(message) })
+  }
+
+  static get UPDATE () { return 'STUTTER_OPTIONS_UPDATE' }
+
+  checkSaved () {
     browser.storage.local.get('stutterOptions').then(result => {
       if (result.stutterOptions) {
         this.settings = result.stutterOptions
@@ -21,11 +28,31 @@ export default class StutterOptions extends EventEmitter {
     })
   }
 
-  static get UPDATE () { return 'STUTTER_OPTIONS_UPDATE' }
+  onMessage (request) {
+    switch (request.functiontoInvoke) {
+      case 'stutterOptionsUpdate':
+        this.checkSaved()
+        break
+      default:
+        break
+    }
+  }
 
   update () {
-    this.emit(StutterOptions.UPDATE)
+    // Save settings to localstorage
     this.saveSettings()
+
+    // Inform direct listeners
+    this.emit(StutterOptions.UPDATE)
+
+    // Inform the other tabs StutterOptions instances
+    browser.tabs.query({}).then(tabs => {
+      for (let tab of tabs) {
+        browser.tabs.sendMessage(tab.id, {
+          'functiontoInvoke': 'stutterOptionsUpdate'
+        }).then(() => {}).catch(() => {})
+      }
+    }).catch(() => {})
   }
 
   saveSettings () {
@@ -47,7 +74,7 @@ export default class StutterOptions extends EventEmitter {
   }
 
   set settings (val) {
-    if (val['wpm']) this.wpm = val['wpm']
+    if (val['wpm']) this._wpm = val['wpm']
     if (val['slowStartCount']) this._slowStartCount = val['slowStartCount']
     if (val['sentenceDelay']) this._sentenceDelay = val['sentenceDelay']
     if (val['otherPuncDelay']) this._otherPuncDelay = val['otherPuncDelay']
