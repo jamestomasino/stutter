@@ -1,7 +1,8 @@
 import Block from './block'
+import StutterOptions from '../../src-common/stutterOptions'
 
 export default class Stutter {
-  constructor (ui, options) {
+  constructor (ui) {
     this.block = null
     this.currentWord = null
     this.isEnded = false
@@ -13,17 +14,7 @@ export default class Stutter {
     this.ui.addListener('pauseToggle', () => {
       this.playPauseToggle()
     })
-    this.options = {
-      wpm: 400,
-      slowStartCount: 5,
-      sentenceDelay: 2.5,
-      otherPuncDelay: 1.5,
-      shortWordDelay: 1.3,
-      longWordDelay: 1.4,
-      numericDelay: 1.8
-    }
-    this.options = Object.assign(this.options, options)
-    this.options.delay = 1 / (this.options.wpm / 60) * 1000
+    this.options = new StutterOptions()
     this.timer = null
   }
 

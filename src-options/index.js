@@ -1,8 +1,8 @@
-/* global browser */
 import './main.scss'
-import StutterOptions from './lib/stutterOptions'
+import StutterOptions from '../src-common/stutterOptions'
 
 var options = new StutterOptions()
+options.addListener(StutterOptions.UPDATE, drawSettings)
 
 function drawSettings () {
   document.getElementById('wpm').value = options.wpm
@@ -15,15 +15,7 @@ function drawSettings () {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  browser.storage.local.get('stutterOptions').then(result => {
-    if (result && result.stutterOptions) {
-      options.settings = result.stutterOptions
-    }
-    drawSettings()
-  },
-  () => {
-    drawSettings()
-  })
+  drawSettings()
 
   document.querySelector('form').addEventListener('submit', e => {
     e.preventDefault()
@@ -34,9 +26,5 @@ document.addEventListener('DOMContentLoaded', () => {
     options.shortWordDelay = document.getElementById('shortWordDelay').value
     options.longWordDelay = document.getElementById('longWordDelay').value
     options.numericDelay = document.getElementById('numericDelay').value
-    drawSettings()
-    browser.storage.local.set({
-      stutterOptions: options.settings
-    })
   })
 })

@@ -11,20 +11,9 @@ function playStutter (text) {
     stutter.destroy()
   }
 
-  browser.storage.local.get('stutterOptions').then(result => {
-    if (result.stutterOptions) {
-      stutter = new Stutter(ui, result.stutterOptions)
-    } else {
-      stutter = new Stutter(ui)
-    }
-    stutter.setText(text)
-    stutter.play()
-  },
-  () => {
-    stutter = new Stutter(ui)
-    stutter.setText(text)
-    stutter.play()
-  })
+  stutter = new Stutter(ui)
+  stutter.setText(text)
+  stutter.play()
 }
 
 function onMessage (request) {
