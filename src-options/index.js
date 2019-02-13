@@ -6,7 +6,6 @@ import StutterOptions from '../src-common/stutterOptions'
   options.addListener(StutterOptions.UPDATE, () => { drawSettings() })
 
   function drawSettings () {
-    console.log('drawSettings')
     document.getElementById('wpm').value = options.wpm
     document.getElementById('slowStartCount').value = options.slowStartCount
     document.getElementById('sentenceDelay').value = options.sentenceDelay
