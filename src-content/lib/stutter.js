@@ -14,6 +14,9 @@ export default class Stutter {
     this.ui.addListener('pauseToggle', () => {
       this.playPauseToggle()
     })
+    this.ui.addListener('pause', () => {
+      this.pause()
+    })
     this.options = new StutterOptions()
     this.timer = null
   }
@@ -44,6 +47,7 @@ export default class Stutter {
         this.slowStartCount = this.options.slowStartCount
       }
       this.ui.reveal()
+      this.ui.resume()
       this.display()
       this.isPlaying = true
     }
@@ -52,6 +56,7 @@ export default class Stutter {
   pause () {
     clearTimeout(this.timer)
     this.isPlaying = false
+    this.ui.pause()
   }
 
   destroy () {

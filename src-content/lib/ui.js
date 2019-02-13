@@ -40,6 +40,7 @@ class UI extends EventEmitter {
       this.emit('pauseToggle')
     })
     this.options.addEventListener('click', () => {
+      this.emit('pause')
       browser.runtime.sendMessage({
         'functiontoInvoke': 'openSettings'
       })
@@ -49,6 +50,14 @@ class UI extends EventEmitter {
 
   set progress (val) {
     this.holder.dataset.progress = val
+  }
+
+  pause () {
+    // display a pause overlay
+  }
+
+  resume () {
+    // hide pause overlay
   }
 
   show (word) {
