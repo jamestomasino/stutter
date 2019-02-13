@@ -74,13 +74,43 @@ export default class StutterOptions extends EventEmitter {
   }
 
   set settings (val) {
-    if (val['wpm']) this._wpm = val['wpm']
-    if (val['slowStartCount']) this._slowStartCount = val['slowStartCount']
-    if (val['sentenceDelay']) this._sentenceDelay = val['sentenceDelay']
-    if (val['otherPuncDelay']) this._otherPuncDelay = val['otherPuncDelay']
-    if (val['shortWordDelay']) this._shortWordDelay = val['shortWordDelay']
-    if (val['longWordDelay']) this._longWordDelay = val['longWordDelay']
-    if (val['numericDelay']) this._numericDelay = val['numericDelay']
+    let invalidate = false
+    if (val['wpm'] && this._wpm !== val['wpm']) {
+      this._wpm = val['wpm']
+      invalidate = true
+    }
+
+    if (val['slowStartCount'] && this._wpm !== val['slowStartCount']) {
+      this._slowStartCount = val['slowStartCount']
+      invalidate = true
+    }
+
+    if (val['sentenceDelay'] && this._wpm !== val['sentenceDelay']) {
+      this._sentenceDelay = val['sentenceDelay']
+      invalidate = true
+    }
+
+    if (val['otherPuncDelay'] && this._wpm !== val['otherPuncDelay']) {
+      this._otherPuncDelay = val['otherPuncDelay']
+      invalidate = true
+    }
+
+    if (val['shortWordDelay'] && this._wpm !== val['shortWordDelay']) {
+      this._shortWordDelay = val['shortWordDelay']
+      invalidate = true
+    }
+
+    if (val['longWordDelay'] && this._wpm !== val['longWordDelay']) {
+      this._longWordDelay = val['longWordDelay']
+      invalidate = true
+    }
+
+    if (val['numericDelay'] && this._wpm !== val['numericDelay']) {
+      this._numericDelay = val['numericDelay']
+      invalidate = true
+    }
+
+    if (invalidate) this.update()
   }
 
   get wpm () { return this._wpm }

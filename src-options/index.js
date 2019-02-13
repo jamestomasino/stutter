@@ -3,9 +3,10 @@ import StutterOptions from '../src-common/stutterOptions'
 
 (function () {
   var options = new StutterOptions()
-  options.addListener(StutterOptions.UPDATE, drawSettings)
+  options.addListener(StutterOptions.UPDATE, () => { drawSettings() })
 
   function drawSettings () {
+    console.log('drawSettings')
     document.getElementById('wpm').value = options.wpm
     document.getElementById('slowStartCount').value = options.slowStartCount
     document.getElementById('sentenceDelay').value = options.sentenceDelay
