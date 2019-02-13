@@ -53,6 +53,15 @@
       }
     }
 
+    .__stutter_options {
+      display: block;
+      text-align: left;
+      position: absolute;
+      left: 15px;
+      cursor: pointer;
+      user-select: none;
+    }
+
     .__stutter_close {
       display: block;
       text-align: right;

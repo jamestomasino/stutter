@@ -30,5 +30,14 @@ function onIconClick () {
   })
 }
 
+function onMessage (request) {
+  switch (request.functiontoInvoke) {
+    case 'openSettings':
+      browser.runtime.openOptionsPage()
+      break
+  }
+}
+
 // Handle clicking on the browser icon
 browser.browserAction.onClicked.addListener(onIconClick)
+browser.runtime.onMessage.addListener(onMessage)

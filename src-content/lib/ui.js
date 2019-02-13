@@ -1,3 +1,4 @@
+/* global browser */
 import '../style.scss'
 import { EventEmitter } from 'events'
 
@@ -6,6 +7,7 @@ class UI extends EventEmitter {
     super()
     this.template = `
     <div class="__stutter_text">
+      <span class="__stutter_options">&#x2699;</span>
       <span class="__stutter_left"></span>
       <span class="__stutter_right">
         <span class="__stutter_center"></span><span class="__stutter_remainder"></span>
@@ -22,6 +24,7 @@ class UI extends EventEmitter {
     this.center = this.holder.getElementsByClassName('__stutter_center')[0]
     this.remainder = this.holder.getElementsByClassName('__stutter_remainder')[0]
     this.close = this.holder.getElementsByClassName('__stutter_close')[0]
+    this.options = this.holder.getElementsByClassName('__stutter_options')[0]
 
     // Interaction Events
     this.close.addEventListener('click', () => {
@@ -35,6 +38,12 @@ class UI extends EventEmitter {
     })
     this.remainder.addEventListener('click', () => {
       this.emit('pauseToggle')
+    })
+    this.options.addEventListener('click', () => {
+      console.log('openOptionsPage')
+      browser.runtime.sendMessage({
+        'functiontoInvoke': 'openSettings'
+      })
     })
     this.progress = 0
   }

@@ -9,6 +9,12 @@
     "64": "icons/stutter.svg",
     "96": "icons/stutter.svg"
   },
+  "browser_action": {
+    "default_icon": {
+      "64": "icons/stutter.svg"
+    },
+    "default_title": "Stutter"
+  },
   "background": {
     "scripts": [
       "dist-bg/index.js"
@@ -32,13 +38,8 @@
     "contextMenus",
     "storage"
   ],
-  "browser_action": {
-    "default_icon": {
-      "64": "icons/stutter.svg"
-    },
-    "default_title": "Stutter"
-  },
   "options_ui": {
-    "page": "dist-options/index.html"
+    "page": "dist-options/index.html",
+    "open_in_tab":true
   }
 }

@@ -21,7 +21,6 @@ function playStutter (text) {
     stutter.play()
   },
   () => {
-    console.log('No settings found, use defaults')
     stutter = new Stutter(ui)
     stutter.setText(text)
     stutter.play()

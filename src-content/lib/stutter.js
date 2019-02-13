@@ -98,7 +98,6 @@ export default class Stutter {
       if (this.currentWord.isNumeric) time *= this.options.numericDelay
       this.slowStartCount = (this.slowStartCount - 1) || 1
       time = time * this.slowStartCount
-      console.log(this.currentWord.val, time)
       this.timer = setTimeout(() => { this.next() }, time)
     } else {
       this.destroy()
