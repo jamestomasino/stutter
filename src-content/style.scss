@@ -2,18 +2,19 @@
  * to ensure they have priority over page styles.
  */
 #__stutter {
-  display: block;
-  position: relative;
-  height: 50px;
-  margin: 15px;
-  width: calc(100% - 30px);
-  overflow: hidden;
-  z-index: 999999999;
   background: black;
-  text-align: center;
-  top: 0;
   border-radius: 15px;
   border: 2px solid #333;
+  display: block;
+  height: 50px;
+  line-height: 1;
+  margin: 15px;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  top: 0;
+  width: calc(100% - 30px);
+  z-index: 999999999;
 
   @for $i from 0 through 100 {
     &[data-progress='#{$i}'] {
