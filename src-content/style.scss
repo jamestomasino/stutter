@@ -1,7 +1,7 @@
 /* Styles here are explicitly as targeted as possible
  * to ensure they have priority over page styles.
  */
-.__stutter {
+#__stutter {
   display: block;
   position: relative;
   height: 50px;
@@ -13,6 +13,7 @@
   text-align: center;
   top: 0;
   border-radius: 15px;
+  border: 2px solid #333;
 
   @for $i from 0 through 100 {
     &[data-progress='#{$i}'] {
@@ -74,7 +75,7 @@
 }
 
 @media screen and (min-width: 700px) {
-  .__stutter {
+  #__stutter {
     height: 80px;
 
     .__stutter_text {

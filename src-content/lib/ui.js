@@ -16,6 +16,7 @@ class UI extends EventEmitter {
     </div>`
     this.holder = document.createElement('div')
     this.holder.classList.add('__stutter')
+    this.holder.id = '__stutter'
     this.holder.innerHTML = this.template
 
     // UI Elements
