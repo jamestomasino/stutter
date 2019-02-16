@@ -7,7 +7,7 @@
   border: 2px solid #333;
   display: block;
   height: 50px;
-  line-height: 1;
+  line-height: 1em !important;
   margin: 15px;
   overflow: hidden;
   position: relative;
@@ -38,6 +38,7 @@
       right: 66%;
       cursor: pointer;
       user-select: none;
+      line-height: 1em !important;
     }
 
     .__stutter_right {
@@ -47,11 +48,13 @@
       left: 34%;
       cursor: pointer;
       user-select: none;
+      line-height: 1em !important;
 
       .__stutter_center {
         color: #f36 !important;
         cursor: pointer;
         user-select: none;
+        line-height: 1em !important;
       }
     }
 
@@ -62,6 +65,7 @@
       left: 15px;
       cursor: pointer;
       user-select: none;
+      line-height: 1em !important;
     }
 
     .__stutter_close {
@@ -71,6 +75,7 @@
       right: 15px;
       cursor: pointer;
       user-select: none;
+      line-height: 1em !important;
     }
   }
 }
