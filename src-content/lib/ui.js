@@ -58,11 +58,12 @@ class UI extends EventEmitter {
   }
 
   resume () {
+    // move to top of screen to see player
+    window.scrollTo(0, 0)
     // hide pause overlay
   }
 
   show (word) {
-    window.scrollTo(0, 0)
     this.left.textContent = word.val.substr(0, word.index)
     this.center.textContent = word.val.substr(word.index, 1)
     this.remainder.textContent = word.val.substr(word.index + 1)
