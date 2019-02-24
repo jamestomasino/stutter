@@ -24,62 +24,76 @@
 
   .__stutter_text {
     display: block;
-    position: relative;
-    padding-top: 8px;
-    color: white !important;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-    font-size: 30px !important;
     line-height: 1em !important;
+    padding-top: 8px;
+    position: relative;
     user-select: none;
     width: 100%;
 
     .__stutter_left {
+      color: white !important;
       display: block;
-      text-align: right;
-      position: absolute;
-      pointer-events: none;
-      right: 66%;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+      font-size: 30px !important;
       line-height: 1em !important;
+      pointer-events: none;
+      position: absolute;
+      right: 66%;
+      text-align: right;
     }
 
     .__stutter_right {
+      color: white !important;
       display: block;
-      text-align: left;
-      position: absolute;
-      pointer-events: none;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+      font-size: 30px !important;
       left: 34%;
       line-height: 1em !important;
+      pointer-events: none;
+      position: absolute;
+      text-align: left;
 
       .__stutter_center {
         color: #f36 !important;
-        pointer-events: none;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+        font-size: 30px !important;
         line-height: 1em !important;
+        pointer-events: none;
       }
 
       .__stutter_remainder {
+        color: white !important;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+        font-size: 30px !important;
         line-height: 1em !important;
         pointer-events: none;
       }
     }
 
     .__stutter_options {
-      display: block;
-      text-align: left;
-      position: absolute;
-      left: 15px;
+      color: white !important;
       cursor: pointer;
-      user-select: none;
+      display: block;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+      font-size: 30px !important;
+      left: 15px;
       line-height: 1em !important;
+      position: absolute;
+      text-align: left;
+      user-select: none;
     }
 
     .__stutter_close {
+      color: white !important;
+      cursor: pointer;
       display: block;
-      text-align: right;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+      font-size: 30px !important;
+      line-height: 1em !important;
       position: absolute;
       right: 15px;
-      cursor: pointer;
+      text-align: right;
       user-select: none;
-      line-height: 1em !important;
     }
   }
 
@@ -122,10 +136,22 @@
 
       .__stutter_left {
         right: 53%;
+        font-size: 60px !important;
       }
 
       .__stutter_right {
         left: 47%;
+        font-size: 60px !important;
+
+        .__stutter_center,
+        .__stutter_remainder {
+          font-size: 60px !important;
+        }
+      }
+
+      .__stutter_options,
+      .__stutter_close {
+        font-size: 60px !important;
       }
     }
 
