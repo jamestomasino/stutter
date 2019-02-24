@@ -1,44 +1,45 @@
-/* global browser */
-(function () {
-  function onContextClick (info) {
-    browser.tabs.query({
-      'active': true,
-      'currentWindow': true
-    }, function (tabs) {
-      browser.tabs.sendMessage(tabs[0].id, {
-        'functiontoInvoke': 'stutterSelectedText',
-        'selectedText': info.selectionText
-      })
-    })
-  }
+var browser = require('webextension-polyfill')
 
-  // Context menu "Stutter Selection" option
-  browser.contextMenus.create({
-    'title': 'Stutter Selection',
-    'contexts': ['selection'],
-    'onclick': onContextClick
+function onContextClick (info) {
+  let q = browser.tabs.query({
+    'active': true,
+    'currentWindow': true
   })
-
-  function onIconClick () {
-    browser.tabs.query({
-      'active': true,
-      'currentWindow': true
-    }, function (tabs) {
-      browser.tabs.sendMessage(tabs[0].id, {
-        'functiontoInvoke': 'stutterFullPage'
-      })
+  q.then(tabs => {
+    browser.tabs.sendMessage(tabs[0].id, {
+      'functiontoInvoke': 'stutterSelectedText',
+      'selectedText': info.selectionText
     })
-  }
+  })
+}
 
-  function onMessage (request) {
-    switch (request.functiontoInvoke) {
-      case 'openSettings':
-        browser.runtime.openOptionsPage()
-        break
-    }
-  }
+// Context menu "Stutter Selection" option
+browser.contextMenus.create({
+  'title': 'Stutter Selection',
+  'contexts': ['selection'],
+  'onclick': onContextClick
+})
 
-  // Handle clicking on the browser icon
-  browser.browserAction.onClicked.addListener(onIconClick)
-  browser.runtime.onMessage.addListener(onMessage)
-})()
+function onIconClick () {
+  let q = browser.tabs.query({
+    'active': true,
+    'currentWindow': true
+  })
+  q.then(tabs => {
+    browser.tabs.sendMessage(tabs[0].id, {
+      'functiontoInvoke': 'stutterFullPage'
+    })
+  })
+}
+
+function onMessage (request) {
+  switch (request.functiontoInvoke) {
+    case 'openSettings':
+      browser.runtime.openOptionsPage()
+      break
+  }
+}
+
+// Handle clicking on the browser icon
+browser.browserAction.onClicked.addListener(onIconClick)
+browser.runtime.onMessage.addListener(onMessage)

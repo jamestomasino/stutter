@@ -1,5 +1,5 @@
-/* global browser */
 import { EventEmitter } from 'events'
+var browser = require('webextension-polyfill')
 
 export default class StutterOptions extends EventEmitter {
   constructor () {

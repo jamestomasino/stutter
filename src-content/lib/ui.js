@@ -1,6 +1,6 @@
-/* global browser */
 import '../style.scss'
 import { EventEmitter } from 'events'
+var browser = require('webextension-polyfill')
 
 class UI extends EventEmitter {
   constructor () {
