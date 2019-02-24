@@ -7,6 +7,7 @@ class UI extends EventEmitter {
     super()
     this.template = `
     <div class="__stutter_text">
+      <span class="__stutter_pause"></span>
       <span class="__stutter_options">&#x2699;</span>
       <span class="__stutter_left"></span>
       <span class="__stutter_right">
@@ -28,19 +29,15 @@ class UI extends EventEmitter {
     this.options = this.holder.getElementsByClassName('__stutter_options')[0]
 
     // Interaction Events
-    this.close.addEventListener('click', () => {
+    this.close.addEventListener('click', e => {
+      e.stopPropagation()
       this.emit('close')
     })
-    this.left.addEventListener('click', () => {
+    this.holder.addEventListener('click', () => {
       this.emit('pauseToggle')
     })
-    this.center.addEventListener('click', () => {
-      this.emit('pauseToggle')
-    })
-    this.remainder.addEventListener('click', () => {
-      this.emit('pauseToggle')
-    })
-    this.options.addEventListener('click', () => {
+    this.options.addEventListener('click', e => {
+      e.stopPropagation()
       this.emit('pause')
       browser.runtime.sendMessage({
         'functiontoInvoke': 'openSettings'
@@ -55,12 +52,14 @@ class UI extends EventEmitter {
 
   pause () {
     // display a pause overlay
+    this.holder.classList.add('__stutter_paused')
   }
 
   resume () {
     // move to top of screen to see player
     window.scrollTo(0, 0)
     // hide pause overlay
+    this.holder.classList.remove('__stutter_paused')
   }
 
   show (word) {

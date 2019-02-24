@@ -30,14 +30,15 @@
     font-family: arial !important;
     font-size: 30px !important;
     line-height: 1em !important;
+    user-select: none;
+    width: 100%;
 
     .__stutter_left {
       display: block;
       text-align: right;
       position: absolute;
+      pointer-events: none;
       right: 66%;
-      cursor: pointer;
-      user-select: none;
       line-height: 1em !important;
     }
 
@@ -45,20 +46,19 @@
       display: block;
       text-align: left;
       position: absolute;
+      pointer-events: none;
       left: 34%;
-      cursor: pointer;
-      user-select: none;
       line-height: 1em !important;
 
       .__stutter_center {
         color: #f36 !important;
-        cursor: pointer;
-        user-select: none;
+        pointer-events: none;
         line-height: 1em !important;
       }
 
       .__stutter_remainder {
         line-height: 1em !important;
+        pointer-events: none;
       }
     }
 
@@ -80,6 +80,31 @@
       cursor: pointer;
       user-select: none;
       line-height: 1em !important;
+    }
+  }
+
+  .__stutter_pause {
+    display: none;
+    position: absolute;
+    box-sizing: border-box;
+    height: 60px;
+    left: calc(50% - 35px);
+    border-color: transparent transparent transparent #f36;
+    cursor: pointer;
+    border-style: double;
+    border-width: 0 0 0 60px;
+    z-index: 100;
+  }
+
+  &.__stutter_paused {
+    .__stutter_pause {
+      display: block;
+    }
+
+    .__stutter_left,
+    .__stutter_center,
+    .__stutter_remainder {
+      opacity: 0.3;
     }
   }
 }
