@@ -49,8 +49,8 @@ To package the extension for production:
 - [x] Options for speed personalization
 - [x] Saving of personalization settings
 - [x] Progress display
+- [x] Chrome plugin support
 - [ ] Mobile support in Firefox Android
-- [ ] Chrome plugin support
 - [ ] Light theme with toggle in settings
 - [ ] Seek-bar / rewind
 - [ ] Syncing of personalization settings through browser sync
