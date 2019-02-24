@@ -2,16 +2,18 @@
   "manifest_version": 2,
   "name": "stutter",
   "description": "RSVP for browsers",
-  "version": "0.3.3",
+  "version": "1.0.0",
   "homepage_url": "https://github.com/jamestomasino/stutter",
   "icons": {
-    "48": "icons/stutter.svg",
-    "64": "icons/stutter.svg",
-    "96": "icons/stutter.svg"
+    "16": "icons/stutter-16.png",
+    "48": "icons/stutter-48.png",
+    "64": "icons/stutter-64.png",
+    "96": "icons/stutter-96.png",
+    "128": "icons/stutter-128.png"
   },
   "browser_action": {
     "default_icon": {
-      "64": "icons/stutter.svg"
+      "64": "icons/stutter-64.png"
     },
     "default_title": "Stutter"
   },
