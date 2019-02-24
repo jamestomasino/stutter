@@ -27,7 +27,7 @@
     position: relative;
     padding-top: 8px;
     color: white !important;
-    font-family: arial !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     font-size: 30px !important;
     line-height: 1em !important;
     user-select: none;
@@ -91,7 +91,7 @@
     cursor: pointer;
     border-style: double;
     z-index: 100;
-    height: 36px;
+    height: 32px;
     left: calc(50% - 30px);
     border-width: 0 0 0 36px;
   }
@@ -101,10 +101,13 @@
       display: block;
     }
 
-    .__stutter_left,
-    .__stutter_center,
-    .__stutter_remainder {
-      opacity: 0.3;
+    .__stutter_text {
+      .__stutter_left,
+      .__stutter_center,
+      .__stutter_remainder {
+        color: transparent !important;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+      }
     }
   }
 }
@@ -114,6 +117,7 @@
     height: 80px;
 
     .__stutter_text {
+      padding-top: 5px;
       font-size: 60px !important;
 
       .__stutter_left {
@@ -129,6 +133,7 @@
       height: 60px;
       left: calc(50% - 35px);
       border-width: 0 0 0 60px;
+      margin-top: 3px;
     }
   }
 }
