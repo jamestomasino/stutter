@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "stutter",
   "description": "RSVP for browsers",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "homepage_url": "https://github.com/jamestomasino/stutter",
   "icons": {
     "48": "icons/stutter.svg",
