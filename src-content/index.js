@@ -28,7 +28,12 @@ function onMessage (request) {
       // Readability gives html output. strip it to plain text
       var div = document.createElement('div')
       div.innerHTML = article.content
-      var pureText = div.innerText
+      var pureText = div.textContent
+      // textContent collapses some sentences which were separated by DOM
+      // elements alone. We attempt to restore spaces between paragraphs.
+      pureText = pureText.replace(/([.?!,:;])(?=\w)/ig, '$1 ')
+      pureText = pureText.replace(/([.?!,:;])"(?=")/ig, '$1" ')
+      pureText = pureText.replace(/([.?!,:;])"(?=\w)/ig, '$1 "')
       // Pass article content to Stutter
       playStutter(pureText)
       break
