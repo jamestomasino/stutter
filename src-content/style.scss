@@ -124,6 +124,39 @@
       }
     }
   }
+
+  &.light {
+    background: #fff;
+    border: 2px solid #888;
+
+    @for $i from 0 through 100 {
+      &[data-progress='#{$i}'] {
+        background: linear-gradient(to right, #ccc 0%, #ccc #{$i+'%'}, #fff #{$i+'%'}, #fff 100%);
+      }
+    }
+
+    .__stutter_text {
+      .__stutter_left,
+      .__stutter_right {
+        color: #333 !important;
+
+        .__stutter_remainder {
+          color: #333 !important;
+        }
+      }
+    }
+
+    &.__stutter_paused {
+      .__stutter_text {
+        .__stutter_left,
+        .__stutter_center,
+        .__stutter_remainder {
+          color: transparent !important;
+          text-shadow: 0 0 5px rgba(50, 50, 50, 0.5);
+        }
+      }
+    }
+  }
 }
 
 @media screen and (min-width: 700px) {

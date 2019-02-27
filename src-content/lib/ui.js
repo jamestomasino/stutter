@@ -1,5 +1,7 @@
 import '../style.scss'
 import { EventEmitter } from 'events'
+import StutterOptions from '../../src-common/stutterOptions'
+
 var browser = require('webextension-polyfill')
 
 class UI extends EventEmitter {
@@ -19,6 +21,7 @@ class UI extends EventEmitter {
     this.holder.classList.add('__stutter')
     this.holder.id = '__stutter'
     this.holder.innerHTML = this.template
+    this.progress = 0
 
     // UI Elements
     this.text = this.holder.getElementsByClassName('__stutter_text')[0]
@@ -43,7 +46,16 @@ class UI extends EventEmitter {
         'functiontoInvoke': 'openSettings'
       })
     })
-    this.progress = 0
+
+    // Handle dark mode vs light mode
+    this.stutterOptions = new StutterOptions()
+    this.stutterOptions.addListener(StutterOptions.UPDATE, () => {
+      if (this.stutterOptions.light) {
+        this.holder.classList.add('light')
+      } else {
+        this.holder.classList.remove('light')
+      }
+    })
   }
 
   set progress (val) {

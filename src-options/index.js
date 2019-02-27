@@ -11,6 +11,7 @@ function drawSettings () {
   document.getElementById('shortWordDelay').value = options.shortWordDelay
   document.getElementById('longWordDelay').value = options.longWordDelay
   document.getElementById('numericDelay').value = options.numericDelay
+  document.getElementById('lightMode').checked = options.light
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -25,5 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     options.shortWordDelay = document.getElementById('shortWordDelay').value
     options.longWordDelay = document.getElementById('longWordDelay').value
     options.numericDelay = document.getElementById('numericDelay').value
+    options.light = document.getElementById('lightMode').checked
   })
 })

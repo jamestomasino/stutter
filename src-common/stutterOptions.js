@@ -13,6 +13,7 @@ export default class StutterOptions extends EventEmitter {
     this._shortWordDelay = 1.3
     this._longWordDelay = 1.4
     this._numericDelay = 1.8
+    this._light = false
 
     this.checkSaved()
     browser.runtime.onMessage.addListener(message => { this.onMessage(message) })
@@ -69,7 +70,8 @@ export default class StutterOptions extends EventEmitter {
       otherPuncDelay: this._otherPuncDelay,
       shortWordDelay: this._shortWordDelay,
       longWordDelay: this._longWordDelay,
-      numericDelay: this._numericDelay
+      numericDelay: this._numericDelay,
+      light: this._light
     }
   }
 
@@ -80,33 +82,38 @@ export default class StutterOptions extends EventEmitter {
       invalidate = true
     }
 
-    if (val['slowStartCount'] && this._wpm !== val['slowStartCount']) {
+    if (val['slowStartCount'] && this._slowStartCount !== val['slowStartCount']) {
       this._slowStartCount = val['slowStartCount']
       invalidate = true
     }
 
-    if (val['sentenceDelay'] && this._wpm !== val['sentenceDelay']) {
+    if (val['sentenceDelay'] && this._sentenceDelay !== val['sentenceDelay']) {
       this._sentenceDelay = val['sentenceDelay']
       invalidate = true
     }
 
-    if (val['otherPuncDelay'] && this._wpm !== val['otherPuncDelay']) {
+    if (val['otherPuncDelay'] && this._otherPuncDelay !== val['otherPuncDelay']) {
       this._otherPuncDelay = val['otherPuncDelay']
       invalidate = true
     }
 
-    if (val['shortWordDelay'] && this._wpm !== val['shortWordDelay']) {
+    if (val['shortWordDelay'] && this._shortWordDelay !== val['shortWordDelay']) {
       this._shortWordDelay = val['shortWordDelay']
       invalidate = true
     }
 
-    if (val['longWordDelay'] && this._wpm !== val['longWordDelay']) {
+    if (val['longWordDelay'] && this._longWordDelay !== val['longWordDelay']) {
       this._longWordDelay = val['longWordDelay']
       invalidate = true
     }
 
-    if (val['numericDelay'] && this._wpm !== val['numericDelay']) {
+    if (val['numericDelay'] && this._numericDelay !== val['numericDelay']) {
       this._numericDelay = val['numericDelay']
+      invalidate = true
+    }
+
+    if ((val['light'] === false || val['light'] === true) && this._light !== val['light']) {
+      this._light = val['light']
       invalidate = true
     }
 
@@ -194,6 +201,16 @@ export default class StutterOptions extends EventEmitter {
     if (this._slowStartCount !== val) {
       this._slowStartCount = val
       this.update()
+    }
+  }
+
+  get light () { return this._light }
+  set light (val) {
+    if (val === true || val === false) {
+      if (this._light !== val) {
+        this._light = val
+        this.update()
+      }
     }
   }
 
