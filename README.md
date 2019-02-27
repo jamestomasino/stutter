@@ -50,12 +50,10 @@ To package the extension for production:
 - [x] Saving of personalization settings
 - [x] Progress display
 - [x] Chrome plugin support
+- [x] Light theme with toggle in settings
 - [ ] Mobile support in Firefox Android
-- [ ] Light theme with toggle in settings
-- [ ] Seek-bar / rewind
 - [ ] Syncing of personalization settings through browser sync
-- [ ] Sliders or other better UI in settings
-- [ ] Custom colorschemes in settings
+- [ ] Seek-bar / rewind
 
 ## 3rd Party Runtime Libraries
 
