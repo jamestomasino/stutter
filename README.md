@@ -1,5 +1,7 @@
 # stutter ![status](https://travis-ci.com/jamestomasino/stutter.svg?branch=master) ![license](https://img.shields.io/badge/license-GPL3-blue.svg?style=flat-square)
 
+[![stutter demonstration](https://img.youtube.com/vi/UJwFdPYbRRg/0.jpg)](https://www.youtube.com/watch?v=UJwFdPYbRRg)
+
 <a href="https://addons.mozilla.org/en-US/firefox/addon/stutter/"><img src="./icons/stutter.svg" width="100"></a>
 
 **stutter** _(noun)_
