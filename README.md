@@ -1,7 +1,5 @@
 # stutter ![status](https://travis-ci.com/jamestomasino/stutter.svg?branch=master) ![license](https://img.shields.io/badge/license-GPL3-blue.svg?style=flat-square)
 
-[![stutter demonstration](https://img.youtube.com/vi/UJwFdPYbRRg/0.jpg)](https://www.youtube.com/watch?v=UJwFdPYbRRg)
-
 <a href="https://addons.mozilla.org/en-US/firefox/addon/stutter/"><img src="./icons/stutter.svg" width="100"></a>
 
 **stutter** _(noun)_
@@ -10,7 +8,10 @@
 
 2. A [Rapid Serial Visual Presentation](https://en.wikipedia.org/wiki/Rapid_serial_visual_presentation) (RSVP) extension for modern web browsers. It is based upon my initial work in a Google Chrome extension, [read](https://github.com/jamestomasino/read_plugin). This is an attempt to modernize the code and offer cross-browser support.
 
-[Get the FF Extension](https://addons.mozilla.org/en-US/firefox/addon/stutter/)
+[![stutter demonstration](https://i.imgur.com/hGocwaV.png)](https://www.youtube.com/watch?v=UJwFdPYbRRg)
+
+- [Get the FF Extension!](https://addons.mozilla.org/en-US/firefox/addon/stutter/)
+- [Get the Chrome Extension!](https://chrome.google.com/webstore/detail/stutter/fbapmaboedchhgjolcnpfgoanbfajchl)
 
 ## Source Install and Testing
 
