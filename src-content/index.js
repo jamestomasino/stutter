@@ -39,8 +39,22 @@ function onMessage (request) {
   }
 }
 
-if (!UI.INIT && !window.stutter) {
-  window.stutter = true
+/* This check avoids duplicating the DOM and listeners in case we
+ * are running stutter more than once. The first call to inject
+ * this code from the background script will enter this condition
+ * and create everything needed on the page. Subsequent calls to
+ * inject will hit this condition and fail, avoiding double UI
+ *
+ * Unfortunately this does not stop CSS from being injected twice,
+ * or the actual JS content from being injected multiple times. It
+ * would be better to not inject more than once at all, but the
+ * background script has no knowledge of whether the tab has loaded
+ * stutter before or not on any given page.
+ *
+ * Consider this solution the "least bad" for now.
+ */
+if (!UI.INIT && !window.__stutter) {
+  window.__stutter = true
   var browser = require('webextension-polyfill')
   var stutter
   var ui = new UI()
