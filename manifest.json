@@ -34,7 +34,6 @@
     "activeTab",
     "storage"
   ],
-  "offline_enabled": true,
   "options_ui": {
     "page": "dist-options/index.html",
     "open_in_tab":true

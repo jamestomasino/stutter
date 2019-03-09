@@ -1,21 +1,31 @@
 var browser = require('webextension-polyfill')
 
+var initTabs = {}
+
 function onContextClick (info) {
   let q = browser.tabs.query({
     'active': true,
     'currentWindow': true
   })
   q.then(tabs => {
-    browser.tabs.executeScript({ file: '/dist-content/index.js' })
-      .then(() => {
-        browser.tabs.sendMessage(tabs[0].id, {
-          'functiontoInvoke': 'stutterSelectedText',
-          'selectedText': info.selectionText
+    if (initTabs[tabs[0].id]) {
+      browser.tabs.sendMessage(tabs[0].id, {
+        'functiontoInvoke': 'stutterSelectedText',
+        'selectedText': info.selectionText
+      })
+    } else {
+      initTabs[tabs[0].id] = true
+      browser.tabs.executeScript({ file: '/dist-content/index.js' })
+        .then(() => {
+          browser.tabs.sendMessage(tabs[0].id, {
+            'functiontoInvoke': 'stutterSelectedText',
+            'selectedText': info.selectionText
+          })
         })
-      })
-      .catch(e => {
-        console.log('Error:', e)
-      })
+        .catch(e => {
+          console.log('Error:', e)
+        })
+    }
   })
 }
 
@@ -32,15 +42,23 @@ function onIconClick () {
     'currentWindow': true
   })
   q.then(tabs => {
-    browser.tabs.executeScript({ file: '/dist-content/index.js' })
-      .then(() => {
-        browser.tabs.sendMessage(tabs[0].id, {
-          'functiontoInvoke': 'stutterFullPage'
+    if (initTabs[tabs[0].id]) {
+      browser.tabs.sendMessage(tabs[0].id, {
+        'functiontoInvoke': 'stutterFullPage'
+      })
+    } else {
+      initTabs[tabs[0].id] = true
+      q.stutter = true
+      browser.tabs.executeScript({ file: '/dist-content/index.js' })
+        .then(() => {
+          browser.tabs.sendMessage(tabs[0].id, {
+            'functiontoInvoke': 'stutterFullPage'
+          })
         })
-      })
-      .catch(e => {
-        console.log('Error:', e)
-      })
+        .catch(e => {
+          console.log('Error:', e)
+        })
+    }
   })
 }
 

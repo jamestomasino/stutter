@@ -1,9 +1,6 @@
 import Readability from './lib/Readability'
 import Stutter from './lib/stutter'
-import { ui } from './lib/ui'
-
-var browser = require('webextension-polyfill')
-var stutter
+import UI from './lib/ui'
 
 function playStutter (text) {
   if (stutter) {
@@ -41,4 +38,10 @@ function onMessage (request) {
       break
   }
 }
-browser.runtime.onMessage.addListener(onMessage)
+
+if (!UI.INIT) {
+  var browser = require('webextension-polyfill')
+  var stutter
+  var ui = new UI()
+  browser.runtime.onMessage.addListener(onMessage)
+}

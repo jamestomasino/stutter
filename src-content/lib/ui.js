@@ -4,7 +4,7 @@ import StutterOptions from '../../src-common/stutterOptions'
 
 var browser = require('webextension-polyfill')
 
-class UI extends EventEmitter {
+export default class UI extends EventEmitter {
   constructor () {
     super()
     this.template = `
@@ -58,6 +58,10 @@ class UI extends EventEmitter {
     })
   }
 
+  static get INIT () {
+    return (document.querySelector('.__stutter_text'))
+  }
+
   set progress (val) {
     this.holder.dataset.progress = val
   }
@@ -92,5 +96,3 @@ class UI extends EventEmitter {
     }
   }
 }
-
-export let ui = new UI()
