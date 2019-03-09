@@ -39,7 +39,8 @@ function onMessage (request) {
   }
 }
 
-if (!UI.INIT) {
+if (!UI.INIT && !window.stutter) {
+  window.stutter = true
   var browser = require('webextension-polyfill')
   var stutter
   var ui = new UI()
