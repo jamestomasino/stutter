@@ -26,12 +26,22 @@ function onMessage (request) {
       var div = document.createElement('div')
       div.innerHTML = article.content
       var pureText = div.textContent
+
       // textContent collapses some sentences which were separated by DOM
       // elements alone. We attempt to restore spaces between paragraphs.
+
+      // punctution sandwiched between two words
       pureText = pureText.replace(/([.?!,:;])(?=\w)/ig, '$1 ')
-      pureText = pureText.replace(/([.?!,:;])[”"](?=["“]")/ig, '$1" ')
-      pureText = pureText.replace(/([.?!,:;])[”"](?=["“])/ig, '$1" ')
-      pureText = pureText.replace(/([.?!,:;])[”"](?=\w)/ig, '$1 "')
+
+      // two quotes in a row
+      pureText = pureText.replace(/([”"])(?=["“])/ig, '$1 ')
+
+      // punctuation close-quote word
+      pureText = pureText.replace(/([.?!,:;])(["”])(?=\w)/ig, '$1$2 ')
+
+      // punctuation open-quote word
+      pureText = pureText.replace(/([.?!,:;])“(?=\w)/ig, '$1 “')
+
       // Pass article content to Stutter
       playStutter(pureText)
       break
