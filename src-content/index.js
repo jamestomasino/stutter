@@ -29,8 +29,9 @@ function onMessage (request) {
       // textContent collapses some sentences which were separated by DOM
       // elements alone. We attempt to restore spaces between paragraphs.
       pureText = pureText.replace(/([.?!,:;])(?=\w)/ig, '$1 ')
-      pureText = pureText.replace(/([.?!,:;])"(?=")/ig, '$1" ')
-      pureText = pureText.replace(/([.?!,:;])"(?=\w)/ig, '$1 "')
+      pureText = pureText.replace(/([.?!,:;])[”"](?=["“]")/ig, '$1" ')
+      pureText = pureText.replace(/([.?!,:;])[”"](?=["“])/ig, '$1" ')
+      pureText = pureText.replace(/([.?!,:;])[”"](?=\w)/ig, '$1 "')
       // Pass article content to Stutter
       playStutter(pureText)
       break
