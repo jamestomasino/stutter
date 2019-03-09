@@ -1,8 +1,10 @@
 {
+  "author": "James Tomasino",
   "manifest_version": 2,
   "name": "stutter",
+  "short_name": "stutter",
   "description": "RSVP for browsers",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "homepage_url": "https://github.com/jamestomasino/stutter",
   "icons": {
     "16": "icons/stutter-16.png",
@@ -15,7 +17,7 @@
     "default_icon": {
       "64": "icons/stutter-64.png"
     },
-    "default_title": "Stutter"
+    "default_title": "stutter"
   },
   "background": {
     "scripts": [
@@ -29,17 +31,21 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
       "js": [
         "dist-content/index.js"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
       ]
     }
   ],
   "permissions": [
-    "activeTab",
     "contextMenus",
+    "activeTab",
     "storage"
   ],
+  "offline_enabled": true,
   "options_ui": {
     "page": "dist-options/index.html",
     "open_in_tab":true
