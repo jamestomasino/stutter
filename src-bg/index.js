@@ -6,10 +6,16 @@ function onContextClick (info) {
     'currentWindow': true
   })
   q.then(tabs => {
-    browser.tabs.sendMessage(tabs[0].id, {
-      'functiontoInvoke': 'stutterSelectedText',
-      'selectedText': info.selectionText
-    })
+    browser.tabs.executeScript({ file: '/dist-content/index.js' })
+      .then(() => {
+        browser.tabs.sendMessage(tabs[0].id, {
+          'functiontoInvoke': 'stutterSelectedText',
+          'selectedText': info.selectionText
+        })
+      })
+      .catch(e => {
+        console.log('Error:', e)
+      })
   })
 }
 
@@ -26,9 +32,15 @@ function onIconClick () {
     'currentWindow': true
   })
   q.then(tabs => {
-    browser.tabs.sendMessage(tabs[0].id, {
-      'functiontoInvoke': 'stutterFullPage'
-    })
+    browser.tabs.executeScript({ file: '/dist-content/index.js' })
+      .then(() => {
+        browser.tabs.sendMessage(tabs[0].id, {
+          'functiontoInvoke': 'stutterFullPage'
+        })
+      })
+      .catch(e => {
+        console.log('Error:', e)
+      })
   })
 }
 
