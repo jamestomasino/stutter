@@ -58,6 +58,24 @@ To package the extension for production:
 - [ ] Syncing of personalization settings through browser sync
 - [ ] Seek-bar / rewind
 
+## Permissions
+
+This extension uses several permissions allowed by the web extensions API.
+
+### contextMenus
+
+Stutter allows you to read selected text by highlighting content and right-clicking to view the context menu option. This permission allows us to add the Stutter option to the context menu.
+
+### activeTab
+
+This permission allows the extension to inject the content script code into the browser tab when an action takes place, like clicking on the extension icon. It provides a limited access to the tab that's active when triggered.
+
+### storage
+
+Options in the settings page are stored in browser storage by using this permission. These settings persist between browser restarts.
+
+In a future release of stutter, these settings will sync between browsers if you have browser sync enabled.
+
 ## 3rd Party Runtime Libraries
 
 Full page content is analyzed and isolated by means of the [Mozilla Readability Library](https://github.com/mozilla/readability). The version in this project is modified for linting and exported as an es6 module. No changes have been made to the library logic.
