@@ -12,7 +12,7 @@
   overflow: hidden;
   position: fixed;
   text-align: center;
-  top: 0;
+  top: calc(50vh - 25px);
   width: calc(100% - 30px);
   z-index: 999999999;
 
@@ -162,6 +162,7 @@
 @media screen and (min-width: 700px) {
   #__stutter {
     height: 80px;
+    top: calc(50vh - 40px);
 
     .__stutter_text {
       padding-top: 5px;
