@@ -47,13 +47,15 @@ export default class StutterOptions extends EventEmitter {
     this.emit(StutterOptions.UPDATE)
 
     // Inform the other tabs StutterOptions instances
-    browser.tabs.query({}).then(tabs => {
-      for (let tab of tabs) {
-        browser.tabs.sendMessage(tab.id, {
-          'functiontoInvoke': 'stutterOptionsUpdate'
-        }).then(() => {}).catch(() => {})
-      }
-    }).catch(() => {})
+    if (browser && browser.tabs && browser.tabs.query) {
+      browser.tabs.query({}).then(tabs => {
+        for (let tab of tabs) {
+          browser.tabs.sendMessage(tab.id, {
+            'functiontoInvoke': 'stutterOptionsUpdate'
+          }).then(() => {}).catch(() => {})
+        }
+      }).catch(() => {})
+    }
   }
 
   saveSettings () {
