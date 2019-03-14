@@ -72,8 +72,6 @@ export default class UI extends EventEmitter {
   }
 
   resume () {
-    // move to top of screen to see player
-    window.scrollTo(0, 0)
     // hide pause overlay
     this.holder.classList.remove('__stutter_paused')
   }
