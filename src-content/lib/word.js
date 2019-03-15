@@ -4,11 +4,6 @@ const numRegex = /\d/g
 export default class Word {
   constructor (val) {
     this.val = val
-
-    // Center value for alignment
-    this.index = 0
-
-    // Word Status Values
     this.hasLeadingQuote = false
     this.hasTrailingQuote = false
     this.hasPeriod = false
@@ -16,54 +11,39 @@ export default class Word {
     this.isShort = false
     this.isLong = false
     this.isNumeric = false
+    this.index = 0
+    this.parseWord()
+    this.findIndex()
+  }
 
+  parseWord () {
     let match = this.val.match(textRegex)
     this.length = (match) ? match.length : 0
-
     let lastChar = this.val.substr(-1)
     let firstChar = this.val[0]
 
-    switch (lastChar) {
-      case '"':
-      case '\'':
-      case ')':
-      case '”':
-      case '’':
-        this.hasTrailingQuote = true
-        break
-    }
+    this.isNumeric = numRegex.test(this.val)
 
-    switch (firstChar) {
-      case '"':
-      case '\'':
-      case '(':
-      case '“':
-      case '‘':
-        this.hasLeadingQuote = true
-        this.hasOtherPunc = true
-        break
-    }
-
-    if (this.hasTrailingQuote) {
+    if (/["\\)”’]/.test(lastChar)) {
+      this.hasTrailingQuote = true
       lastChar = this.val.substr(-2, 1)
     }
 
-    this.isNumeric = numRegex.test(this.val)
-
-    switch (lastChar) {
-      case '.':
-      case '!':
-      case '?':
-        this.hasPeriod = true
-        break
-      case ':':
-      case '':
-      case ',':
-      case '-':
-        this.hasOtherPunc = true
-        break
+    if (/["\\(“‘]/.test(firstChar)) {
+      this.hasLeadingQuote = true
+      this.hasOtherPunc = true
     }
 
+    if (/[.!?]/.test(lastChar)) {
+      this.hasPeriod = true
+    }
+
+    if (/[:,-;]/.test(lastChar)) {
+      this.hasOtherPunc = true
+    }
+  }
+
+  findIndex () {
     switch (true) {
       case (this.length < 2):
         this.index = 0
