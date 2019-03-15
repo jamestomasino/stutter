@@ -2,6 +2,10 @@ import './main.scss'
 import StutterOptions from '../src-common/stutterOptions'
 var options = new StutterOptions()
 options.addListener(StutterOptions.UPDATE, () => { drawSettings() })
+var resetbtn = document.getElementById('reset')
+resetbtn.addEventListener('click', () => {
+  options.reset()
+})
 
 function drawSettings () {
   document.getElementById('wpm').value = options.getProp('wpm')
