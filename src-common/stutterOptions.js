@@ -84,17 +84,11 @@ export default class StutterOptions extends EventEmitter {
   }
 
   get settings () {
-    return {
-      wpm: this._wpm,
-      slowStartCount: this._slowStartCount,
-      sentenceDelay: this._sentenceDelay,
-      otherPuncDelay: this._otherPuncDelay,
-      shortWordDelay: this._shortWordDelay,
-      longWordDelay: this._longWordDelay,
-      numericDelay: this._numericDelay,
-      pos: this._pos,
-      theme: this._theme
-    }
+    let returnObj = {}
+    Object.keys(defaults).map(setting => {
+      returnObj[setting] = this['_' + setting]
+    })
+    return returnObj
   }
 
   set settings (val) {
