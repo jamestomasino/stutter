@@ -131,10 +131,7 @@ export default class StutterOptions extends EventEmitter {
 
   get wpm () { return this._wpm }
   set wpm (val) {
-    val = Number(val)
-    if (isNaN(val)) return
-    val = Math.max(1, val)
-    val = Math.min(1500, val)
+    val = this.numericContain(1, 1500, val)
     if (this._wpm !== val) {
       this._wpm = val
       this.update()
@@ -143,10 +140,7 @@ export default class StutterOptions extends EventEmitter {
 
   get sentenceDelay () { return this._sentenceDelay }
   set sentenceDelay (val) {
-    val = Number(val)
-    if (isNaN(val)) return
-    val = Math.max(1, val)
-    val = Math.min(10, val)
+    val = this.numericContain(1, 10, val)
     if (this._sentenceDelay !== val) {
       this._sentenceDelay = val
       this.update()
@@ -155,10 +149,7 @@ export default class StutterOptions extends EventEmitter {
 
   get otherPuncDelay () { return this._otherPuncDelay }
   set otherPuncDelay (val) {
-    val = Number(val)
-    if (isNaN(val)) return
-    val = Math.max(1, val)
-    val = Math.min(10, val)
+    val = this.numericContain(1, 10, val)
     if (this._otherPuncDelay !== val) {
       this._otherPuncDelay = val
       this.update()
@@ -167,10 +158,7 @@ export default class StutterOptions extends EventEmitter {
 
   get shortWordDelay () { return this._shortWordDelay }
   set shortWordDelay (val) {
-    val = Number(val)
-    if (isNaN(val)) return
-    val = Math.max(1, val)
-    val = Math.min(10, val)
+    val = this.numericContain(1, 10, val)
     if (this._shortWordDelay !== val) {
       this._shortWordDelay = val
       this.update()
@@ -179,10 +167,7 @@ export default class StutterOptions extends EventEmitter {
 
   get longWordDelay () { return this._longWordDelay }
   set longWordDelay (val) {
-    val = Number(val)
-    if (isNaN(val)) return
-    val = Math.max(1, val)
-    val = Math.min(10, val)
+    val = this.numericContain(1, 10, val)
     if (this._longWordDelay !== val) {
       this._longWordDelay = val
       this.update()
@@ -191,10 +176,7 @@ export default class StutterOptions extends EventEmitter {
 
   get numericDelay () { return this._numericDelay }
   set numericDelay (val) {
-    val = Number(val)
-    if (isNaN(val)) return
-    val = Math.max(1, val)
-    val = Math.min(10, val)
+    val = this.numericContain(1, 10, val)
     if (this._numericDelay !== val) {
       this._numericDelay = val
       this.update()
@@ -203,10 +185,7 @@ export default class StutterOptions extends EventEmitter {
 
   get slowStartCount () { return this._slowStartCount }
   set slowStartCount (val) {
-    val = Number(val)
-    if (isNaN(val)) return
-    val = Math.max(0, val)
-    val = Math.min(10, val)
+    val = this.numericContain(1, 10, val)
     if (this._slowStartCount !== val) {
       this._slowStartCount = val
       this.update()
@@ -215,10 +194,7 @@ export default class StutterOptions extends EventEmitter {
 
   get pos () { return this._pos }
   set pos (val) {
-    val = Number(val)
-    if (isNaN(val)) return
-    val = Math.max(0.02, val)
-    val = Math.min(0.9, val)
+    val = this.numericContain(0.02, 0.9, val)
     if (this._pos !== val) {
       this._pos = val
       this.update()
@@ -233,6 +209,14 @@ export default class StutterOptions extends EventEmitter {
         this.update()
       }
     }
+  }
+
+  numericContain (low, high, val) {
+    val = Number(val)
+    if (isNaN(val)) return
+    val = Math.max(low, val)
+    val = Math.min(high, val)
+    return val
   }
 
   get delay () { return 1 / (this._wpm / 60) * 1000 }
