@@ -9,7 +9,7 @@ let defaults = {
   'shortWordDelay': 1.3,
   'longWordDelay': 1.4,
   'numericDelay': 1.8,
-  'light': false,
+  'theme': 'default',
   'pos': 0.5
 }
 
@@ -93,7 +93,7 @@ export default class StutterOptions extends EventEmitter {
       longWordDelay: this._longWordDelay,
       numericDelay: this._numericDelay,
       pos: this._pos,
-      light: this._light
+      theme: this._theme
     }
   }
 
@@ -126,11 +126,6 @@ export default class StutterOptions extends EventEmitter {
         break
       case 'pos':
         val = this.numericContain(0.02, 0.9, val)
-        break
-      case 'light':
-        if (val !== true && val !== false) {
-          return
-        }
         break
     }
     if (this.hasOwnProperty('_' + prop) && this['_' + prop] !== val) {
