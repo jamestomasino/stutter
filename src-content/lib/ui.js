@@ -45,7 +45,7 @@ export default class UI extends EventEmitter {
     this.onOptionsUpdate = this.onOptionsUpdate.bind(this)
 
     // Interaction Events
-    this.close.addEventListener('click', this.close)
+    this.close.addEventListener('click', this.onClose)
     this.pausebtn.addEventListener('click', this.onPauseToggle)
     this.drag.addEventListener('mousedown', this.onDragStart)
     this.options.addEventListener('click', this.onOptions)
@@ -98,6 +98,10 @@ export default class UI extends EventEmitter {
   }
 
   onOptionsUpdate () {
+    if (this.stutterOptions.pos) {
+      this.holder.style.top = (this.stutterOptions.pos * 100) + 'vh'
+    }
+
     if (this.stutterOptions.light) {
       this.holder.classList.add('light')
     } else {
@@ -141,6 +145,6 @@ export default class UI extends EventEmitter {
 
   set pos (val) {
     let newPos = Math.min(0.8, Math.max(0, val))
-    this.holder.style.top = (newPos * 100) + 'vh'
+    this.stutterOptions.pos = newPos
   }
 }
