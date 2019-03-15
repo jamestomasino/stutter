@@ -31,6 +31,15 @@ export default class StutterOptions extends EventEmitter {
     browser.storage.sync.get('stutterOptions').then(result => {
       if (result.stutterOptions) {
         this.settings = result.stutterOptions
+      } else {
+        // Porting to sync. If the old local is set, copy it over
+        // to sync, then remove
+        browser.storage.local.get('stutterOptions').then(result => {
+          if (result.stutterOptions) {
+            this.settings = result.stutterOptions
+            browser.storage.local.clear()
+          }
+        })
       }
     })
   }

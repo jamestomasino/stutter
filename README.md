@@ -54,8 +54,8 @@ To package the extension for production:
 - [x] Progress display
 - [x] Chrome plugin support
 - [x] Light theme with toggle in settings
+- [x] Syncing of personalization settings through browser sync
 - [ ] Mobile support in Firefox Android
-- [ ] Syncing of personalization settings through browser sync
 - [ ] Seek-bar / rewind
 
 ## Permissions
