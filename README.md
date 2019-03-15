@@ -1,4 +1,8 @@
-# stutter ![status](https://travis-ci.com/jamestomasino/stutter.svg?branch=master) ![license](https://img.shields.io/badge/license-GPL3-blue.svg?style=flat-square) [![Maintainability](https://api.codeclimate.com/v1/badges/a4d5b54b3cf91c6a2b3e/maintainability)](https://codeclimate.com/github/jamestomasino/stutter/maintainability) ![Mozilla Add-on](https://img.shields.io/amo/users/stutter.svg?label=FF%20Users) ![Chrome Web Store](https://img.shields.io/chrome-web-store/users/fbapmaboedchhgjolcnpfgoanbfajchl.svg?label=Chrome%20Users) ![Mozilla Add-on](https://img.shields.io/amo/stars/stutter.svg?label=FF%20Stars) ![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/fbapmaboedchhgjolcnpfgoanbfajchl.svg?label=Chrome%20Rating)
+# stutter ![status](https://travis-ci.com/jamestomasino/stutter.svg?branch=master) ![license](https://img.shields.io/badge/license-GPL3-blue.svg?style=flat-square) [![Maintainability](https://api.codeclimate.com/v1/badges/a4d5b54b3cf91c6a2b3e/maintainability)](https://codeclimate.com/github/jamestomasino/stutter/maintainability)
+
+![Mozilla Add-on](https://img.shields.io/amo/users/stutter.svg?label=Firefox%20Users) ![Mozilla Add-on](https://img.shields.io/amo/stars/stutter.svg)
+
+![Chrome Web Store](https://img.shields.io/chrome-web-store/users/fbapmaboedchhgjolcnpfgoanbfajchl.svg?label=Chrome%20Users) ![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/fbapmaboedchhgjolcnpfgoanbfajchl.svg)
 
 <a href="https://addons.mozilla.org/en-US/firefox/addon/stutter/"><img src="./icons/stutter.svg" width="100"></a>
 
