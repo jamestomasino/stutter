@@ -86,18 +86,22 @@ export default class Stutter {
     this.currentWord = this.block.word
     if (this.currentWord) {
       this.showWord()
-      var time = this.options.delay
-      if (this.currentWord.hasPeriod) time *= this.options.getProp('sentenceDelay')
-      if (this.currentWord.hasOtherPunc) time *= this.options.getProp('otherPuncDelay')
-      if (this.currentWord.isShort) time *= this.options.getProp('shortWordDelay')
-      if (this.currentWord.isLong) time *= this.options.getProp('longWordDelay')
-      if (this.currentWord.isNumeric) time *= this.options.getProp('numericDelay')
-      this.slowStartCount = (this.slowStartCount - 1) || 1
-      time = time * this.slowStartCount
-      this.timer = setTimeout(() => { this.next() }, time)
+      this.timer = setTimeout(() => { this.next() }, this.getTime())
     } else {
       this.destroy()
     }
+  }
+
+  getTime () {
+    var time = this.options.delay
+    if (this.currentWord.hasPeriod) time *= this.options.getProp('sentenceDelay')
+    if (this.currentWord.hasOtherPunc) time *= this.options.getProp('otherPuncDelay')
+    if (this.currentWord.isShort) time *= this.options.getProp('shortWordDelay')
+    if (this.currentWord.isLong) time *= this.options.getProp('longWordDelay')
+    if (this.currentWord.isNumeric) time *= this.options.getProp('numericDelay')
+    this.slowStartCount = (this.slowStartCount - 1) || 1
+    time = time * this.slowStartCount
+    return time
   }
 
   showWord () {
