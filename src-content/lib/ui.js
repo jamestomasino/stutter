@@ -144,7 +144,7 @@ export default class UI extends EventEmitter {
   }
 
   set pos (val) {
-    let newPos = Math.min(0.8, Math.max(0, val))
+    let newPos = Math.min(0.9, Math.max(0.1, val))
     this.stutterOptions.pos = newPos
   }
 }

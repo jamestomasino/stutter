@@ -215,8 +215,8 @@ export default class StutterOptions extends EventEmitter {
   set pos (val) {
     val = Number(val)
     if (isNaN(val)) return
-    val = Math.max(0, val)
-    val = Math.min(0.8, val)
+    val = Math.max(0.1, val)
+    val = Math.min(0.9, val)
     if (this._pos !== val) {
       this._pos = val
       this.update()
