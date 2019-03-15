@@ -99,9 +99,8 @@ export default class Stutter {
     if (this.currentWord.isShort) time *= this.options.getProp('shortWordDelay')
     if (this.currentWord.isLong) time *= this.options.getProp('longWordDelay')
     if (this.currentWord.isNumeric) time *= this.options.getProp('numericDelay')
-    this.slowStartCount = (this.slowStartCount - 1) || 1
-    time = time * this.slowStartCount
-    return time
+    this.slowStartCount = (this.slowStartCount > 1) ? this.slowStartCount - 1 : 1
+    return time * this.slowStartCount
   }
 
   showWord () {
