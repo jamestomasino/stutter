@@ -1,20 +1,31 @@
 import { EventEmitter } from 'events'
 var browser = require('webextension-polyfill')
 
+let defaults = {
+  'wpm': 400,
+  'slowStartCount': 5,
+  'sentenceDelay': 2.5,
+  'otherPuncDelay': 1.5,
+  'shortWordDelay': 1.3,
+  'longWordDelay': 1.4,
+  'numericDelay': 1.8,
+  'light': false,
+  'pos': 0.5
+}
+
 export default class StutterOptions extends EventEmitter {
   constructor () {
     super()
 
-    // Default settings
-    this._wpm = 400
-    this._slowStartCount = 5
-    this._sentenceDelay = 2.5
-    this._otherPuncDelay = 1.5
-    this._shortWordDelay = 1.3
-    this._longWordDelay = 1.4
-    this._numericDelay = 1.8
-    this._light = false
-    this._pos = 0.5
+    this._wpm = defaults.wpm
+    this._slowStartCount = defaults.slowStartCount
+    this._sentenceDelay = defaults.sentenceDelay
+    this._otherPuncDelay = defaults.otherPuncDelay
+    this._shortWordDelay = defaults.shortWordDelay
+    this._longWordDelay = defaults.longWordDelay
+    this._numericDelay = defaults.numericDelay
+    this._light = defaults.light
+    this._pos = defaults.pos
 
     this.checkSaved()
     browser.runtime.onMessage.addListener(message => { this.onMessage(message) })
@@ -81,51 +92,12 @@ export default class StutterOptions extends EventEmitter {
 
   set settings (val) {
     let invalidate = false
-    if (val['wpm'] && this._wpm !== val['wpm']) {
-      this._wpm = val['wpm']
-      invalidate = true
-    }
-
-    if (val['slowStartCount'] && this._slowStartCount !== val['slowStartCount']) {
-      this._slowStartCount = val['slowStartCount']
-      invalidate = true
-    }
-
-    if (val['sentenceDelay'] && this._sentenceDelay !== val['sentenceDelay']) {
-      this._sentenceDelay = val['sentenceDelay']
-      invalidate = true
-    }
-
-    if (val['otherPuncDelay'] && this._otherPuncDelay !== val['otherPuncDelay']) {
-      this._otherPuncDelay = val['otherPuncDelay']
-      invalidate = true
-    }
-
-    if (val['shortWordDelay'] && this._shortWordDelay !== val['shortWordDelay']) {
-      this._shortWordDelay = val['shortWordDelay']
-      invalidate = true
-    }
-
-    if (val['longWordDelay'] && this._longWordDelay !== val['longWordDelay']) {
-      this._longWordDelay = val['longWordDelay']
-      invalidate = true
-    }
-
-    if (val['numericDelay'] && this._numericDelay !== val['numericDelay']) {
-      this._numericDelay = val['numericDelay']
-      invalidate = true
-    }
-
-    if (val['pos'] && this._pos !== val['pos']) {
-      this._pos = val['pos']
-      invalidate = true
-    }
-
-    if ((val['light'] === false || val['light'] === true) && this._light !== val['light']) {
-      this._light = val['light']
-      invalidate = true
-    }
-
+    Object.keys(defaults).map(setting => {
+      if (val.hasOwnProperty(setting) && this['_' + setting] !== val[setting]) {
+        this['_' + setting] = val[setting]
+        invalidate = true
+      }
+    })
     if (invalidate) this.update()
   }
 
