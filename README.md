@@ -2,7 +2,7 @@
 
 ![Mozilla Add-on](https://img.shields.io/amo/users/stutter.svg?label=Firefox%20Users) ![Mozilla Add-on](https://img.shields.io/amo/stars/stutter.svg) [Get the Extension!](https://addons.mozilla.org/en-US/firefox/addon/stutter/)
 
-![Chrome Web Store](https://img.shields.io/chrome-web-store/users/fbapmaboedchhgjolcnpfgoanbfajchl.svg?label=Chrome%20Users) ![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/fbapmaboedchhgjolcnpfgoanbfajchl.svg) [Get the Extension!](https://chrome.google.com/webstore/detail/stutter/fbapmaboedchhgjolcnpfgoanbfajchl)
+[![Chrome Get Extension](https://img.shields.io/badge/Chrome-Get%20Extension!-orange.svg?style=flat)](https://chrome.google.com/webstore/detail/stutter/fbapmaboedchhgjolcnpfgoanbfajchl) ![Chrome Web Store](https://img.shields.io/chrome-web-store/users/fbapmaboedchhgjolcnpfgoanbfajchl.svg) ![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/fbapmaboedchhgjolcnpfgoanbfajchl.svg)
 
 <a href="https://addons.mozilla.org/en-US/firefox/addon/stutter/"><img src="./icons/stutter.svg" width="100"></a>
 
