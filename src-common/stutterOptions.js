@@ -17,15 +17,9 @@ export default class StutterOptions extends EventEmitter {
   constructor () {
     super()
 
-    this._wpm = defaults.wpm
-    this._slowStartCount = defaults.slowStartCount
-    this._sentenceDelay = defaults.sentenceDelay
-    this._otherPuncDelay = defaults.otherPuncDelay
-    this._shortWordDelay = defaults.shortWordDelay
-    this._longWordDelay = defaults.longWordDelay
-    this._numericDelay = defaults.numericDelay
-    this._light = defaults.light
-    this._pos = defaults.pos
+    Object.keys(defaults).map(setting => {
+      this['_' + setting] = defaults[setting]
+    })
 
     this.checkSaved()
     browser.runtime.onMessage.addListener(message => { this.onMessage(message) })
@@ -34,7 +28,7 @@ export default class StutterOptions extends EventEmitter {
   static get UPDATE () { return 'STUTTER_OPTIONS_UPDATE' }
 
   checkSaved () {
-    browser.storage.local.get('stutterOptions').then(result => {
+    browser.storage.sync.get('stutterOptions').then(result => {
       if (result.stutterOptions) {
         this.settings = result.stutterOptions
       }
@@ -70,8 +64,12 @@ export default class StutterOptions extends EventEmitter {
     }
   }
 
+  reset () {
+    this.settings = defaults
+  }
+
   saveSettings () {
-    browser.storage.local.set({
+    browser.storage.sync.set({
       stutterOptions: this.settings
     })
   }
