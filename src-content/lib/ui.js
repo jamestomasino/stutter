@@ -9,6 +9,8 @@ export default class UI extends EventEmitter {
     super()
     this.template = `
     <div class="__stutter_text">
+      <span class="__stutter_pausebtn"></span>
+      <span class="__stutter_drag">&varr;</span>
       <span class="__stutter_pause"></span>
       <span class="__stutter_options">&#x2699;</span>
       <span class="__stutter_left"></span>
@@ -29,33 +31,28 @@ export default class UI extends EventEmitter {
     this.center = this.holder.getElementsByClassName('__stutter_center')[0]
     this.remainder = this.holder.getElementsByClassName('__stutter_remainder')[0]
     this.close = this.holder.getElementsByClassName('__stutter_close')[0]
+    this.drag = this.holder.getElementsByClassName('__stutter_drag')[0]
     this.options = this.holder.getElementsByClassName('__stutter_options')[0]
+    this.pausebtn = this.holder.getElementsByClassName('__stutter_pausebtn')[0]
+
+    // Bind DOM Events
+    this.onMouseMove = this.onMouseMove.bind(this)
+    this.onDragStart = this.onDragStart.bind(this)
+    this.onDragEnd = this.onDragEnd.bind(this)
+    this.onClose = this.onClose.bind(this)
+    this.onPauseToggle = this.onPauseToggle.bind(this)
+    this.onOptions = this.onOptions.bind(this)
+    this.onOptionsUpdate = this.onOptionsUpdate.bind(this)
 
     // Interaction Events
-    this.close.addEventListener('click', e => {
-      e.stopPropagation()
-      this.emit('close')
-    })
-    this.holder.addEventListener('click', () => {
-      this.emit('pauseToggle')
-    })
-    this.options.addEventListener('click', e => {
-      e.stopPropagation()
-      this.emit('pause')
-      browser.runtime.sendMessage({
-        'functiontoInvoke': 'openSettings'
-      })
-    })
+    this.close.addEventListener('click', this.close)
+    this.pausebtn.addEventListener('click', this.onPauseToggle)
+    this.drag.addEventListener('mousedown', this.onDragStart)
+    this.options.addEventListener('click', this.onOptions)
 
     // Handle dark mode vs light mode
     this.stutterOptions = new StutterOptions()
-    this.stutterOptions.addListener(StutterOptions.UPDATE, () => {
-      if (this.stutterOptions.light) {
-        this.holder.classList.add('light')
-      } else {
-        this.holder.classList.remove('light')
-      }
-    })
+    this.stutterOptions.addListener(StutterOptions.UPDATE, this.onOptionsUpdate)
   }
 
   static get INIT () {
@@ -64,6 +61,48 @@ export default class UI extends EventEmitter {
 
   set progress (val) {
     this.holder.dataset.progress = val
+  }
+
+  onDragStart (e) {
+    e.preventDefault()
+    e.stopPropagation()
+    document.addEventListener('mousemove', this.onMouseMove)
+    document.addEventListener('mouseup', this.onDragEnd)
+  }
+
+  onDragEnd (e) {
+    document.removeEventListener('mousemove', this.onMouseMove)
+    document.removeEventListener('mouseup', this.onDragEnd)
+  }
+
+  onMouseMove (e) {
+    let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+    this.pos = e.clientY / viewportHeight
+  }
+
+  onClose (e) {
+    e.stopPropagation()
+    this.emit('close')
+  }
+
+  onPauseToggle () {
+    this.emit('pauseToggle')
+  }
+
+  onOptions (e) {
+    e.stopPropagation()
+    this.emit('pause')
+    browser.runtime.sendMessage({
+      'functiontoInvoke': 'openSettings'
+    })
+  }
+
+  onOptionsUpdate () {
+    if (this.stutterOptions.light) {
+      this.holder.classList.add('light')
+    } else {
+      this.holder.classList.remove('light')
+    }
   }
 
   pause () {
@@ -92,5 +131,16 @@ export default class UI extends EventEmitter {
     if (!this.holder.parentNode) {
       document.body.insertBefore(this.holder, document.body.childNodes[0])
     }
+  }
+
+  get pos () {
+    let stutterTop = this.holder.getBoundingClientRect().top
+    let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+    return Math.min(0.8, Math.max(0, stutterTop / viewportHeight))
+  }
+
+  set pos (val) {
+    let newPos = Math.min(0.8, Math.max(0, val))
+    this.holder.style.top = (newPos * 100) + 'vh'
   }
 }
