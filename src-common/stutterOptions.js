@@ -125,11 +125,8 @@ export default class StutterOptions extends EventEmitter {
           return
         }
         break
-      default:
-        return
     }
-
-    if (this['_' + prop] !== val) {
+    if (this.hasOwnProperty('_' + prop) && this['_' + prop] !== val) {
       this['_' + prop] = val
       this.update()
     }
