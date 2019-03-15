@@ -4,27 +4,31 @@ import StutterOptions from '../../src-common/stutterOptions'
 
 var browser = require('webextension-polyfill')
 
+var template = `
+  <div class="__stutter_text">
+    <span class="__stutter_pausebtn"></span>
+    <span class="__stutter_drag">&varr;</span>
+    <span class="__stutter_pause"></span>
+    <span class="__stutter_options">&#x2699;</span>
+    <span class="__stutter_left"></span>
+    <span class="__stutter_right">
+      <span class="__stutter_center"></span><span class="__stutter_remainder"></span>
+    </span>
+    <span class="__stutter_close">&#x24e7;</span>
+  </div>`
+
 export default class UI extends EventEmitter {
   constructor () {
     super()
-    this.template = `
-    <div class="__stutter_text">
-      <span class="__stutter_pausebtn"></span>
-      <span class="__stutter_drag">&varr;</span>
-      <span class="__stutter_pause"></span>
-      <span class="__stutter_options">&#x2699;</span>
-      <span class="__stutter_left"></span>
-      <span class="__stutter_right">
-        <span class="__stutter_center"></span><span class="__stutter_remainder"></span>
-      </span>
-      <span class="__stutter_close">&#x24e7;</span>
-    </div>`
     this.holder = document.createElement('div')
     this.holder.classList.add('__stutter')
     this.holder.id = '__stutter'
-    this.holder.innerHTML = this.template
+    this.holder.innerHTML = template
     this.progress = 0
+    this.bindDOM()
+  }
 
+  bindDOM () {
     // UI Elements
     this.text = this.holder.getElementsByClassName('__stutter_text')[0]
     this.left = this.holder.getElementsByClassName('__stutter_left')[0]
@@ -70,7 +74,7 @@ export default class UI extends EventEmitter {
     document.addEventListener('mouseup', this.onDragEnd)
   }
 
-  onDragEnd (e) {
+  onDragEnd () {
     document.removeEventListener('mousemove', this.onMouseMove)
     document.removeEventListener('mouseup', this.onDragEnd)
   }
@@ -110,12 +114,10 @@ export default class UI extends EventEmitter {
   }
 
   pause () {
-    // display a pause overlay
     this.holder.classList.add('__stutter_paused')
   }
 
   resume () {
-    // hide pause overlay
     this.holder.classList.remove('__stutter_paused')
   }
 
