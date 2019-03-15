@@ -15,7 +15,7 @@ function drawSettings () {
   document.getElementById('shortWordDelay').value = options.getProp('shortWordDelay')
   document.getElementById('longWordDelay').value = options.getProp('longWordDelay')
   document.getElementById('numericDelay').value = options.getProp('numericDelay')
-  document.getElementById('lightMode').checked = options.getProp('light')
+  document.getElementById('theme').value = options.getProp('theme')
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -30,6 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     options.setProp('shortWordDelay', document.getElementById('shortWordDelay').value)
     options.setProp('longWordDelay', document.getElementById('longWordDelay').value)
     options.setProp('numericDelay', document.getElementById('numericDelay').value)
-    options.setProp('light', document.getElementById('lightMode').checked)
+    options.setProp('theme', document.getElementById('theme').value)
   })
 })
