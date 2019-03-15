@@ -43,8 +43,8 @@ export default class Stutter {
       if (this.isEnded) {
         return
       }
-      if (this.options.slowStartCount) {
-        this.slowStartCount = this.options.slowStartCount
+      if (this.options.getProp('slowStartCount')) {
+        this.slowStartCount = this.options.getProp('slowStartCount')
       }
       this.ui.reveal()
       this.ui.resume()
@@ -72,8 +72,8 @@ export default class Stutter {
       if (!this.isEnded) {
         this.pause()
       }
-      if (this.options.slowStartCount) {
-        this.slowStartCount = this.options.slowStartCount
+      if (this.options.getProp('slowStartCount')) {
+        this.slowStartCount = this.options.getProp('slowStartCount')
       }
       this.block.restart()
       this.currentWord = this.block.word
@@ -87,11 +87,11 @@ export default class Stutter {
     if (this.currentWord) {
       this.showWord()
       var time = this.options.delay
-      if (this.currentWord.hasPeriod) time *= this.options.sentenceDelay
-      if (this.currentWord.hasOtherPunc) time *= this.options.otherPuncDelay
-      if (this.currentWord.isShort) time *= this.options.shortWordDelay
-      if (this.currentWord.isLong) time *= this.options.longWordDelay
-      if (this.currentWord.isNumeric) time *= this.options.numericDelay
+      if (this.currentWord.hasPeriod) time *= this.options.getProp('sentenceDelay')
+      if (this.currentWord.hasOtherPunc) time *= this.options.getProp('otherPuncDelay')
+      if (this.currentWord.isShort) time *= this.options.getProp('shortWordDelay')
+      if (this.currentWord.isLong) time *= this.options.getProp('longWordDelay')
+      if (this.currentWord.isNumeric) time *= this.options.getProp('numericDelay')
       this.slowStartCount = (this.slowStartCount - 1) || 1
       time = time * this.slowStartCount
       this.timer = setTimeout(() => { this.next() }, time)

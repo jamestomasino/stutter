@@ -102,11 +102,11 @@ export default class UI extends EventEmitter {
   }
 
   onOptionsUpdate () {
-    if (this.stutterOptions.pos) {
-      this.holder.style.top = (this.stutterOptions.pos * 100) + 'vh'
+    if (this.stutterOptions.getProp('pos')) {
+      this.holder.style.top = (this.stutterOptions.getProp('pos') * 100) + 'vh'
     }
 
-    if (this.stutterOptions.light) {
+    if (this.stutterOptions.getProp('light')) {
       this.holder.classList.add('light')
     } else {
       this.holder.classList.remove('light')
@@ -146,6 +146,6 @@ export default class UI extends EventEmitter {
   }
 
   set pos (val) {
-    this.stutterOptions.pos = val
+    this.stutterOptions.setProp('pos', val)
   }
 }

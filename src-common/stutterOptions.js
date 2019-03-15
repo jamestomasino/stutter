@@ -101,85 +101,37 @@ export default class StutterOptions extends EventEmitter {
     if (invalidate) this.update()
   }
 
-  get wpm () { return this._wpm }
-  set wpm (val) {
-    val = this.numericContain(1, 1500, val)
-    if (this._wpm !== val) {
-      this._wpm = val
-      this.update()
-    }
+  getProp (prop) {
+    return this['_' + prop]
   }
 
-  get sentenceDelay () { return this._sentenceDelay }
-  set sentenceDelay (val) {
-    val = this.numericContain(1, 10, val)
-    if (this._sentenceDelay !== val) {
-      this._sentenceDelay = val
-      this.update()
+  setProp (prop, val) {
+    switch (prop) {
+      case 'wpm':
+        val = this.numericContain(1, 1500, val)
+        break
+      case 'sentenceDelay':
+      case 'otherPuncDelay':
+      case 'shortWordDelay':
+      case 'numericDelay':
+      case 'slowStartCount':
+        val = this.numericContain(1, 10, val)
+        break
+      case 'pos':
+        val = this.numericContain(0.02, 0.9, val)
+        break
+      case 'light':
+        if (val !== true && val !== false) {
+          return
+        }
+        break
+      default:
+        return
     }
-  }
 
-  get otherPuncDelay () { return this._otherPuncDelay }
-  set otherPuncDelay (val) {
-    val = this.numericContain(1, 10, val)
-    if (this._otherPuncDelay !== val) {
-      this._otherPuncDelay = val
+    if (this['_' + prop] !== val) {
+      this['_' + prop] = val
       this.update()
-    }
-  }
-
-  get shortWordDelay () { return this._shortWordDelay }
-  set shortWordDelay (val) {
-    val = this.numericContain(1, 10, val)
-    if (this._shortWordDelay !== val) {
-      this._shortWordDelay = val
-      this.update()
-    }
-  }
-
-  get longWordDelay () { return this._longWordDelay }
-  set longWordDelay (val) {
-    val = this.numericContain(1, 10, val)
-    if (this._longWordDelay !== val) {
-      this._longWordDelay = val
-      this.update()
-    }
-  }
-
-  get numericDelay () { return this._numericDelay }
-  set numericDelay (val) {
-    val = this.numericContain(1, 10, val)
-    if (this._numericDelay !== val) {
-      this._numericDelay = val
-      this.update()
-    }
-  }
-
-  get slowStartCount () { return this._slowStartCount }
-  set slowStartCount (val) {
-    val = this.numericContain(1, 10, val)
-    if (this._slowStartCount !== val) {
-      this._slowStartCount = val
-      this.update()
-    }
-  }
-
-  get pos () { return this._pos }
-  set pos (val) {
-    val = this.numericContain(0.02, 0.9, val)
-    if (this._pos !== val) {
-      this._pos = val
-      this.update()
-    }
-  }
-
-  get light () { return this._light }
-  set light (val) {
-    if (val === true || val === false) {
-      if (this._light !== val) {
-        this._light = val
-        this.update()
-      }
     }
   }
 
