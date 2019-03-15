@@ -140,11 +140,10 @@ export default class UI extends EventEmitter {
   get pos () {
     let stutterTop = this.holder.getBoundingClientRect().top
     let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-    return Math.min(0.8, Math.max(0, stutterTop / viewportHeight))
+    return stutterTop / viewportHeight
   }
 
   set pos (val) {
-    let newPos = Math.min(0.9, Math.max(0.1, val))
-    this.stutterOptions.pos = newPos
+    this.stutterOptions.pos = val
   }
 }
