@@ -14,6 +14,7 @@ export default class StutterOptions extends EventEmitter {
     this._longWordDelay = 1.4
     this._numericDelay = 1.8
     this._light = false
+    this._pos = 0.5
 
     this.checkSaved()
     browser.runtime.onMessage.addListener(message => { this.onMessage(message) })
@@ -73,6 +74,7 @@ export default class StutterOptions extends EventEmitter {
       shortWordDelay: this._shortWordDelay,
       longWordDelay: this._longWordDelay,
       numericDelay: this._numericDelay,
+      pos: this._pos,
       light: this._light
     }
   }
@@ -111,6 +113,11 @@ export default class StutterOptions extends EventEmitter {
 
     if (val['numericDelay'] && this._numericDelay !== val['numericDelay']) {
       this._numericDelay = val['numericDelay']
+      invalidate = true
+    }
+
+    if (val['pos'] && this._pos !== val['pos']) {
+      this._pos = val['pos']
       invalidate = true
     }
 
@@ -202,6 +209,18 @@ export default class StutterOptions extends EventEmitter {
     val = Math.min(10, val)
     if (this._slowStartCount !== val) {
       this._slowStartCount = val
+      this.update()
+    }
+  }
+
+  get pos () { return this._pos }
+  set pos (val) {
+    val = Number(val)
+    if (isNaN(val)) return
+    val = Math.max(0.02, val)
+    val = Math.min(0.9, val)
+    if (this._pos !== val) {
+      this._pos = val
       this.update()
     }
   }
