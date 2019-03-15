@@ -1,8 +1,8 @@
-# stutter ![status](https://travis-ci.com/jamestomasino/stutter.svg?branch=master) ![license](https://img.shields.io/badge/license-GPL3-blue.svg?style=flat-square) [![Maintainability](https://api.codeclimate.com/v1/badges/a4d5b54b3cf91c6a2b3e/maintainability)](https://codeclimate.com/github/jamestomasino/stutter/maintainability)
+# stutter ![status](https://travis-ci.com/jamestomasino/stutter.svg?branch=master) ![GitHub](https://img.shields.io/github/license/jamestomasino/stutter.svg) [![Maintainability](https://api.codeclimate.com/v1/badges/a4d5b54b3cf91c6a2b3e/maintainability)](https://codeclimate.com/github/jamestomasino/stutter/maintainability)
 
-![Mozilla Add-on](https://img.shields.io/amo/users/stutter.svg?label=Firefox%20Users) ![Mozilla Add-on](https://img.shields.io/amo/stars/stutter.svg)
+![Mozilla Add-on](https://img.shields.io/amo/users/stutter.svg?label=Firefox%20Users) ![Mozilla Add-on](https://img.shields.io/amo/stars/stutter.svg) [Get the Extension!](https://addons.mozilla.org/en-US/firefox/addon/stutter/)
 
-![Chrome Web Store](https://img.shields.io/chrome-web-store/users/fbapmaboedchhgjolcnpfgoanbfajchl.svg?label=Chrome%20Users) ![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/fbapmaboedchhgjolcnpfgoanbfajchl.svg)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/users/fbapmaboedchhgjolcnpfgoanbfajchl.svg?label=Chrome%20Users) ![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/fbapmaboedchhgjolcnpfgoanbfajchl.svg) [Get the Extension!](https://chrome.google.com/webstore/detail/stutter/fbapmaboedchhgjolcnpfgoanbfajchl)
 
 <a href="https://addons.mozilla.org/en-US/firefox/addon/stutter/"><img src="./icons/stutter.svg" width="100"></a>
 
@@ -13,9 +13,6 @@
 2. A [Rapid Serial Visual Presentation](https://en.wikipedia.org/wiki/Rapid_serial_visual_presentation) (RSVP) extension for modern web browsers. It is based upon my initial work in a Google Chrome extension, [read](https://github.com/jamestomasino/read_plugin). This is an attempt to modernize the code and offer cross-browser support.
 
 [![stutter demonstration](https://i.imgur.com/hGocwaV.png)](https://www.youtube.com/watch?v=UJwFdPYbRRg)
-
-- [Get the FF Extension!](https://addons.mozilla.org/en-US/firefox/addon/stutter/)
-- [Get the Chrome Extension!](https://chrome.google.com/webstore/detail/stutter/fbapmaboedchhgjolcnpfgoanbfajchl)
 
 ## Source Install and Testing
 
