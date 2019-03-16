@@ -16,6 +16,8 @@
     --progressColor: #ccc;
     --textColor: #333;
     --textHighlight: #f36;
+    --buttonColor: #666;
+    --pausedTextColor: rgba(255, 255, 255, 0.5);
   }
 
   &.theme-skeletor {
@@ -24,6 +26,8 @@
     --progressColor: #0c0d0f;
     --textColor: #7a45c0;
     --textHighlight: #efc119;
+    --buttonColor: #666;
+    --pausedTextColor: rgba(255, 255, 255, 0.5);
   }
 
   background: var(--barBG);
