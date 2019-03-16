@@ -24,6 +24,14 @@
     --textHighlight: #efc119;
   }
 
+  &.theme-terminal {
+    --barBG: #000000;
+    --barBorder: #31C95A;
+    --progressColor: #001100;
+    --textColor: #31C95A;
+    --textHighlight: #FF00FF;
+  }
+
   background: var(--barBG);
   border-radius: 15px;
   border: 2px solid var(--barBorder);
