@@ -40,23 +40,6 @@ To package the extension for production:
 
     $ yarn package
 
-## TODO
-
-- [x] Verify ES6 support for web extensions (with babel)
-- [x] Client-side full-page parsing for readable content (like old Readability API)
-- [x] Create selection context-menu as trigger
-- [x] Pass selection data to RSVP processor
-- [x] Create data structures for calculation of display sequence
-- [x] Create on-screen display for RSVP
-- [x] Options for speed personalization
-- [x] Saving of personalization settings
-- [x] Progress display
-- [x] Chrome plugin support
-- [x] Light theme with toggle in settings
-- [x] Syncing of personalization settings through browser sync
-- [ ] Mobile support in Firefox Android
-- [ ] Seek-bar / rewind
-
 ## Permissions
 
 This extension uses several permissions allowed by the web extensions API.
