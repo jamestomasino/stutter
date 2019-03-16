@@ -2,9 +2,29 @@
  * to ensure they have priority over page styles.
  */
 #__stutter {
-  background: black;
+  --barBG: #000;
+  --barBorder: #333;
+  --progressColor: #222;
+  --textColor: #fff;
+  --textHighlight: #f36;
+  &.theme-light {
+    --barBG: #fff;
+    --barBorder: #888;
+    --progressColor: #ccc;
+    --textColor: #333;
+    --textHighlight: #f36;
+  }
+  &.theme-skeletor {
+    --barBG: #79CFF0;
+    --barBorder: #A177D6;
+    --progressColor: #0C0D0F;
+    --textColor: #7A45C0;
+    --textHighlight: #EFC119;
+  }
+
+  background: var(--barBG);
   border-radius: 15px;
-  border: 2px solid #333;
+  border: 2px solid var(--barBorder);
   display: block;
   height: 50px;
   line-height: 1em !important;
@@ -18,7 +38,7 @@
 
   @for $i from 0 through 100 {
     &[data-progress='#{$i}'] {
-      background: linear-gradient(to right, #000 0%, #000 #{$i+'%'}, #222 #{$i+'%'}, #222 100%);
+      background: linear-gradient(to right, var(--barBG) 0%, var(--barBG) #{$i+'%'}, var(--progressColor) #{$i+'%'}, var(--progressColor) 100%);
     }
   }
 
@@ -41,7 +61,7 @@
     }
 
     .__stutter_left {
-      color: white !important;
+      color: var(--textColor) !important;
       display: block;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
       font-size: 30px !important;
@@ -53,7 +73,7 @@
     }
 
     .__stutter_right {
-      color: white !important;
+      color: var(--textColor) !important;
       display: block;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
       font-size: 30px !important;
@@ -64,7 +84,7 @@
       text-align: left;
 
       .__stutter_center {
-        color: #f36 !important;
+        color: var(--textHighlight) !important;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
         font-size: 30px !important;
         line-height: 1em !important;
@@ -72,7 +92,7 @@
       }
 
       .__stutter_remainder {
-        color: white !important;
+        color: var(--textColor) !important;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
         font-size: 30px !important;
         line-height: 1em !important;
@@ -129,7 +149,7 @@
     display: none;
     position: absolute;
     box-sizing: border-box;
-    border-color: transparent transparent transparent #f36;
+    border-color: transparent transparent transparent var(--textHighlight);
     cursor: pointer;
     pointer-events: none;
     border-style: double;
@@ -154,38 +174,6 @@
     }
   }
 
-  &.theme-light {
-    background: #fff;
-    border: 2px solid #888;
-
-    @for $i from 0 through 100 {
-      &[data-progress='#{$i}'] {
-        background: linear-gradient(to right, #ccc 0%, #ccc #{$i+'%'}, #fff #{$i+'%'}, #fff 100%);
-      }
-    }
-
-    .__stutter_text {
-      .__stutter_left,
-      .__stutter_right {
-        color: #333 !important;
-
-        .__stutter_remainder {
-          color: #333 !important;
-        }
-      }
-    }
-
-    &.__stutter_paused {
-      .__stutter_text {
-        .__stutter_left,
-        .__stutter_center,
-        .__stutter_remainder {
-          color: transparent !important;
-          text-shadow: 0 0 5px rgba(50, 50, 50, 0.5);
-        }
-      }
-    }
-  }
 }
 
 @media screen and (min-width: 700px) {
