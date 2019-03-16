@@ -8,6 +8,7 @@
   --textColor: #fff;
   --textHighlight: #f36;
   --buttonColor: #666;
+  --pausedTextColor: rgba(255, 255, 255, 0.5);
 
   &.theme-light {
     --barBG: #fff;
@@ -172,7 +173,7 @@
       .__stutter_center,
       .__stutter_remainder {
         color: transparent !important;
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        text-shadow: 0 0 5px var(--pausedTextColor);
       }
     }
   }
