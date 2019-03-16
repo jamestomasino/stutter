@@ -92,9 +92,9 @@ discuss what you would like to change.
 
 The easiest addition to stutter is the creation of new themes. Adding a new theme requires only three additions to the code-base:
 
-1. Add a new scss file in `src-content/themes/` that begins with an underscore and is named for your theme, such as `src-content/themes/_skeletor.scss`. Copy the `_default.scss` file as a starting point and change the colors to your heart's desire. The first line of your scss file should be formatted like so:
+1. Add a new scss file in `src-content/themes/` that begins with an underscore and is named for your theme, such as `src-content/themes/_skeletor.scss`. Copy the `_default.scss` file as a starting point and change the colors to your heart's desire. The first line of your scss file should be formatted like so (see other themes as examples):
 
-    #__stutter.theme-<your-theme-name> {
+    #__stutter.theme-yourtheme {
 
 2. Add a your theme to the themes list by appending `@import "yourtheme"` to `src-content/themes/_themes.scss`.
 
