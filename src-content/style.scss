@@ -7,6 +7,7 @@
   --progressColor: #222;
   --textColor: #fff;
   --textHighlight: #f36;
+
   &.theme-light {
     --barBG: #fff;
     --barBorder: #888;
@@ -14,12 +15,13 @@
     --textColor: #333;
     --textHighlight: #f36;
   }
+
   &.theme-skeletor {
-    --barBG: #79CFF0;
-    --barBorder: #A177D6;
-    --progressColor: #0C0D0F;
-    --textColor: #7A45C0;
-    --textHighlight: #EFC119;
+    --barBG: #79cff0;
+    --barBorder: #a177d6;
+    --progressColor: #0c0d0f;
+    --textColor: #7a45c0;
+    --textHighlight: #efc119;
   }
 
   background: var(--barBG);
