@@ -7,6 +7,7 @@
   --progressColor: #222;
   --textColor: #fff;
   --textHighlight: #f36;
+  --buttonColor: #666;
 
   &.theme-light {
     --barBG: #fff;
@@ -103,7 +104,7 @@
     }
 
     .__stutter_options {
-      color: #666 !important;
+      color: var(--buttonColor) !important;
       cursor: pointer;
       display: block;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
@@ -116,7 +117,7 @@
     }
 
     .__stutter_drag {
-      color: #666 !important;
+      color: var(--buttonColor) !important;
       cursor: pointer;
       display: block;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
@@ -130,11 +131,11 @@
       cursor: pointer;
       width: 25px;
       height: 25px;
-      background-color: #333;
+      background-color: var(--barBG);
     }
 
     .__stutter_close {
-      color: #666 !important;
+      color: var(--buttonColor) !important;
       cursor: pointer;
       display: block;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
