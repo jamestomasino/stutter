@@ -83,8 +83,22 @@ Full page content is analyzed and isolated by means of the [Mozilla Readability 
 
 ## Contributing
 
+### General Guidelines
+
 Pull requests are welcome. For major changes, please open an issue first to
 discuss what you would like to change.
+
+### Themes
+
+The easiest addition to stutter is the creation of new themes. Adding a new theme requires only three additions to the code-base:
+
+1. Add a new scss file in `src-content/themes/` that begins with an underscore and is named for your theme, such as `src-content/themes/_skeletor.scss`. Copy the `_default.scss` file as a starting point and change the colors to your heart's desire.
+
+2. Add a your theme to the themes list by appending `@import "yourtheme"` to `src-content/themes/_themes.scss`.
+
+3. Add your theme's name to the select box in the options page located at `src-options/index.html`
+
+That's it! Pick a descriptive name and send a pull request!
 
 ## License
 
