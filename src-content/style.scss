@@ -31,11 +31,13 @@
   }
 
   &.theme-terminal {
-    --barBG: #000000;
-    --barBorder: #31C95A;
-    --progressColor: #001100;
-    --textColor: #31C95A;
-    --textHighlight: #FF00FF;
+    --barBG: #000;
+    --barBorder: #31c95a;
+    --progressColor: #010;
+    --textColor: #31c95a;
+    --textHighlight: #f0f;
+    --buttonColor: #666;
+    --pausedTextColor: rgba(255, 255, 255, 0.2);
   }
 
   background: var(--barBG);
