@@ -1,45 +1,6 @@
-/* Styles here are explicitly as targeted as possible
- * to ensure they have priority over page styles.
- */
+@import "themes/themes";
+
 #__stutter {
-  --barBG: #000;
-  --barBorder: #333;
-  --progressColor: #222;
-  --textColor: #fff;
-  --textHighlight: #f36;
-  --buttonColor: #666;
-  --pausedTextColor: rgba(255, 255, 255, 0.5);
-
-  &.theme-light {
-    --barBG: #fff;
-    --barBorder: #888;
-    --progressColor: #ccc;
-    --textColor: #333;
-    --textHighlight: #f36;
-    --buttonColor: #666;
-    --pausedTextColor: rgba(255, 255, 255, 0.5);
-  }
-
-  &.theme-skeletor {
-    --barBG: #79cff0;
-    --barBorder: #a177d6;
-    --progressColor: #0c0d0f;
-    --textColor: #7a45c0;
-    --textHighlight: #efc119;
-    --buttonColor: #666;
-    --pausedTextColor: rgba(255, 255, 255, 0.5);
-  }
-
-  &.theme-terminal {
-    --barBG: #000;
-    --barBorder: #31c95a;
-    --progressColor: #010;
-    --textColor: #31c95a;
-    --textHighlight: #f0f;
-    --buttonColor: #666;
-    --pausedTextColor: rgba(255, 255, 255, 0.2);
-  }
-
   background: var(--barBG);
   border-radius: 15px;
   border: 2px solid var(--barBorder);
