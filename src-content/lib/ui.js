@@ -54,7 +54,6 @@ export default class UI extends EventEmitter {
     this.drag.addEventListener('mousedown', this.onDragStart)
     this.options.addEventListener('click', this.onOptions)
 
-    // Handle dark mode vs light mode
     this.stutterOptions = new StutterOptions()
     this.stutterOptions.addListener(StutterOptions.UPDATE, this.onOptionsUpdate)
   }
@@ -102,15 +101,19 @@ export default class UI extends EventEmitter {
   }
 
   onOptionsUpdate () {
-    if (this.stutterOptions.pos) {
-      this.holder.style.top = (this.stutterOptions.pos * 100) + 'vh'
+    if (this.stutterOptions.getProp('pos')) {
+      this.holder.style.top = (this.stutterOptions.getProp('pos') * 100) + 'vh'
     }
 
-    if (this.stutterOptions.light) {
-      this.holder.classList.add('light')
-    } else {
-      this.holder.classList.remove('light')
-    }
+    let theme = this.stutterOptions.getProp('theme')
+    Array.from(this.holder.classList).map(themeClass => {
+      if (/^theme-/.test(themeClass)) {
+        if (theme !== 'theme-' + theme) {
+          this.holder.classList.remove(themeClass)
+        }
+      }
+    })
+    this.holder.classList.add('theme-' + theme)
   }
 
   pause () {
@@ -146,6 +149,6 @@ export default class UI extends EventEmitter {
   }
 
   set pos (val) {
-    this.stutterOptions.pos = val
+    this.stutterOptions.setProp('pos', val)
   }
 }

@@ -14,8 +14,13 @@
       </label>
 
       <label>
-        <span>Use Light Mode?</span>
-        <input id="lightMode" type="checkbox" value="true" name="lightMode">
+        <span>Theme</span>
+        <select id="theme">
+          <option value="default" selected>Default</option>
+          <option value="light">Light</option>
+          <option value="skeletor">Skeletor</option>
+          <option value="terminal">Terminal</option>
+        </select>
       </label>
 
       <p>When beginning to Stutter, the <strong>Slow Start Count</strong> will ease you in by slowly ramping up to full speed over this many words.</p>
@@ -47,6 +52,7 @@
       </label>
 
       <button class="submit" type="submit">Save</button>
+      <button id="reset" class="reset" type="button">Reset to Defaults</button>
     </form>
   </body>
 </html>
