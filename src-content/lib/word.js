@@ -1,4 +1,4 @@
-const textRegex = /[^\s,.?:;"'`><+=&*()_-]/g
+const textRegex = /[^\\/s,.…?!¡‽:;‘’“”'’`><+=@&#~*^()[\]{}<>«»·•¤¢$€£¥₩₪†‡°]/g
 const numRegex = /\d/g
 
 export default class Word {
