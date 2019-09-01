@@ -13,6 +13,7 @@
   top: calc(50vh - 25px);
   left: 0;
   width: calc(100% - 35px);
+  max-width: calc(100vw - 35px);
   z-index: 999999999;
 
   @for $i from 0 through 100 {
