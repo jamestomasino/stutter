@@ -52,6 +52,7 @@ export default class UI extends EventEmitter {
     this.close.addEventListener('click', this.onClose)
     this.pausebtn.addEventListener('click', this.onPauseToggle)
     this.drag.addEventListener('mousedown', this.onDragStart)
+    this.drag.addEventListener('ontouchstart', this.onDragStart)
     this.options.addEventListener('click', this.onOptions)
 
     this.stutterOptions = new StutterOptions()
@@ -71,11 +72,21 @@ export default class UI extends EventEmitter {
     e.stopPropagation()
     document.addEventListener('mousemove', this.onMouseMove)
     document.addEventListener('mouseup', this.onDragEnd)
+    document.addEventListener('touchmove', this.onTouchMove)
+    document.addEventListener('touchend', this.onDragEnd)
   }
 
   onDragEnd () {
     document.removeEventListener('mousemove', this.onMouseMove)
     document.removeEventListener('mouseup', this.onDragEnd)
+    document.removeEventListener('touchmove', this.onTouchMove)
+    document.removeEventListener('touchend', this.onDragEnd)
+  }
+
+  onTouchMove (e) {
+    e.preventDefault()
+    let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+    this.pos = e.touches[0].clientY / viewportHeight
   }
 
   onMouseMove (e) {
