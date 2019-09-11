@@ -19,13 +19,6 @@ function onContextClick (info) {
   })
 }
 
-// Context menu "Stutter Selection" option
-browser.contextMenus.create({
-  'title': 'Stutter Selection',
-  'contexts': ['selection'],
-  'onclick': onContextClick
-})
-
 function onIconClick () {
   let q = browser.tabs.query({
     'active': true,
@@ -56,3 +49,12 @@ function onMessage (request) {
 // Handle clicking on the browser icon
 browser.browserAction.onClicked.addListener(onIconClick)
 browser.runtime.onMessage.addListener(onMessage)
+
+if (browser.contextMenus) {
+  // Context menu "Stutter Selection" option
+  browser.contextMenus.create({
+    'title': 'Stutter Selection',
+    'contexts': ['selection'],
+    'onclick': onContextClick
+  })
+}
