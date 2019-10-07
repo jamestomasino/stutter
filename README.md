@@ -64,6 +64,10 @@ Full page content is analyzed and isolated by means of the [Mozilla Readability 
 
 [babel-polyfill](https://babeljs.io/docs/en/babel-polyfill) is used during runtime to emulate a full ES2015+ where a browser may be insufficient.
 
+## Getting Help
+
+You can leave feedback using GitHub issues. If you would like to discuss problems or features with me directly, you can visit the [#stutter IRC channel on Freenode](https://kiwiirc.com/nextclient/#irc://irc.freenode.net/#stutter).
+
 ## Contributing
 
 ### General Guidelines
