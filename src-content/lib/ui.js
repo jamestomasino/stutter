@@ -26,6 +26,7 @@ export default class UI extends EventEmitter {
     this.holder.innerHTML = template
     this.progress = 0
     this.bindDOM()
+    this.bindKeys()
   }
 
   bindDOM () {
@@ -47,6 +48,7 @@ export default class UI extends EventEmitter {
     this.onPauseToggle = this.onPauseToggle.bind(this)
     this.onOptions = this.onOptions.bind(this)
     this.onOptionsUpdate = this.onOptionsUpdate.bind(this)
+    this.onKeypress = this.onKeypress.bind(this)
 
     // Interaction Events
     this.close.addEventListener('click', this.onClose)
@@ -57,6 +59,65 @@ export default class UI extends EventEmitter {
 
     this.stutterOptions = new StutterOptions()
     this.stutterOptions.addListener(StutterOptions.UPDATE, this.onOptionsUpdate)
+  }
+
+  bindKeys () {
+    document.addEventListener('keydown', this.onKeypress, true)
+  }
+
+  onKeypress (event) {
+    if (event.defaultPrevented) {
+      return
+    }
+
+    // Ignore if special key besides Alt is held
+    if (event.getModifierState('Fn') ||
+      event.getModifierState('Hyper') ||
+      event.getModifierState('OS') ||
+      event.getModifierState('Super') ||
+      event.getModifierState('Control') ||
+      event.getModifierState('Shift') ||
+      event.getModifierState('Meta') ||
+      event.getModifierState('Win')) {
+      return
+    }
+
+    var alt = event.getModifierState('Alt')
+
+    switch (event.key) {
+      case 'ArrowDown':
+        if (alt) {
+          let wpm = this.stutterOptions.getProp('wpm')
+          this.stutterOptions.setProp('wpm', wpm - 100)
+        }
+        break
+      case 'ArrowUp':
+        if (alt) {
+          let wpm = this.stutterOptions.getProp('wpm')
+          this.stutterOptions.setProp('wpm', wpm + 100)
+        }
+        break
+      case 'ArrowLeft':
+        if (alt) {
+          this.emit('skipPrevious')
+        }
+        break
+      case 'ArrowRight':
+        if (alt) {
+          this.emit('skipForward')
+        }
+        break
+      case 'Enter':
+        this.onPauseToggle()
+        break
+      case 'Escape':
+        this.emit('close')
+        break
+      default:
+        return
+    }
+
+    event.preventDefault()
   }
 
   static get INIT () {

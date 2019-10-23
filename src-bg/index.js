@@ -47,11 +47,17 @@ function onMessage (request) {
 }
 
 // Handle clicking on the browser icon
-browser.browserAction.onClicked.addListener(onIconClick)
-browser.runtime.onMessage.addListener(onMessage)
+if (browser.browserAction) {
+  browser.browserAction.onClicked.addListener(onIconClick)
+}
 
+// Handle messages from UI
+if (browser.runtime) {
+  browser.runtime.onMessage.addListener(onMessage)
+}
+
+// Context menu "Stutter Selection" option
 if (browser.contextMenus) {
-  // Context menu "Stutter Selection" option
   browser.contextMenus.create({
     'title': 'Stutter Selection',
     'contexts': ['selection'],

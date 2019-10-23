@@ -13,19 +13,28 @@ let defaults = {
   'pos': 0.5
 }
 
+let instance = null
+
 export default class StutterOptions extends EventEmitter {
   constructor () {
     super()
 
-    Object.keys(defaults).map(setting => {
-      this['_' + setting] = defaults[setting]
-    })
+    if (instance) {
+      return instance
+    } else {
+      instance = this
 
-    this.checkSaved()
-    browser.runtime.onMessage.addListener(message => { this.onMessage(message) })
+      Object.keys(defaults).map(setting => {
+        this['_' + setting] = defaults[setting]
+      })
+
+      this.checkSaved()
+      browser.runtime.onMessage.addListener(message => { this.onMessage(message) })
+    }
   }
 
   static get UPDATE () { return 'STUTTER_OPTIONS_UPDATE' }
+  static get CHECK_SAVED () { return 'STUTTER_OPTIONS_CHECKSAVED' }
 
   checkSaved () {
     browser.storage.sync.get('stutterOptions').then(result => {
@@ -42,6 +51,7 @@ export default class StutterOptions extends EventEmitter {
         })
       }
     })
+    this.emit(StutterOptions.CHECK_SAVED)
   }
 
   onMessage (request) {
@@ -109,7 +119,7 @@ export default class StutterOptions extends EventEmitter {
   setProp (prop, val) {
     switch (prop) {
       case 'wpm':
-        val = this.numericContain(1, 1500, val)
+        val = this.numericContain(100, 1800, val)
         break
       case 'sentenceDelay':
       case 'otherPuncDelay':

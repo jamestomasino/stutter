@@ -14,9 +14,16 @@ export default class Stutter {
     this.ui.addListener('pauseToggle', () => {
       this.playPauseToggle()
     })
+    this.ui.addListener('skipForward', () => {
+      this.skipForward(10)
+    })
+    this.ui.addListener('skipPrevious', () => {
+      this.skipPrevious(10)
+    })
     this.ui.addListener('pause', () => {
       this.pause()
     })
+
     this.options = new StutterOptions()
     this.timer = null
   }
@@ -50,6 +57,18 @@ export default class Stutter {
       this.ui.resume()
       this.display()
       this.isPlaying = true
+    }
+  }
+
+  skipForward (n) {
+    for (let i = 0; i < n; i++) {
+      this.block.next()
+    }
+  }
+
+  skipPrevious (n) {
+    for (let i = 0; i < n; i++) {
+      this.block.prev()
     }
   }
 
