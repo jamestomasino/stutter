@@ -89,6 +89,33 @@ The easiest addition to stutter is the creation of new themes. Adding a new them
 
 That's it! Pick a descriptive name and send a pull request!
 
+### Locale Support
+
+Stutter uses a number of strategies to logically break up long words into smaller pieces for easy reading. Part of this strategy is identifying common prefixes and suffixes in the language to find good places to break the word. If you would like to submit support for a new language you can edit the `src-content/lib/parts.js` file. At the top is a JSON object that can be edited to add language specific rules.
+
+For reference, these are the rules for English:
+
+```json
+{
+  en: {
+    vowels: 'aeiouyAEIOUY' +
+    'ẚÁáÀàĂăẮắẰằẴẵẲẳÂâẤấẦầẪẫẨẩǍǎÅåǺǻÄäǞǟÃãȦȧǠǡĄąĀāẢảȀȁȂȃẠạẶặẬậḀḁȺⱥ' +
+    'ǼǽǢǣÉƏƎǝéÈèĔĕÊêẾếỀềỄễỂểĚěËëẼẽĖėȨȩḜḝĘęĒēḖḗḔḕẺẻȄȅȆȇẸẹỆệḘḙḚḛɆɇɚɝÍíÌìĬĭÎîǏǐÏ' +
+    'ïḮḯĨĩİiĮįĪīỈỉȈȉȊȋỊịḬḭIıƗɨÓóÒòŎŏÔôỐốỒồỖỗỔổǑǒÖöȪȫŐőÕõṌṍṎṏȬȭȮȯȰȱØøǾǿǪǫǬǭŌōṒṓ' +
+    'ṐṑỎỏȌȍȎȏƠơỚớỜờỠỡỞởỢợỌọỘộƟɵÚúÙùŬŭÛûǓǔŮůÜüǗǘǛǜǙǚǕǖŰűŨũṸṹŲųŪūṺṻỦủȔȕȖȗƯưỨứỪừ' +
+    'ỮữỬửỰựỤụṲṳṶṷṴṵɄʉÝýỲỳŶŷY̊ẙŸÿỸỹẎẏȲȳỶỷỴỵʏɎɏƳƴ',
+    hyphens: '[-—‒–—―]+',
+    wordRegex: '([^\\s/]+|[\r\n]+)',
+    puncSplit: '(.+?)(\\.[^\\w]\b|,[^\\w]\b)(.+?)',
+    presuf: '^(\\W*)(anti|auto|ab|an|ax|al|as|bi|bet|be|contra|cat|cath|cir|cum|cog|col|com|con|cor|could|co|desk|de|dis|did|dif|di|eas|every|ever|extra|ex|end|en|em|epi|evi|func|fund|fin|hyst|hy|han|il|in|im|ir|just|jus|loc|lig|lit|li|mech|manu|man|mal|mis|mid|mono|multi|mem|micro|non|nano|ob|oc|of|opt|op|over|para|per|post|pre|peo|pro|retro|rea|re|rhy|should|some|semi|sen|sol|sub|suc|suf|super|sup|sur|sus|syn|sym|syl|tech|trans|tri|typo|type|uni|un|van|vert|with|would|won)?(.*?)(weens?|widths?|icals?|ables?|ings?|tions?|ions?|ies|isms?|ists?|ful|ness|ments?|ly|ify|ize|ise|ity|en|ers?|ences?|tures?|ples?|als?|phy|puts?|phies|ry|ries|cy|cies|mums?|ous|cents?)?(\\W*)$'
+  },
+}
+```
+
+In many cases, only the `presuf` string will need be edited with the prefixes and suffixes of the new language. This string will be interpretted as a regular expression. The string should begin with `^(\\W*)(` followed by the pipe separated list of prefixes & suffixes (sort these with the largest parts first for better matching) and finally close with `)?(\\W*)$`.
+
+The font in use for the site is Arial, which should have good support for displaying most languages. There is currently no support for RTL languages.
+
 ## License
 
 [GPL3](LICENSE)
