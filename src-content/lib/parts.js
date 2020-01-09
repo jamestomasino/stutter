@@ -1,25 +1,11 @@
 // Eventually we can migrate this to JSON once we make this whole bit async
 const locales = {
   en: {
-    vowels: 'aeiouyAEIOUY' +
-    'ẚÁáÀàĂăẮắẰằẴẵẲẳÂâẤấẦầẪẫẨẩǍǎÅåǺǻÄäǞǟÃãȦȧǠǡĄąĀāẢảȀȁȂȃẠạẶặẬậḀḁȺⱥ' +
-    'ǼǽǢǣÉƏƎǝéÈèĔĕÊêẾếỀềỄễỂểĚěËëẼẽĖėȨȩḜḝĘęĒēḖḗḔḕẺẻȄȅȆȇẸẹỆệḘḙḚḛɆɇɚɝÍíÌìĬĭÎîǏǐÏ' +
-    'ïḮḯĨĩİiĮįĪīỈỉȈȉȊȋỊịḬḭIıƗɨÓóÒòŎŏÔôỐốỒồỖỗỔổǑǒÖöȪȫŐőÕõṌṍṎṏȬȭȮȯȰȱØøǾǿǪǫǬǭŌōṒṓ' +
-    'ṐṑỎỏȌȍȎȏƠơỚớỜờỠỡỞởỢợỌọỘộƟɵÚúÙùŬŭÛûǓǔŮůÜüǗǘǛǜǙǚǕǖŰűŨũṸṹŲųŪūṺṻỦủȔȕȖȗƯưỨứỪừ' +
-    'ỮữỬửỰựỤụṲṳṶṷṴṵɄʉÝýỲỳŶŷY̊ẙŸÿỸỹẎẏȲȳỶỷỴỵʏɎɏƳƴ',
-    hyphens: '[-—‒–—―]+',
     wordRegex: '([^\\s/]+|[\r\n]+)',
     puncSplit: '(.+?)(\\.[^\\w]\b|,[^\\w]\b)(.+?)',
     presuf: '^(\\W*)(anti|auto|ab|an|ax|al|as|bi|bet|be|contra|cat|cath|cir|cum|cog|col|com|con|cor|could|co|desk|de|dis|did|dif|di|eas|every|ever|extra|ex|end|en|em|epi|evi|func|fund|fin|hyst|hy|han|il|in|im|ir|just|jus|loc|lig|lit|li|mech|manu|man|mal|mis|mid|mono|multi|mem|micro|non|nano|ob|oc|of|opt|op|over|para|per|post|pre|peo|pro|retro|rea|re|rhy|should|some|semi|sen|sol|sub|suc|suf|super|sup|sur|sus|syn|sym|syl|tech|trans|tri|typo|type|uni|un|van|vert|with|would|won)?(.*?)(weens?|widths?|icals?|ables?|ings?|tions?|ions?|ies|isms?|ists?|ful|ness|ments?|ly|ify|ize|ise|ity|en|ers?|ences?|tures?|ples?|als?|phy|puts?|phies|ry|ries|cy|cies|mums?|ous|cents?)?(\\W*)$'
   },
   es: {
-    vowels: 'aeiouyAEIOUY' +
-    'ẚÁáÀàĂăẮắẰằẴẵẲẳÂâẤấẦầẪẫẨẩǍǎÅåǺǻÄäǞǟÃãȦȧǠǡĄąĀāẢảȀȁȂȃẠạẶặẬậḀḁȺⱥ' +
-    'ǼǽǢǣÉƏƎǝéÈèĔĕÊêẾếỀềỄễỂểĚěËëẼẽĖėȨȩḜḝĘęĒēḖḗḔḕẺẻȄȅȆȇẸẹỆệḘḙḚḛɆɇɚɝÍíÌìĬĭÎîǏǐÏ' +
-    'ïḮḯĨĩİiĮįĪīỈỉȈȉȊȋỊịḬḭIıƗɨÓóÒòŎŏÔôỐốỒồỖỗỔổǑǒÖöȪȫŐőÕõṌṍṎṏȬȭȮȯȰȱØøǾǿǪǫǬǭŌōṒṓ' +
-    'ṐṑỎỏȌȍȎȏƠơỚớỜờỠỡỞởỢợỌọỘộƟɵÚúÙùŬŭÛûǓǔŮůÜüǗǘǛǜǙǚǕǖŰűŨũṸṹŲųŪūṺṻỦủȔȕȖȗƯưỨứỪừ' +
-    'ỮữỬửỰựỤụṲṳṶṷṴṵɄʉÝýỲỳŶŷY̊ẙŸÿỸỹẎẏȲȳỶỷỴỵʏɎɏƳƴ',
-    hyphens: '[-—‒–—―]+',
     wordRegex: '([^\\s/]+|[\r\n]+)',
     puncSplit: '(.+?)(\\.[^\\w]\b|,[^\\w]\b)(.+?)',
     presuf: '^(\\W*)(génesis|contra|eñoeña|izoiza|osoosa|achon|entre|extra|fobia|hiper|inter|mente|super|able|ante|anti|ario|ción|dera|dero|hipo|post|aco|ado|bis|con|des|pos|pre|sub|an|bi|co|de|en|ex|in|or|re)?(\\W*)$'
@@ -44,9 +30,9 @@ export default class Parts {
   constructor (locale) {
     this._presuf = new RegExp(getLocaleProp('presuf', locale), 'i')
     this._wordRegex = new RegExp(getLocaleProp('wordRegex', locale), 'g')
-    this._hyphens = new RegExp(getLocaleProp('hyphens', locale))
     this._puncSplit = new RegExp(getLocaleProp('puncSplit', locale))
-    this._vowels = new RegExp(getLocaleProp('vowels', locale))
+    this._vowels = 'aeiouyAEIOUYẚÁáÀàĂăẮắẰằẴẵẲẳÂâẤấẦầẪẫẨẩǍǎÅåǺǻÄäǞǟÃãȦȧǠǡĄąĀāẢảȀȁȂȃẠạẶặẬậḀḁȺⱥǼǽǢǣÉƏƎǝéÈèĔĕÊêẾếỀềỄễỂểĚěËëẼẽĖėȨȩḜḝĘęĒēḖḗḔḕẺẻȄȅȆȇẸẹỆệḘḙḚḛɆɇɚɝÍíÌìĬĭÎîǏǐÏïḮḯĨĩİiĮįĪīỈỉȈȉȊȋỊịḬḭIıƗɨÓóÒòŎŏÔôỐốỒồỖỗỔổǑǒÖöȪȫŐőÕõṌṍṎṏȬȭȮȯȰȱØøǾǿǪǫǬǭŌōṒṓṐṑỎỏȌȍȎȏƠơỚớỜờỠỡỞởỢợỌọỘộƟɵÚúÙùŬŭÛûǓǔŮůÜüǗǘǛǜǙǚǕǖŰűŨũṸṹŲųŪūṺṻỦủȔȕȖȗƯưỨứỪừỮữỬửỰựỤụṲṳṶṷṴṵɄʉÝýỲỳŶŷY̊ẙŸÿỸỹẎẏȲȳỶỷỴỵʏɎɏƳƴ'
+    this._hyphens = '[-—‒–—―]+'
     let c = '[^' + this._vowels + ']'
     let v = '[' + this._vowels + ']'
     this._vccv = new RegExp('(' + v + c + ')(' + c + v + ')', 'g')
@@ -77,20 +63,13 @@ export default class Parts {
     } else {
       // punctuation[1], prefix[2], center[3], suffix[4], punctuation[5]
       let parts = this._presuf.exec(word)
-      if (parts[2]) {
-        ret.push(parts[2])
-      }
-      if (parts[3]) {
-        ret = ret.concat(parts[3].replace(this._vccv, '$1 $2').split(' '))
-      }
-      if (parts[4]) {
-        ret.push(parts[4])
-      }
+      if (parts[2]) ret.push(parts[2])
+      if (parts[3]) ret = ret.concat(parts[3].replace(this._vccv, '$1 $2').split(' '))
+      if (parts[4]) ret.push(parts[4])
       start = parts[1] || ''
       end = parts[5] || ''
     }
     let stitch = ret.filter(p => p).map((p, i) => {
-      // join all parts as ' -'
       return (i === 0 || p.match(/^[-—‒–—―]/)) ? p : '-' + p
     })
     return start + stitch.join(' ') + end
