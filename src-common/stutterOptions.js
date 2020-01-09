@@ -10,7 +10,8 @@ let defaults = {
   'longWordDelay': 1.4,
   'numericDelay': 1.8,
   'theme': 'default',
-  'pos': 0.5
+  'pos': 0.5,
+  'maxWordLength': 13
 }
 
 let instance = null
@@ -131,6 +132,8 @@ export default class StutterOptions extends EventEmitter {
       case 'pos':
         val = this.numericContain(0.02, 0.9, val)
         break
+      case 'maxWordLength':
+        val = parseInt(this.numericContain(5, 50, val), 10)
     }
     if (this.hasOwnProperty('_' + prop) && this['_' + prop] !== val) {
       this['_' + prop] = val

@@ -32,7 +32,7 @@ export default class Stutter {
     if (val) {
       this.pause()
       this.restart()
-      this.block = new Block(val)
+      this.block = new Block(val, this.options)
       this.currentWord = this.block.word
     }
   }
