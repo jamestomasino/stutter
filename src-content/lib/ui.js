@@ -66,46 +66,28 @@ export default class UI extends EventEmitter {
   }
 
   onKeypress (event) {
-    if (event.defaultPrevented) {
-      return
-    }
-
+    if (event.defaultPrevented) return
+    event.preventDefault()
     // Ignore if special key besides Alt is held
-    if (event.getModifierState('Fn') ||
-      event.getModifierState('Hyper') ||
-      event.getModifierState('OS') ||
-      event.getModifierState('Super') ||
-      event.getModifierState('Control') ||
-      event.getModifierState('Shift') ||
-      event.getModifierState('Meta') ||
-      event.getModifierState('Win')) {
+    if (event.getModifierState('Fn') || event.getModifierState('Hyper') ||
+      event.getModifierState('OS') || event.getModifierState('Super') ||
+      event.getModifierState('Control') || event.getModifierState('Shift') ||
+      event.getModifierState('Meta') || event.getModifierState('Win')) {
       return
     }
-
     var alt = event.getModifierState('Alt')
-
     switch (event.key) {
       case 'ArrowDown':
-        if (alt) {
-          let wpm = this.stutterOptions.getProp('wpm')
-          this.stutterOptions.setProp('wpm', wpm - 100)
-        }
+        if (alt) this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') - 100)
         break
       case 'ArrowUp':
-        if (alt) {
-          let wpm = this.stutterOptions.getProp('wpm')
-          this.stutterOptions.setProp('wpm', wpm + 100)
-        }
+        if (alt) this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') + 100)
         break
       case 'ArrowLeft':
-        if (alt) {
-          this.emit('skipPrevious')
-        }
+        if (alt) this.emit('skipPrevious')
         break
       case 'ArrowRight':
-        if (alt) {
-          this.emit('skipForward')
-        }
+        if (alt) this.emit('skipForward')
         break
       case 'Enter':
         this.onPauseToggle()
@@ -113,11 +95,7 @@ export default class UI extends EventEmitter {
       case 'Escape':
         this.emit('close')
         break
-      default:
-        return
     }
-
-    event.preventDefault()
   }
 
   static get INIT () {
