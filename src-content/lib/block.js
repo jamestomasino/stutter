@@ -1,5 +1,5 @@
 import Word from './word'
-import { wordRegex, presuf, vccv, puncSplit } from './parts'
+import { wordRegex, presuf, vccv, puncSplit, hyphens } from './parts'
 
 function puncBreak (word) {
   let parts = puncSplit.exec(word)
@@ -13,20 +13,41 @@ function puncBreak (word) {
   return ret.join(' ')
 }
 
-function breakLongWord (word) {
-  // punctuation, prefix, center, suffix, punctuation
-  let parts = presuf.exec(word)
+function breakLongWord (word, maxWordLength) {
   let ret = []
-  if (parts[2]) {
-    ret.push(parts[2])
+  let start = ''
+  let end = ''
+  let hyphenParts = word.split(hyphens)
+  if (hyphenParts.length > 1) {
+    // split on hyphens if they exist first
+    ret = hyphenParts.map((part) => {
+      if (part.length > maxWordLength) {
+        return breakLongWord(part, maxWordLength)
+      } else {
+        return part
+      }
+    })
+  } else {
+    // punctuation, prefix, center, suffix, punctuation
+    let parts = presuf.exec(word)
+    if (parts[2]) {
+      ret.push(parts[2])
+    }
+    if (parts[3]) {
+      ret = ret.concat(parts[3].replace(vccv, '$1 $2').split(' '))
+      // ret.push(parts[3].replace(vccv, '$1 $2'))
+    }
+    if (parts[4]) {
+      ret.push(parts[4])
+    }
+    start = parts && parts[1] ? parts[1] + ' -' : ''
+    end = parts && parts[5] ? ' -' + parts[5] : ''
   }
-  if (parts[3]) {
-    ret.push(parts[3].replace(vccv, '$1-$2'))
-  }
-  if (parts[4]) {
-    ret.push(parts[4])
-  }
-  return (parts[1] || '') + ret.join('-') + (parts[5] || '')
+  // join all parts as ' -'
+  let stitch = ret.map((p, i) => {
+    return (i === 0 || p.match(/^[-—‒–—―]/)) ? p : '-' + p
+  })
+  return start + stitch.join(' ') + end
 }
 
 export default class Block {
@@ -44,7 +65,7 @@ export default class Block {
         // break long words
         let maxWordLength = (settings.getProp('maxWordLength') || 13)
         if (subWord.length > maxWordLength) {
-          let brokenSubWord = breakLongWord(subWord)
+          let brokenSubWord = breakLongWord(subWord, maxWordLength)
           let subSubWords = brokenSubWord.match(wordRegex)
           subSubWords.map(subSubWord => {
             this.words.push(new Word(subSubWord))
