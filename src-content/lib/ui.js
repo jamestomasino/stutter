@@ -26,7 +26,6 @@ export default class UI extends EventEmitter {
     this.holder.innerHTML = template
     this.progress = 0
     this.bindDOM()
-    this.bindKeys()
   }
 
   bindDOM () {
@@ -39,8 +38,6 @@ export default class UI extends EventEmitter {
     this.drag = this.holder.getElementsByClassName('__stutter_drag')[0]
     this.options = this.holder.getElementsByClassName('__stutter_options')[0]
     this.pausebtn = this.holder.getElementsByClassName('__stutter_pausebtn')[0]
-
-    // Bind DOM Events
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onDragStart = this.onDragStart.bind(this)
     this.onDragEnd = this.onDragEnd.bind(this)
@@ -49,19 +46,13 @@ export default class UI extends EventEmitter {
     this.onOptions = this.onOptions.bind(this)
     this.onOptionsUpdate = this.onOptionsUpdate.bind(this)
     this.onKeypress = this.onKeypress.bind(this)
-
-    // Interaction Events
     this.close.addEventListener('click', this.onClose)
     this.pausebtn.addEventListener('click', this.onPauseToggle)
     this.drag.addEventListener('mousedown', this.onDragStart)
     this.drag.addEventListener('ontouchstart', this.onDragStart)
     this.options.addEventListener('click', this.onOptions)
-
     this.stutterOptions = new StutterOptions()
     this.stutterOptions.addListener(StutterOptions.UPDATE, this.onOptionsUpdate)
-  }
-
-  bindKeys () {
     document.addEventListener('keydown', this.onKeypress, true)
   }
 
