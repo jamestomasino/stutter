@@ -2,12 +2,12 @@ import Readability from './lib/Readability'
 import Stutter from './lib/stutter'
 import UI from './lib/ui'
 
-function playStutter (text) {
+function playStutter (text, locale) {
   if (stutter) {
     stutter.destroy()
   }
 
-  stutter = new Stutter(ui)
+  stutter = new Stutter(ui, locale)
   stutter.setText(text)
   stutter.play()
 }
@@ -16,7 +16,7 @@ function onMessage (request) {
   switch (request.functiontoInvoke) {
     case 'stutterSelectedText':
       // pass selection to Stutter
-      playStutter(request.selectedText)
+      playStutter(request.selectedText, request.locale)
       break
     case 'stutterFullPage':
       // close document switch Readability is destructive
@@ -43,7 +43,7 @@ function onMessage (request) {
       pureText = pureText.replace(/([.?!,:;])“(?=\w)/ig, '$1 “')
 
       // Pass article content to Stutter
-      playStutter(pureText)
+      playStutter(pureText, request.locale)
       break
     default:
       break

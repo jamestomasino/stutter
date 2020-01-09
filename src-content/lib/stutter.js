@@ -2,7 +2,8 @@ import Block from './block'
 import StutterOptions from '../../src-common/stutterOptions'
 
 export default class Stutter {
-  constructor (ui) {
+  constructor (ui, locale) {
+    this.locale = window.navigator.language || locale
     this.block = null
     this.currentWord = null
     this.isEnded = false
@@ -32,7 +33,7 @@ export default class Stutter {
     if (val) {
       this.pause()
       this.restart()
-      this.block = new Block(val, this.options)
+      this.block = new Block(val, this.options, this.locale)
       this.currentWord = this.block.word
     }
   }
