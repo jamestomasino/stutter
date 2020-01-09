@@ -65,18 +65,12 @@ export default class UI extends EventEmitter {
     document.addEventListener('keydown', this.onKeypress, true)
   }
 
-  onKeypress (event) {
-    if (event.defaultPrevented) return
-    event.preventDefault()
-    // Ignore if special key besides Alt is held
-    if (event.getModifierState('Fn') || event.getModifierState('Hyper') ||
-      event.getModifierState('OS') || event.getModifierState('Super') ||
-      event.getModifierState('Control') || event.getModifierState('Shift') ||
-      event.getModifierState('Meta') || event.getModifierState('Win')) {
-      return
-    }
-    var alt = event.getModifierState('Alt')
-    switch (event.key) {
+  onKeypress (e) {
+    if (e.defaultPrevented || ['Fn', 'Hyper', 'OS', 'Super', 'Control', 'Shift', 'Meta', 'Win']
+      .any(s => e.getModifierState(s))) return
+    e.preventDefault()
+    var alt = e.getModifierState('Alt')
+    switch (e.key) {
       case 'ArrowDown':
         if (alt) this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') - 100)
         break
