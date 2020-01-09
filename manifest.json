@@ -4,7 +4,7 @@
   "name": "stutter",
   "short_name": "stutter",
   "description": "RSVP for browsers",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "homepage_url": "https://github.com/jamestomasino/stutter",
   "icons": {
     "16": "icons/stutter-16.png",
@@ -12,6 +12,13 @@
     "64": "icons/stutter-64.png",
     "96": "icons/stutter-96.png",
     "128": "icons/stutter-128.png"
+  },
+  "commands":{
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+R"
+      }
+    }
   },
   "browser_action": {
     "default_icon": {
