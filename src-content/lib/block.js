@@ -7,6 +7,7 @@ export default class Block {
     this.parts = new Parts(locale)
     this.words = []
     this.index = 0
+    this.settings = settings
 
     // Build word chain
     let rawWords = val.match(this.parts.wordRegex)
@@ -36,6 +37,26 @@ export default class Block {
     } else {
       return null
     }
+  }
+
+  get time () {
+    return this.getTime(this.words[this.index])
+  }
+
+  get duration () {
+    return this.words.reduce((acc, cur) => {
+      return acc + this.getTime(cur)
+    }, 0)
+  }
+
+  getTime (word) {
+    var time = this.settings.delay
+    if (word.hasPeriod) time *= this.settings.getProp('sentenceDelay')
+    if (word.hasOtherPunc) time *= this.settings.getProp('otherPuncDelay')
+    if (word.isShort) time *= this.settings.getProp('shortWordDelay')
+    if (word.isLong) time *= this.settings.getProp('longWordDelay')
+    if (word.isNumeric) time *= this.settings.getProp('numericDelay')
+    return time
   }
 
   next () {
