@@ -9,6 +9,7 @@ export default class Stutter {
     this.isEnded = false
     this.isPlaying = false
     this.ui = ui
+    this.duration = 0
     this.ui.addListener('close', () => {
       this.destroy()
     })
@@ -26,7 +27,13 @@ export default class Stutter {
     })
 
     this.options = new StutterOptions()
+    this.onOptionsUpdate = this.onOptionsUpdate.bind(this)
+    this.options.addListener(StutterOptions.UPDATE, this.onOptionsUpdate)
     this.timer = null
+  }
+
+  onOptionsUpdate () {
+    this.ui.updateTime(this.block.duration)
   }
 
   setText (val) {
@@ -35,6 +42,7 @@ export default class Stutter {
       this.restart()
       this.block = new Block(val, this.options, this.locale)
       this.currentWord = this.block.word
+      this.ui.updateTime(this.block.duration)
     }
   }
 

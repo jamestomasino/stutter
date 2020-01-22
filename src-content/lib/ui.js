@@ -14,8 +14,35 @@ var template = `
     <span class="__stutter_right">
       <span class="__stutter_center"></span><span class="__stutter_remainder"></span>
     </span>
+    <span class="__stutter_duration"></span>
     <span class="__stutter_close">&#x24e7;</span>
   </div>`
+
+function toHHMMSS (t) {
+  t = Math.round(t / 1000)
+  let hours = Math.floor(t / 3600)
+  let minutes = Math.floor((t - (hours * 3600)) / 60)
+  let seconds = t - (hours * 3600) - (minutes * 60)
+
+  if (hours) {
+    if (hours < 10) {
+      hours = '0' + hours
+    }
+    hours += ':'
+  } else {
+    hours = ''
+  }
+  if (minutes) {
+    if (minutes < 10) {
+      minutes = '0' + minutes
+    }
+    minutes += ':'
+  } else {
+    minutes = ''
+  }
+  if (seconds < 10) { seconds = '0' + seconds }
+  return hours + minutes + seconds
+}
 
 export default class UI extends EventEmitter {
   constructor () {
@@ -34,6 +61,7 @@ export default class UI extends EventEmitter {
     this.left = this.holder.getElementsByClassName('__stutter_left')[0]
     this.center = this.holder.getElementsByClassName('__stutter_center')[0]
     this.remainder = this.holder.getElementsByClassName('__stutter_remainder')[0]
+    this.duration = this.holder.getElementsByClassName('__stutter_duration')[0]
     this.close = this.holder.getElementsByClassName('__stutter_close')[0]
     this.drag = this.holder.getElementsByClassName('__stutter_drag')[0]
     this.options = this.holder.getElementsByClassName('__stutter_options')[0]
@@ -89,6 +117,11 @@ export default class UI extends EventEmitter {
 
   set progress (val) {
     this.holder.dataset.progress = val
+  }
+
+  updateTime (d) {
+    this.duration.innerHTML = '<span>' + toHHMMSS(d) + '</span>' + '@' +
+      this.stutterOptions.getProp('wpm') + 'wpm'
   }
 
   onDragStart (e) {
