@@ -1,3 +1,4 @@
+/* global DOMParser */
 import Readability from './lib/Readability'
 import Stutter from './lib/stutter'
 import UI from './lib/ui'
@@ -24,7 +25,8 @@ function onMessage (request) {
       var article = new Readability(documentClone).parse()
       // Readability gives html output. strip it to plain text
       var div = document.createElement('div')
-      div.innerHTML = article.content
+      var dom = new DOMParser().parseFromString('<template>' + article.content + '</template>', 'text/html').head
+      div.appendChild(dom.firstElementChild.content)
       var pureText = div.textContent
 
       // textContent collapses some sentences which were separated by DOM

@@ -1,3 +1,4 @@
+/* global DOMParser */
 import '../style.scss'
 import { EventEmitter } from 'events'
 import StutterOptions from '../../src-common/stutterOptions'
@@ -48,7 +49,9 @@ export default class UI extends EventEmitter {
     this.holder = document.createElement('div')
     this.holder.classList.add('__stutter')
     this.holder.id = '__stutter'
-    this.holder.innerHTML = template
+    // Avoids use of innerHTML
+    var dom = new DOMParser().parseFromString('<template>' + template + '</template>', 'text/html').head
+    this.holder.appendChild(dom.firstElementChild.content)
     this.progress = 0
     this.bindDOM()
   }

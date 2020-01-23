@@ -1,3 +1,4 @@
+/* global DOMParser */
 /*
  * Copyright (c) 2010 Arc90 Inc
  *
@@ -1093,7 +1094,10 @@ Readability.prototype = {
       var textLength = this._getInnerText(articleContent, true).length
       if (textLength < this._charThreshold) {
         parseSuccessful = false
-        page.innerHTML = pageCacheHtml
+
+        // replaces: page.innerHTML = pageCacheHtml with DOMParser for safety
+        var dom = new DOMParser().parseFromString('<template>' + pageCacheHtml + '</template>', 'text/html').head
+        page.appendChild(dom.firstElementChild.content)
 
         if (this._flagIsActive(this.FLAG_STRIP_UNLIKELYS)) {
           this._removeFlag(this.FLAG_STRIP_UNLIKELYS)
