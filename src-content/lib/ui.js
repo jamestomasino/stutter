@@ -86,7 +86,7 @@ export default class UI extends EventEmitter {
 
   onKeypress (e) {
     if (e.defaultPrevented || ['Fn', 'Hyper', 'OS', 'Super', 'Control', 'Shift', 'Meta', 'Win']
-      .any(s => e.getModifierState(s))) return
+      .some(s => e.getModifierState(s))) return
     e.preventDefault()
     var alt = e.getModifierState('Alt')
     switch (e.key) {
