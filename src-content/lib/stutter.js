@@ -33,7 +33,9 @@ export default class Stutter {
   }
 
   onOptionsUpdate () {
-    this.ui.updateTime(this.block.duration)
+    if (this.block) {
+      this.ui.updateTime(this.block.duration)
+    }
   }
 
   setText (val) {
