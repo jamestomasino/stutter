@@ -113,13 +113,13 @@ That's it! Pick a descriptive name and send a pull request!
 
 ### Locale Support
 
-Stutter uses a number of strategies to logically break up long words into smaller pieces for easy reading. Part of this strategy is identifying common prefixes and suffixes in the language to find good places to break the word. If you would like to submit support for a new language you can edit the `src-content/lib/parts.js` file. At the top is a JSON object that can be edited to add language specific rules.
+Stutter uses a number of strategies to logically break up long words into smaller pieces for easy reading. Part of this strategy is identifying common prefixes and suffixes in the language to find good places to break the word. If you would like to submit support for a new language you can edit the `src-content/lib/locales.json` file.
 
 For reference, these are the rules for English:
 
 ```json
 {
-  en: {
+  "en": {
     "wordRegex": "([^\\s/]+|[\\r\\n]+)",
     "puncSplit": "(.+?\\.|.*?,)([a-z].+\\b)",
     "presuf": "^(\\W*)(anti|auto|ab|an|ax|al|as|bi|bet|be|contra|cat|cath|cir|cum|cog|col|com|con|cor|could|co|desk|de|dis|did|dif|di|eas|every|ever|extra|ex|end|en|em|epi|evi|func|fund|fin|hyst|hy|han|il|in|im|ir|just|jus|loc|lig|lit|li|mech|manu|man|mal|mis|mid|mono|multi|mem|micro|non|nano|ob|oc|of|opt|op|over|para|per|post|pre|peo|pro|retro|rea|re|rhy|should|some|semi|sen|sol|sub|suc|suf|super|sup|sur|sus|syn|sym|syl|tech|trans|tri|typo|type|uni|un|van|vert|with|would|won)?(.*?)(weens?|widths?|icals?|ables?|ings?|tions?|ions?|ies|isms?|ists?|ful|ness|ments?|ly|ify|ize|ise|ity|en|ers?|ences?|tures?|ples?|als?|phy|puts?|phies|ry|ries|cy|cies|mums?|ous|cents?)?(\\W*)$"
@@ -127,9 +127,11 @@ For reference, these are the rules for English:
 }
 ```
 
-In many cases, only the `presuf` string will need be edited with the prefixes and suffixes of the new language. This string will be interpretted as a regular expression. The string should begin with `^(\\W*)(` followed by the pipe separated list of prefixes & suffixes (sort these with the largest parts first for better matching) and finally close with `)?(\\W*)$`.
+- **wordRegex** - this regular expression is responsible for separating the body of text into component words.
+- **puncSplit** - this regular expression is run on each word group output from wordRegex. It attempts to break apart any lingering words that might be accidentally joined together on a period or comma. It is careful not to split numbers or short period-separated words like A.M. or P.M.
+- **prsuf** - this is a list of regular prefixes and suffixes that can be used to break apart long words into component parts. These need to be sorted with the longest parts first to avoid matching a smaller prefix when its part of a longer one.
 
-The font in use for the site is Arial, which should have good support for displaying most languages. There is currently no support for RTL languages.
+The font in use for the site is Arial, which should have good support for displaying most languages. There is currently no support for RTL languages, though it is on the road-map.
 
 ## License
 
