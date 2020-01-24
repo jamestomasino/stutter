@@ -78,11 +78,11 @@ This permission allows the extension to inject the content script code into the 
 
 Options in the settings page are stored in browser storage by using this permission. These settings persist between browser restarts.
 
-In a future release of stutter, these settings will sync between browsers if you have browser sync enabled.
+**Note:** Stutter settings will sync between browsers if you have browser sync enabled and the storage permission allowed.
 
 ## 3rd Party Runtime Libraries
 
-Full page content is analyzed and isolated by means of the [Mozilla Readability Library](https://github.com/mozilla/readability). The version in this project is modified for linting and exported as an es6 module. No changes have been made to the library logic.
+Full page content is analyzed and isolated by means of the [Mozilla Readability Library](https://github.com/mozilla/readability). The version in this project is modified for linting and exported as an es6 module. One change was made from using `innerHTML` to using `DOMParser` for security. No other changes have been made to the library logic.
 
 [babel-polyfill](https://babeljs.io/docs/en/babel-polyfill) is used during runtime to emulate a full ES2015+ where a browser may be insufficient.
 
