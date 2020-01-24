@@ -11,7 +11,8 @@ let defaults = {
   'numericDelay': 1.8,
   'theme': 'default',
   'pos': 0.5,
-  'maxWordLength': 13
+  'maxWordLength': 13,
+  'skipCount': 10
 }
 
 let instance = null
@@ -134,6 +135,10 @@ export default class StutterOptions extends EventEmitter {
         break
       case 'maxWordLength':
         val = parseInt(this.numericContain(5, 50, val), 10)
+        break
+      case 'skipCount':
+        val = parseInt(this.numericContain(0, 100, val), 10)
+        break
     }
     if (this.hasOwnProperty('_' + prop) && this['_' + prop] !== val) {
       this['_' + prop] = val

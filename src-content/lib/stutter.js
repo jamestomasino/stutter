@@ -17,10 +17,12 @@ export default class Stutter {
       this.playPauseToggle()
     })
     this.ui.addListener('skipForward', () => {
-      this.skipForward(10)
+      this.skipForward(this.options.getProp('skipCount'))
     })
     this.ui.addListener('skipPrevious', () => {
-      this.skipPrevious(10)
+      // Use slow-start when skipping backwards
+      this.slowStartCount = this.options.getProp('slowStartCount')
+      this.skipPrevious(this.options.getProp('skipCount'))
     })
     this.ui.addListener('pause', () => {
       this.pause()
@@ -75,11 +77,19 @@ export default class Stutter {
     for (let i = 0; i < n; i++) {
       this.block.next()
     }
+    this.currentWord = this.block.word
+    if (this.currentWord) {
+      this.showWord()
+    }
   }
 
   skipPrevious (n) {
     for (let i = 0; i < n; i++) {
       this.block.prev()
+    }
+    this.currentWord = this.block.word
+    if (this.currentWord) {
+      this.showWord()
     }
   }
 

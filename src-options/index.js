@@ -16,6 +16,7 @@ function drawSettings () {
   document.getElementById('longWordDelay').value = options.getProp('longWordDelay')
   document.getElementById('numericDelay').value = options.getProp('numericDelay')
   document.getElementById('maxWordLength').value = options.getProp('maxWordLength')
+  document.getElementById('skipCount').value = options.getProp('skipCount')
   document.getElementById('theme').value = options.getProp('theme')
 }
 
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     options.setProp('longWordDelay', document.getElementById('longWordDelay').value)
     options.setProp('numericDelay', document.getElementById('numericDelay').value)
     options.setProp('maxWordLength', document.getElementById('maxWordLength').value)
+    options.setProp('skipCount', document.getElementById('skipCount').value)
     options.setProp('theme', document.getElementById('theme').value)
   })
 })
