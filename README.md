@@ -12,6 +12,28 @@
 
 [![stutter demonstration](https://i.imgur.com/hGocwaV.png)](https://www.youtube.com/watch?v=UJwFdPYbRRg)
 
+## Usage
+
+You can begin running Stutter in one of three ways:
+
+1. Click on the <img src="./icons/stutter.svg" width="16"> icon in the browser to start _Stuttering_ the full page.
+2. Press `Alt+R` to trigger Stutter by hotkey.
+3. Select text you'd like to Stutter and then right-click and choose "Stutter Selection".
+
+When Stutter is running, you can use the following hotkeys for control:
+
+- Alt-R - Restart Stutter on the whole page
+- Alt+P - Pause/Resume (formerly Enter)
+- Alt+Left - Skip backwards
+- Alt+Right - Skip forwards
+- Alt+Up - Increase WPM by 50 (formerly 100)
+- Alt+Down - Decrease WPM by 50 (formerly 100)
+- Esc - Close Stutter
+
+You can reposition the Stutter interface on the screen by dragging the handle on the left hand side. Stutter will remember its position in the future.
+
+Many other timing options and theming are available inside the full settings panel. Click on the gear icon on the left while Stutter is running to change these settings. **Note:** You must have allowed the storage permission in order to change these default settings.
+
 ## Source Install and Testing
 
 **stutter** is built using webpack and babel, with sass support and eslint styling. The code is written using es6 classes. Backend and content-scripts are maintained separately with individual webpack configurations.
