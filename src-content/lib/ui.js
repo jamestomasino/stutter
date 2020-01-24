@@ -87,29 +87,39 @@ export default class UI extends EventEmitter {
   }
 
   onKeypress (e) {
-    if (e.defaultPrevented || ['Fn', 'Hyper', 'OS', 'Super', 'Control', 'Shift', 'Meta', 'Win']
+    if (e.defaultPrevented || ['Fn', 'Hyper', 'OS', 'Super', 'Control', 'Meta', 'Win']
       .some(s => e.getModifierState(s))) return
-    e.preventDefault()
+
     var alt = e.getModifierState('Alt')
-    switch (e.key) {
-      case 'ArrowDown':
-        if (alt) this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') - 100)
-        break
-      case 'ArrowUp':
-        if (alt) this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') + 100)
-        break
-      case 'ArrowLeft':
-        if (alt) this.emit('skipPrevious')
-        break
-      case 'ArrowRight':
-        if (alt) this.emit('skipForward')
-        break
-      case 'Enter':
-        this.onPauseToggle()
-        break
-      case 'Escape':
-        this.emit('close')
-        break
+
+    if (alt) {
+      switch (e.key) {
+        case 'ArrowDown':
+          this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') - 50)
+          e.preventDefault()
+          break
+        case 'ArrowUp':
+          this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') + 50)
+          e.preventDefault()
+          break
+        case 'ArrowLeft':
+          this.emit('skipPrevious')
+          e.preventDefault()
+          break
+        case 'ArrowRight':
+          this.emit('skipForward')
+          e.preventDefault()
+          break
+        case 'p':
+          this.onPauseToggle()
+          e.preventDefault()
+          break
+      }
+    }
+
+    if (e.key === 'Escape') {
+      this.emit('close')
+      e.preventDefault()
     }
   }
 
