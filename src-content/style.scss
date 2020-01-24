@@ -15,6 +15,7 @@
 	width: calc(100% - 35px);
 	max-width: calc(100vw - 35px);
 	z-index: 999999999;
+	box-sizing: border-box;
 
 	@for $i from 0 through 100 {
 		&[data-progress='#{$i}'] {
@@ -27,12 +28,14 @@
 		line-height: 1em !important;
 		padding-top: 8px;
 		position: relative;
+		box-sizing: border-box;
 		user-select: none;
 		width: 100%;
 
 		.__stutter_pausebtn {
 			display: block;
 			position: absolute;
+			box-sizing: border-box;
 			width: 100%;
 			left: 0;
 			top: 0;
@@ -48,6 +51,7 @@
 			line-height: 1em !important;
 			pointer-events: none;
 			position: absolute;
+			box-sizing: border-box;
 			right: 66%;
 			text-align: right;
 			z-index: 90;
@@ -62,6 +66,7 @@
 			line-height: 1em !important;
 			pointer-events: none;
 			position: absolute;
+			box-sizing: border-box;
 			text-align: left;
 			z-index: 90;
 
@@ -70,6 +75,7 @@
 				font-family: Arial, sans-serif !important;
 				font-size: 30px !important;
 				line-height: 1em !important;
+				box-sizing: border-box;
 				pointer-events: none;
 				z-index: 90;
 			}
@@ -78,6 +84,7 @@
 				color: var(--textColor) !important;
 				font-family: Arial, sans-serif !important;
 				font-size: 30px !important;
+				box-sizing: border-box;
 				line-height: 1em !important;
 				pointer-events: none;
 				z-index: 90;
@@ -93,6 +100,7 @@
 			left: 15px;
 			line-height: 1em !important;
 			position: absolute;
+			box-sizing: border-box;
 			text-align: left;
 			user-select: none;
 		}
@@ -107,27 +115,34 @@
 			top: -25px;
 			line-height: 1em !important;
 			position: absolute;
+			box-sizing: border-box;
 			text-align: center;
 			user-select: none;
 			cursor: pointer;
 			width: 25px;
 			height: 25px;
 			background-color: var(--barBG);
+			border: 2px solid var(--barBorder);
+			border-bottom: 0;
 		}
 
 		.__stutter_duration {
 			color: var(--buttonColor) !important;
 			display: block;
 			position: absolute;
+			box-sizing: border-box;
 			right: 50px;
-			top: 11px;
+			top: 12px;
 			text-align: right;
 			user-select: none;
+			font-size: 1px !important;
+			line-height: 1px !important;
 			z-index: 1;
 
 			.__stutter_duration_time,
 			.__stutter_duration_wpm {
 				display: block;
+				box-sizing: border-box;
 				font-family: Arial, sans-serif !important;
 				font-size: 11px !important;
 				line-height: 1em !important;
@@ -142,6 +157,7 @@
 			font-size: 30px !important;
 			line-height: 1em !important;
 			position: absolute;
+			box-sizing: border-box;
 			right: 15px;
 			text-align: right;
 			user-select: none;
@@ -209,6 +225,7 @@
 
 			.__stutter_duration {
 				right: 15px;
+				top: 45px;
 
 				.__stutter_duration_time,
 				.__stutter_duration_wpm {
