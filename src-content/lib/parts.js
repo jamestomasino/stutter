@@ -2,12 +2,12 @@
 const locales = {
   en: {
     wordRegex: '([^\\s/]+|[\\r\\n]+)',
-    puncSplit: '(.+?)(\\.[^\\w]\b|,[^\\w]\\b)(.+?)',
+    puncSplit: '(.+?\\.|.*?,)([a-z].+\\b)',
     presuf: '^(\\W*)(anti|auto|ab|an|ax|al|as|bi|bet|be|contra|cat|cath|cir|cum|cog|col|com|con|cor|could|co|desk|de|dis|did|dif|di|eas|every|ever|extra|ex|end|en|em|epi|evi|func|fund|fin|hyst|hy|han|il|in|im|ir|just|jus|loc|lig|lit|li|mech|manu|man|mal|mis|mid|mono|multi|mem|micro|non|nano|ob|oc|of|opt|op|over|para|per|post|pre|peo|pro|retro|rea|re|rhy|should|some|semi|sen|sol|sub|suc|suf|super|sup|sur|sus|syn|sym|syl|tech|trans|tri|typo|type|uni|un|van|vert|with|would|won)?(.*?)(weens?|widths?|icals?|ables?|ings?|tions?|ions?|ies|isms?|ists?|ful|ness|ments?|ly|ify|ize|ise|ity|en|ers?|ences?|tures?|ples?|als?|phy|puts?|phies|ry|ries|cy|cies|mums?|ous|cents?)?(\\W*)$'
   },
   es: {
     wordRegex: '([^\\s/]+|[\\r\\n]+)',
-    puncSplit: '(.+?)(\\.[^\\w]\b|,[^\\w]\\b)(.+?)',
+    puncSplit: '(.+?\\.|.*?,)([a-z].+\\b)',
     presuf: '^(\\W*)(génesis|contra|eñoeña|izoiza|osoosa|achon|entre|extra|fobia|hiper|inter|mente|super|able|ante|anti|ario|ción|dera|dero|hipo|post|aco|ado|bis|con|des|pos|pre|sub|an|bi|co|de|en|ex|in|or|re)?(\\W*)$'
   },
 }
@@ -30,7 +30,7 @@ export default class Parts {
   constructor (locale) {
     this._presuf = new RegExp(getLocaleProp('presuf', locale), 'i')
     this._wordRegex = new RegExp(getLocaleProp('wordRegex', locale), 'g')
-    this._puncSplit = new RegExp(getLocaleProp('puncSplit', locale))
+    this._puncSplit = new RegExp(getLocaleProp('puncSplit', locale), 'i')
     this._vowels = 'aeiouyAEIOUYẚÁáÀàĂăẮắẰằẴẵẲẳÂâẤấẦầẪẫẨẩǍǎÅåǺǻÄäǞǟÃãȦȧǠǡĄąĀāẢảȀȁȂȃẠạẶặẬậḀḁȺⱥǼǽǢǣÉƏƎǝéÈèĔĕÊêẾếỀềỄễỂểĚěËëẼẽĖėȨȩḜḝĘęĒēḖḗḔḕẺẻȄȅȆȇẸẹỆệḘḙḚḛɆɇɚɝÍíÌìĬĭÎîǏǐÏïḮḯĨĩİiĮįĪīỈỉȈȉȊȋỊịḬḭIıƗɨÓóÒòŎŏÔôỐốỒồỖỗỔổǑǒÖöȪȫŐőÕõṌṍṎṏȬȭȮȯȰȱØøǾǿǪǫǬǭŌōṒṓṐṑỎỏȌȍȎȏƠơỚớỜờỠỡỞởỢợỌọỘộƟɵÚúÙùŬŭÛûǓǔŮůÜüǗǘǛǜǙǚǕǖŰűŨũṸṹŲųŪūṺṻỦủȔȕȖȗƯưỨứỪừỮữỬửỰựỤụṲṳṶṷṴṵɄʉÝýỲỳŶŷY̊ẙŸÿỸỹẎẏȲȳỶỷỴỵʏɎɏƳƴ'
     this._hyphens = '[-—‒–—―]+'
     let c = '[^' + this._vowels + ']'
@@ -79,8 +79,8 @@ export default class Parts {
     let parts = this._puncSplit.exec(word)
     let ret = []
     if (parts) {
-      ret.push(parts[1] + parts[2])
-      ret = ret.concat(this.puncBreak(parts[3]))
+      ret.push(parts[1])
+      ret.push(parts[2])
     } else {
       ret = [word]
     }
