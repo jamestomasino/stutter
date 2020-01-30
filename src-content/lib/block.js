@@ -9,6 +9,21 @@ export default class Block {
     this.index = 0
     this.settings = settings
 
+    // textContent collapses some sentences which were separated by DOM
+    // elements alone. We attempt to restore spaces between paragraphs.
+
+    // punctution sandwiched between two words
+    val = val.replace(/([.?!,:;])(?=[a-z][a-z])/ig, '$1 ')
+
+    // two quotes in a row
+    val = val.replace(/([”"])(?=["“])/ig, '$1 ')
+
+    // punctuation close-quote word
+    val = val.replace(/([.?!,:;])(["”])(?=\w)/ig, '$1$2 ')
+
+    // punctuation open-quote word
+    val = val.replace(/([.?!,:;])“(?=\w)/ig, '$1 “')
+
     // Build word chain
     let rawWords = val.match(this.parts.wordRegex)
     rawWords.map(word => {

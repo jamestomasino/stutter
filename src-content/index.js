@@ -20,38 +20,39 @@ function onMessage (request) {
       playStutter(request.selectedText, request.locale)
       break
     case 'stutterFullPage':
-      // close document switch Readability is destructive
-      var documentClone = document.cloneNode(true)
-      var article = new Readability(documentClone).parse()
-      // Readability gives html output. strip it to plain text
-      var div = document.createElement('div')
-      var dom = new DOMParser().parseFromString('<template>' + article.content + '</template>', 'text/html').head
-      div.appendChild(dom.firstElementChild.content)
-      var pureText = div.textContent
-
-      // textContent collapses some sentences which were separated by DOM
-      // elements alone. We attempt to restore spaces between paragraphs.
-
-      // punctution sandwiched between two words
-      pureText = pureText.replace(/([.?!,:;])(?=\w)/ig, '$1 ')
-
-      // two quotes in a row
-      pureText = pureText.replace(/([”"])(?=["“])/ig, '$1 ')
-
-      // punctuation close-quote word
-      pureText = pureText.replace(/([.?!,:;])(["”])(?=\w)/ig, '$1$2 ')
-
-      // punctuation open-quote word
-      pureText = pureText.replace(/([.?!,:;])“(?=\w)/ig, '$1 “')
-
-      // Pass article content to Stutter
-      playStutter(pureText, request.locale)
+      let selection = getSelectionText()
+      if (selection) {
+        console.log('Selection:', selection)
+        playStutter(selection, request.locale)
+      } else {
+        // close document switch Readability is destructive
+        var documentClone = document.cloneNode(true)
+        var article = new Readability(documentClone).parse()
+        // Readability gives html output. strip it to plain text
+        var div = document.createElement('div')
+        var dom = new DOMParser().parseFromString('<template>' + article.content + '</template>', 'text/html').head
+        div.appendChild(dom.firstElementChild.content)
+        var pureText = div.textContent
+        // Pass article content to Stutter
+        playStutter(pureText, request.locale)
+      }
       break
     default:
       break
   }
 }
 
+function getSelectionText () {
+  var text = ''
+  var activeEl = document.activeElement
+  var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null
+  if ((activeElTagName === 'textarea') || ((activeElTagName === 'input' && /^(?:text|search|password|tel|url)$/i.test(activeEl.type)) && (typeof activeEl.selectionStart === 'number'))) {
+    text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd)
+  } else if (window.getSelection) {
+    text = window.getSelection().toString()
+  }
+  return text
+}
 /* This check avoids duplicating the DOM and listeners in case we
  * are running stutter more than once. The first call to inject
  * this code from the background script will enter this condition
