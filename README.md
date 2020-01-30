@@ -16,13 +16,13 @@
 
 You can begin running Stutter in one of three ways:
 
-1. Click on the <img src="./icons/stutter.svg" width="16"> icon in the browser to start _Stuttering_ the full page.
+1. Click on the <img src="./icons/stutter.svg" width="16"> icon in the browser to start _Stuttering_. If you have text selected, it will use this as the content to Stutter, otherwise the entire page will be used.
 2. Press `Alt+R` to trigger Stutter by hotkey.
 3. Select text you'd like to Stutter and then right-click and choose "Stutter Selection".
 
 When Stutter is running, you can use the following hotkeys for control:
 
-- `Alt-R` - Restart Stutter on the whole page
+- `Alt-R` - Restart Stutter
 - `Alt+P` - Pause/Resume
 - `Alt+Left` - Skip backwards
 - `Alt+Right` - Skip forwards
