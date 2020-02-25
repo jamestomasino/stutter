@@ -7,12 +7,11 @@
 	<body>
 		<form id="stutter-form">
 			<h1>Stutter Configuration</h1>
-			<p>The overall speed of Stutter is controlled by the <strong><abbr title="Words Per Minute">WPM</abbr></strong> rate. Most users will find this number comfortable in the 600-800 range after a few minutes of practice. Speeds of up to 1200 can be achieved with regular practice.</p>
+			<p>The overall speed of Stutter is controlled by the <strong><abbr title="Words Per Minute">WPM</abbr></strong> rate. Most users will find this number comfortable in the 600-800 range after a few minutes of practice. Speeds of up to 1200 can be achieved with regular practice. (Default 400wpm)</p>
 			<label>
 				<span class="attribute">WPM</span>
 				<input type="text" id="wpm">
 			</label>
-
 			<label>
 				<span>Theme</span>
 				<select id="theme">
@@ -24,20 +23,19 @@
 					<option value="hacktoberfest">Hacktoberfest</option>
 				</select>
 			</label>
-
-			<p>When beginning to Stutter, the <strong>Slow Start Count</strong> will ease you in by slowly ramping up to full speed over this many words.</p>
+			<p>When beginning to Stutter, the <strong>Slow Start Count</strong> will ease you in by slowly ramping up to full speed over this many words. (Default 5)</p>
 			<label>
 				<span class="attribute">Slow Start Count</span>
 				<input type="text" id="slowStartCount">
 			</label>
 
-			<p>Any word that exceeds this length will be broken into parts and served hyphenated. (You will need to restart any running Stutters for changes to take effect.)</p>
+			<p>Any word that exceeds this length will be broken into parts and served hyphenated. (You will need to restart any running Stutters for changes to take effect.) (Default 13)</p>
 			<label>
 				<span class="attribute">Maximum Word Length</span>
 				<input type="text" id="maxWordLength">
 			</label>
 
-			<p>The word count defined here is how many words will be skipped over when seeking forward or backwards using the hotkeys (Alt+Left, Alt+Right).</p>
+			<p>The word count defined here is how many words will be skipped over when seeking forward or backwards using the hotkeys (Alt+Left, Alt+Right). (Default 10)</p>
 			<label>
 				<span class="attribute">Skip Words Count</span>
 				<input type="text" id="skipCount">
@@ -45,26 +43,25 @@
 
 			<p>The <strong>Delay</strong> settings are speed multipliers. If a word normally were to display for one second, a multiplier of 1.5 would make that 1.5 seconds. The defaults are <a href="https://www.tandfonline.com/doi/abs/10.1080/01449290110069400">designed to feel natural</a>.</p>
 			<label>
-				<span class="attribute">Sentence Delay (.,!?)</span>
+				<span class="attribute">Sentence Delay (.,!?) (Default 2.5)</span>
 				<input type="text" id="sentenceDelay">
 			</label>
 			<label>
-				<span class="attribute">Other Punctuation Delay</span>
+				<span class="attribute">Other Punctuation Delay (Default 1.5)</span>
 				<input type="text" id="otherPuncDelay" >
 			</label>
 				<label>
-					<span class="attribute">Short Word Delay</span>
+					<span class="attribute">Short Word Delay (Default 1.3)</span>
 					<input type="text" id="shortWordDelay">
 				</label>
 				<label>
-					<span class="attribute">Long Word Delay</span>
+					<span class="attribute">Long Word Delay (Default 1.4)</span>
 					<input type="text" id="longWordDelay">
 				</label>
 				<label>
-					<span class="attribute">Numeric Delay</span>
+					<span class="attribute">Numeric Delay (Default 1.8)</span>
 					<input type="text" id="numericDelay">
 				</label>
-
 				<button class="submit" type="submit">Save</button>
 				<button id="reset" class="reset" type="button">Reset to Defaults</button>
 		</form>
