@@ -1,72 +1,72 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8"/>
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <form id="stutter-form">
-      <h1>Stutter Configuration</h1>
-      <p>The overall speed of Stutter is controlled by the <strong><abbr title="Words Per Minute">WPM</abbr></strong> rate. Most users will find this number comfortable in the 600-800 range after a few minutes of practice. Speeds of up to 1200 can be achieved with regular practice.</p>
-      <label>
-        <span class="attribute">WPM</span>
-        <input type="text" id="wpm">
-      </label>
+	<head>
+		<meta charset="utf-8"/>
+		<title><%= htmlWebpackPlugin.options.title %></title>
+	</head>
+	<body>
+		<form id="stutter-form">
+			<h1>Stutter Configuration</h1>
+			<p>The overall speed of Stutter is controlled by the <strong><abbr title="Words Per Minute">WPM</abbr></strong> rate. Most users will find this number comfortable in the 600-800 range after a few minutes of practice. Speeds of up to 1200 can be achieved with regular practice.</p>
+			<label>
+				<span class="attribute">WPM</span>
+				<input type="text" id="wpm">
+			</label>
 
-      <label>
-        <span>Theme</span>
-        <select id="theme">
-          <option value="default" selected>Default</option>
-          <option value="light">Light</option>
-          <option value="skeletor">Skeletor</option>
-          <option value="terminal">Terminal</option>
-          <option value="gameboy">Gameboy</option>
-          <option value="hacktoberfest">Hacktoberfest</option>
-        </select>
-      </label>
+			<label>
+				<span>Theme</span>
+				<select id="theme">
+					<option value="default" selected>Default</option>
+					<option value="light">Light</option>
+					<option value="skeletor">Skeletor</option>
+					<option value="terminal">Terminal</option>
+					<option value="gameboy">Gameboy</option>
+					<option value="hacktoberfest">Hacktoberfest</option>
+				</select>
+			</label>
 
-      <p>When beginning to Stutter, the <strong>Slow Start Count</strong> will ease you in by slowly ramping up to full speed over this many words.</p>
-      <label>
-        <span class="attribute">Slow Start Count</span>
-        <input type="text" id="slowStartCount">
-      </label>
+			<p>When beginning to Stutter, the <strong>Slow Start Count</strong> will ease you in by slowly ramping up to full speed over this many words.</p>
+			<label>
+				<span class="attribute">Slow Start Count</span>
+				<input type="text" id="slowStartCount">
+			</label>
 
-      <p>Any word that exceeds this length will be broken into parts and served hyphenated. (You will need to restart any running Stutters for changes to take effect.)</p>
-      <label>
-        <span class="attribute">Maximum Word Length</span>
-        <input type="text" id="maxWordLength">
-      </label>
+			<p>Any word that exceeds this length will be broken into parts and served hyphenated. (You will need to restart any running Stutters for changes to take effect.)</p>
+			<label>
+				<span class="attribute">Maximum Word Length</span>
+				<input type="text" id="maxWordLength">
+			</label>
 
-      <p>The word count defined here is how many words will be skipped over when seeking forward or backwards using the hotkeys (Alt+Left, Alt+Right).</p>
-      <label>
-        <span class="attribute">Skip Words Count</span>
-        <input type="text" id="skipCount">
-      </label>
+			<p>The word count defined here is how many words will be skipped over when seeking forward or backwards using the hotkeys (Alt+Left, Alt+Right).</p>
+			<label>
+				<span class="attribute">Skip Words Count</span>
+				<input type="text" id="skipCount">
+			</label>
 
-      <p>The <strong>Delay</strong> settings are speed multipliers. If a word normally were to display for one second, a multiplier of 1.5 would make that 1.5 seconds. The defaults are designed to feel natural.</p>
-      <label>
-        <span class="attribute">Sentence Delay (.,!?)</span>
-        <input type="text" id="sentenceDelay">
-      </label>
-      <label>
-        <span class="attribute">Other Punctuation Delay</span>
-        <input type="text" id="otherPuncDelay" >
-      </label>
-      <label>
-        <span class="attribute">Short Word Delay</span>
-        <input type="text" id="shortWordDelay">
-      </label>
-      <label>
-        <span class="attribute">Long Word Delay</span>
-        <input type="text" id="longWordDelay">
-      </label>
-      <label>
-        <span class="attribute">Numeric Delay</span>
-        <input type="text" id="numericDelay">
-      </label>
+			<p>The <strong>Delay</strong> settings are speed multipliers. If a word normally were to display for one second, a multiplier of 1.5 would make that 1.5 seconds. The defaults are <a href="https://www.tandfonline.com/doi/abs/10.1080/01449290110069400">designed to feel natural</a>.</p>
+			<label>
+				<span class="attribute">Sentence Delay (.,!?)</span>
+				<input type="text" id="sentenceDelay">
+			</label>
+			<label>
+				<span class="attribute">Other Punctuation Delay</span>
+				<input type="text" id="otherPuncDelay" >
+			</label>
+				<label>
+					<span class="attribute">Short Word Delay</span>
+					<input type="text" id="shortWordDelay">
+				</label>
+				<label>
+					<span class="attribute">Long Word Delay</span>
+					<input type="text" id="longWordDelay">
+				</label>
+				<label>
+					<span class="attribute">Numeric Delay</span>
+					<input type="text" id="numericDelay">
+				</label>
 
-      <button class="submit" type="submit">Save</button>
-      <button id="reset" class="reset" type="button">Reset to Defaults</button>
-    </form>
-  </body>
+				<button class="submit" type="submit">Save</button>
+				<button id="reset" class="reset" type="button">Reset to Defaults</button>
+		</form>
+	</body>
 </html>
