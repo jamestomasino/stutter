@@ -99,7 +99,7 @@ discuss what you would like to change.
 
 ### Themes
 
-The easiest addition to stutter is the creation of new themes. Adding a new theme requires only three additions to the code-base:
+You can preview the default themes in the [appropriate folder](https://github.com/thiswillbeyourgithub/stutter/tree/master/Screenshots). If you want to add your own, the easiest, it requires only three additions to the code-base:
 
 1. Add a new scss file in `src-content/themes/` that begins with an underscore and is named for your theme, such as `src-content/themes/_yourtheme.scss`. Copy the `_default.scss` file as a starting point and change the colors to your heart's desire. The first line of your scss file should be formatted like so (see other themes as examples):
 
