@@ -21,7 +21,7 @@ export default class Parts {
     this._wordRegex = new RegExp(getLocaleProp('wordRegex', locale), 'g')
     this._puncSplit = new RegExp(getLocaleProp('puncSplit', locale), 'i')
     this._vowels = 'aeiouyAEIOUYẚÁáÀàĂăẮắẰằẴẵẲẳÂâẤấẦầẪẫẨẩǍǎÅåǺǻÄäǞǟÃãȦȧǠǡĄąĀāẢảȀȁȂȃẠạẶặẬậḀḁȺⱥǼǽǢǣÉƏƎǝéÈèĔĕÊêẾếỀềỄễỂểĚěËëẼẽĖėȨȩḜḝĘęĒēḖḗḔḕẺẻȄȅȆȇẸẹỆệḘḙḚḛɆɇɚɝÍíÌìĬĭÎîǏǐÏïḮḯĨĩİiĮįĪīỈỉȈȉȊȋỊịḬḭIıƗɨÓóÒòŎŏÔôỐốỒồỖỗỔổǑǒÖöȪȫŐőÕõṌṍṎṏȬȭȮȯȰȱØøǾǿǪǫǬǭŌōṒṓṐṑỎỏȌȍȎȏƠơỚớỜờỠỡỞởỢợỌọỘộƟɵÚúÙùŬŭÛûǓǔŮůÜüǗǘǛǜǙǚǕǖŰűŨũṸṹŲųŪūṺṻỦủȔȕȖȗƯưỨứỪừỮữỬửỰựỤụṲṳṶṷṴṵɄʉÝýỲỳŶŷY̊ẙŸÿỸỹẎẏȲȳỶỷỴỵʏɎɏƳƴ'
-    this._hyphens = '[-—‒–—―]+'
+    this._hyphens = '[-‒–―]+' // — not included as it is a word break
     let c = '[^' + this._vowels + ']'
     let v = '[' + this._vowels + ']'
     this._vccv = new RegExp('(' + v + c + ')(' + c + v + ')', 'g')
@@ -59,7 +59,7 @@ export default class Parts {
       end = parts[5] || ''
     }
     let stitch = ret.filter(p => p).map((p, i) => {
-      return (i === 0 || p.match(/^[-—‒–—―]/)) ? p : '-' + p
+      return (i === 0 || p.match(/^[-‒–―]/)) ? p : '-' + p // — not included as it is a word break
     })
     return start + stitch.join(' ') + end
   }
