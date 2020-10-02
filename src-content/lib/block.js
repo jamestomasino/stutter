@@ -54,6 +54,14 @@ export default class Block {
     }
   }
 
+  get nextWord () {
+    if (this.words.length && this.index + 1 < this.words.length) {
+      return this.words[this.index + 1]
+    } else {
+      return null
+    }
+  }
+
   get time () {
     return this.getTime(this.words[this.index])
   }

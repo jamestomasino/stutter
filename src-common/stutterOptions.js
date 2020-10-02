@@ -12,7 +12,8 @@ let defaults = {
   'theme': 'default',
   'pos': 0.5,
   'maxWordLength': 13,
-  'skipCount': 10
+  'skipCount': 10,
+  'showFlankers': false
 }
 
 let instance = null
@@ -138,6 +139,9 @@ export default class StutterOptions extends EventEmitter {
         break
       case 'skipCount':
         val = parseInt(this.numericContain(0, 100, val), 10)
+        break
+      case 'showFlankers':
+        val = !!val
         break
     }
     if (this.hasOwnProperty('_' + prop) && this['_' + prop] !== val) {
