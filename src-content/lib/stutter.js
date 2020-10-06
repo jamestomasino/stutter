@@ -6,6 +6,7 @@ export default class Stutter {
     this.locale = window.navigator.language || locale
     this.block = null
     this.currentWord = null
+    this.nextWord = null
     this.isEnded = false
     this.isPlaying = false
     this.ui = ui
@@ -46,6 +47,7 @@ export default class Stutter {
       this.restart()
       this.block = new Block(val, this.options, this.locale)
       this.currentWord = this.block.word
+      this.nextWord = this.block.nextWord
       this.ui.updateTime(this.block.duration)
     }
   }
@@ -78,6 +80,7 @@ export default class Stutter {
       this.block.next()
     }
     this.currentWord = this.block.word
+    this.nextWord = this.block.nextWord
     if (this.currentWord) {
       this.showWord()
     }
@@ -88,6 +91,7 @@ export default class Stutter {
       this.block.prev()
     }
     this.currentWord = this.block.word
+    this.nextWord = this.block.nextWord
     if (this.currentWord) {
       this.showWord()
     }
@@ -117,6 +121,7 @@ export default class Stutter {
       }
       this.block.restart()
       this.currentWord = this.block.word
+      this.nextWord = this.block.nextWord
       this.isEnded = false
       this.play()
     }
@@ -124,6 +129,7 @@ export default class Stutter {
 
   display () {
     this.currentWord = this.block.word
+    this.nextWord = this.block.nextWord
     if (this.currentWord) {
       this.showWord()
       this.timer = setTimeout(() => { this.next() }, this.getTime())
@@ -139,7 +145,11 @@ export default class Stutter {
 
   showWord () {
     if (!this.currentWord.val.match(/[\n\r\s]+/)) {
-      this.ui.show(this.currentWord)
+      let n = null
+      if (this.nextWord && !this.nextWord.val.match(/[\n\r\s]+/)) {
+        n = this.nextWord
+      }
+      this.ui.show(this.currentWord, n)
       this.ui.progress = parseInt(this.block.progress * 100, 10)
     }
   }

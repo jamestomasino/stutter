@@ -13,7 +13,7 @@ var template = `
     <span class="__stutter_options">&#x2699;</span>
     <span class="__stutter_left"></span>
     <span class="__stutter_right">
-      <span class="__stutter_center"></span><span class="__stutter_remainder"></span>
+      <span class="__stutter_center"></span><span class="__stutter_remainder"></span><span class="__stutter_flanker"></span>
     </span>
     <span class="__stutter_duration">
       <span class="__stutter_duration_time"></span><span class="__stutter_duration_wpm"></span>
@@ -62,6 +62,7 @@ export default class UI extends EventEmitter {
     this.left = this.holder.getElementsByClassName('__stutter_left')[0]
     this.center = this.holder.getElementsByClassName('__stutter_center')[0]
     this.remainder = this.holder.getElementsByClassName('__stutter_remainder')[0]
+    this.flanker = this.holder.getElementsByClassName('__stutter_flanker')[0]
     this.durationTime = this.holder.getElementsByClassName('__stutter_duration_time')[0]
     this.durationWPM = this.holder.getElementsByClassName('__stutter_duration_wpm')[0]
     this.close = this.holder.getElementsByClassName('__stutter_close')[0]
@@ -204,10 +205,15 @@ export default class UI extends EventEmitter {
     this.holder.classList.remove('__stutter_paused')
   }
 
-  show (word) {
+  show (word, nextword = null) {
     this.left.textContent = word.val.substr(0, word.index)
     this.center.textContent = word.val.substr(word.index, 1)
     this.remainder.textContent = word.val.substr(word.index + 1)
+    if (this.stutterOptions.getProp('showFlankers') && nextword) {
+      this.flanker.textContent = ' ' + nextword.val
+    } else {
+      this.flanker.textContent = ''
+    }
   }
 
   hide () {

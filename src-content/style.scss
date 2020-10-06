@@ -89,6 +89,17 @@
 				pointer-events: none;
 				z-index: 90;
 			}
+
+			.__stutter_flanker {
+				color: var(--textColor) !important;
+				opacity: 0.5 !important;
+				font-family: Arial, sans-serif !important;
+				font-size: 30px !important;
+				box-sizing: border-box;
+				line-height: 1em !important;
+				pointer-events: none;
+				z-index: 90;
+			}
 		}
 
 		.__stutter_options {
@@ -190,6 +201,7 @@
 		.__stutter_text {
 			.__stutter_left,
 			.__stutter_center,
+			.__stutter_flanker,
 			.__stutter_remainder {
 				color: transparent !important;
 				text-shadow: 0 0 5px var(--pausedTextColor);
@@ -221,6 +233,7 @@
 				font-size: 60px !important;
 
 				.__stutter_center,
+				.__stutter_flanker,
 				.__stutter_remainder {
 					font-size: 60px !important;
 				}

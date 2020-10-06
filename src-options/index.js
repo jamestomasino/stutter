@@ -18,6 +18,7 @@ function drawSettings () {
   document.getElementById('maxWordLength').value = options.getProp('maxWordLength')
   document.getElementById('skipCount').value = options.getProp('skipCount')
   document.getElementById('theme').value = options.getProp('theme')
+  document.getElementById('showFlankers').checked = options.getProp('showFlankers')
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -35,5 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     options.setProp('maxWordLength', document.getElementById('maxWordLength').value)
     options.setProp('skipCount', document.getElementById('skipCount').value)
     options.setProp('theme', document.getElementById('theme').value)
+    options.setProp('showFlankers', document.getElementById('showFlankers').checked)
   })
 })

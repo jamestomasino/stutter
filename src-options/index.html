@@ -7,6 +7,8 @@
 	<body>
 		<form id="stutter-form">
 			<h1>Stutter Configuration</h1>
+			<button class="submit" type="submit">Save</button>
+			<button id="reset" class="reset" type="button">Reset to Defaults</button>
 			<p>The overall speed of Stutter is controlled by the <strong><abbr title="Words Per Minute">WPM</abbr></strong> rate. Most users will find this number comfortable in the 600-800 range after a few minutes of practice. Speeds of up to 1200 can be achieved with regular practice. (Default 400wpm)</p>
 			<label>
 				<span class="attribute">WPM</span>
@@ -25,6 +27,13 @@
 					<option value="nord">Nord</option>
 				</select>
 			</label>
+
+			<p>Some academic studies show increased comprehension when a 'flanker' word is shown to the right of the word being read via RSVP. By peeking at the next word you may find a benefit, or you may find it distracting. You can toggle the flanker on with this setting.</p>
+			<label>
+				<span class="attribute">Enable Flanker</span>
+				<input type="checkbox" id="showFlankers" value="enable">
+			</label>
+
 			<p>When beginning to Stutter, the <strong>Slow Start Count</strong> will ease you in by slowly ramping up to full speed over this many words. (Default 5)</p>
 			<label>
 				<span class="attribute">Slow Start Count</span>
@@ -52,20 +61,18 @@
 				<span class="attribute">Other Punctuation Delay (Default 1.5)</span>
 				<input type="text" id="otherPuncDelay" >
 			</label>
-				<label>
-					<span class="attribute">Short Word Delay (Default 1.3)</span>
-					<input type="text" id="shortWordDelay">
-				</label>
-				<label>
-					<span class="attribute">Long Word Delay (Default 1.4)</span>
-					<input type="text" id="longWordDelay">
-				</label>
-				<label>
-					<span class="attribute">Numeric Delay (Default 1.8)</span>
-					<input type="text" id="numericDelay">
-				</label>
-				<button class="submit" type="submit">Save</button>
-				<button id="reset" class="reset" type="button">Reset to Defaults</button>
+			<label>
+				<span class="attribute">Short Word Delay (Default 1.3)</span>
+				<input type="text" id="shortWordDelay">
+			</label>
+			<label>
+				<span class="attribute">Long Word Delay (Default 1.4)</span>
+				<input type="text" id="longWordDelay">
+			</label>
+			<label>
+				<span class="attribute">Numeric Delay (Default 1.8)</span>
+				<input type="text" id="numericDelay">
+			</label>
 		</form>
 	</body>
 </html>
