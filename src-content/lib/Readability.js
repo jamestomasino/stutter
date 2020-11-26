@@ -1566,7 +1566,11 @@ Readability.prototype = {
     this._forEachNode(noscripts, function(noscript) {
       // Parse content of noscript and make sure it only contains image
       var tmp = doc.createElement("div");
-      tmp.innerHTML = noscript.innerHTML;
+
+      // replaces: tmp.innerHTML = noscript.innerHTML;
+      var tmpHTML = new DOMParser().parseFromString('<template>' + noscript.innerHTML + '</template>', 'text/html').head
+      tmp.appendChild(tmpHTML.firstElementChild.content)
+
       if (!this._isSingleImage(tmp)) {
         return;
       }
