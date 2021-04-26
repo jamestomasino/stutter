@@ -51,6 +51,10 @@ This is an open source project and we welcome contributions. See the [Wiki](http
 Pull requests are welcome. For major changes, please open an issue first to
 discuss what you would like to change.
 
+## Research
+
+[Read some of the research](https://github.com/jamestomasino/stutter/wiki/Research) that influences Stutter.
+
 ## License
 
 [GPL3](LICENSE)
