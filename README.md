@@ -55,6 +55,10 @@ discuss what you would like to change.
 
 [Read some of the research](https://github.com/jamestomasino/stutter/wiki/Research) that influences Stutter.
 
+## Privacy Policy
+
+This browser extension collects no user data. Nothing about your is stored or maintained. It can be used offline.
+
 ## License
 
 [GPL3](LICENSE)
