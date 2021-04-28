@@ -57,7 +57,7 @@ discuss what you would like to change.
 
 ## Privacy Policy
 
-This browser extension collects no user data. Nothing about your is stored or maintained. It can be used offline.
+This browser extension collects no user data. Nothing about your usage is stored or transfered to any server. It can be used offline.
 
 ## License
 
