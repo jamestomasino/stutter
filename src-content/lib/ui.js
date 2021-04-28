@@ -6,9 +6,10 @@ import StutterOptions from '../../src-common/stutterOptions'
 var browser = require('webextension-polyfill')
 
 var template = `
+  <div class="__stutter_screen"></div>
   <div class="__stutter_text">
     <span class="__stutter_pausebtn"></span>
-    <span class="__stutter_drag"></span>
+    <span class="__stutter_drag">&#x2195;</span>
     <span class="__stutter_pause"></span>
     <span class="__stutter_options">&#x2699;</span>
     <span class="__stutter_left"></span>
