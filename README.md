@@ -36,7 +36,7 @@ Many other timing options and theming are available inside the full settings pan
 
 ## Getting Help
 
-You can leave feedback using [GitHub issues](https://github.com/jamestomasino/stutter/issues). If you would like to discuss problems or features with me directly, you can visit the [#stutter IRC channel on Freenode](https://kiwiirc.com/nextclient/#irc://irc.freenode.net/#stutter).
+You can leave feedback using [GitHub issues](https://github.com/jamestomasino/stutter/issues). If you would like to discuss problems or features with me directly, you can visit the [#stutter IRC channel on Libera.Chat](https://kiwiirc.com/nextclient/#irc://irc.libera.chat/#stutter).
 
 ## Contributing
 
