@@ -2,7 +2,7 @@
 import '../style.scss'
 import { EventEmitter } from 'events'
 import StutterOptions from '../../src-common/stutterOptions'
-
+import { parseFragmentDirectives, processFragmentDirectives, removeMarks } from 'text-fragments-polyfill/src/text-fragment-utils'
 var browser = require('webextension-polyfill')
 
 var template = `
@@ -55,6 +55,8 @@ export default class UI extends EventEmitter {
     this.holder.appendChild(dom.firstElementChild.content)
     this.progress = 0
     this.bindDOM()
+    this.marks = null
+    this.currentTextFragment = ''
   }
 
   bindDOM () {
@@ -210,6 +212,18 @@ export default class UI extends EventEmitter {
     this.left.textContent = word.val.substr(0, word.index)
     this.center.textContent = word.val.substr(word.index, 1)
     this.remainder.textContent = word.val.substr(word.index + 1)
+
+    let tf = word.textFragment
+    if (this.currentTextFragment !== tf) {
+      this.currentTextFragment = tf
+      if (this.marks) removeMarks(this.marks)
+      let p = parseFragmentDirectives({ text: [tf] })
+      let r = processFragmentDirectives(p)
+      if (r.text.length) {
+        this.marks = r.text[0]
+      }
+    }
+
     if (this.stutterOptions.getProp('showFlankers') && nextword) {
       this.flanker.textContent = ' ' + nextword.val
     } else {
@@ -220,6 +234,7 @@ export default class UI extends EventEmitter {
   hide () {
     if (this.holder.parentNode) {
       this.holder.parentNode.removeChild(this.holder)
+      if (this.marks) removeMarks(this.marks)
     }
   }
 

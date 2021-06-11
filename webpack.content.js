@@ -37,5 +37,10 @@ module.exports = {
         ]
       }
     ]
+  },
+  resolve: {
+    alias: {
+      'markjs': 'mark.js/dist/mark.es6.min.js'
+    }
   }
 }

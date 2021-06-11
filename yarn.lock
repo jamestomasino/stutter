@@ -7358,6 +7358,11 @@ terser@^4.1.2:
     source-map "~0.6.1"
     source-map-support "~0.5.12"
 
+text-fragments-polyfill@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/text-fragments-polyfill/-/text-fragments-polyfill-3.3.0.tgz#494e7601cab88d0556d63e130a0c0802261684d2"
+  integrity sha512-JgUuoU8Sy5DmItEpz/C4Wx9psJz9KCKCUJuMcYqo//wEfE2HcrTuRp/44P9OCbuVSCLFC2ubd8bJZOUcIhFeIA==
+
 text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"

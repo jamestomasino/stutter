@@ -14,6 +14,7 @@ export default class Word {
     this.index = 0
     this.parseWord()
     this.findIndex()
+    this.textFragment = ''
   }
 
   parseWord () {
