@@ -2,7 +2,7 @@
 import '../style.scss'
 import { EventEmitter } from 'events'
 import StutterOptions from '../../src-common/stutterOptions'
-import { parseFragmentDirectives, processFragmentDirectives, removeMarks } from 'text-fragments-polyfill/src/text-fragment-utils'
+import { parseFragmentDirectives, processFragmentDirectives, removeMarks } from './text-fragment-utils'
 var browser = require('webextension-polyfill')
 
 var template = `

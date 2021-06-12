@@ -1,5 +1,5 @@
 /* global DOMParser */
-import Readability from './lib/Readability'
+import Readability from './lib/Readability.cjs'
 import Stutter from './lib/stutter'
 import UI from './lib/ui'
 
