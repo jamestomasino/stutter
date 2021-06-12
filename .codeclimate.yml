@@ -1,0 +1,5 @@
+plugins:
+  scss-lint:
+    enabled: true
+  markdownlint:
+    enabled: true
