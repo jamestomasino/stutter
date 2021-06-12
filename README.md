@@ -64,3 +64,6 @@ This browser extension collects no user data. Nothing about your usage is stored
 [GPL3](LICENSE)
 
 Mozilla's Readability library - http://www.apache.org/licenses/LICENSE-2.0
+
+[text-fragments-polyfill](https://openbase.com/js/text-fragments-polyfill/documentation) - http://www.apache.org/licenses/LICENSE-2.0
+
