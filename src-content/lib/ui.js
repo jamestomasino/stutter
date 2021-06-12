@@ -216,7 +216,10 @@ export default class UI extends EventEmitter {
     let tf = word.textFragment
     if (this.currentTextFragment !== tf) {
       this.currentTextFragment = tf
-      if (this.marks) removeMarks(this.marks)
+      if (this.marks) {
+        removeMarks(this.marks)
+        this.marks = null
+      }
       let p = parseFragmentDirectives({ text: [tf] })
       let r = processFragmentDirectives(p)
       if (r.text.length) {
@@ -234,13 +237,17 @@ export default class UI extends EventEmitter {
   hide () {
     if (this.holder.parentNode) {
       this.holder.parentNode.removeChild(this.holder)
-      if (this.marks) removeMarks(this.marks)
+      if (this.marks) {
+        removeMarks(this.marks)
+        this.marks = null
+      }
     }
   }
 
   reveal () {
     if (!this.holder.parentNode) {
       document.body.insertBefore(this.holder, document.body.childNodes[0])
+      this.marks = null
     }
   }
 
