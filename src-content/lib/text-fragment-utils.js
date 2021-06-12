@@ -278,12 +278,14 @@ export const processTextFragmentDirective = (textFragment) => {
  */
 export const removeMarks = (marks) => {
   for (const mark of marks) {
-    const range = document.createRange();
-    range.selectNodeContents(mark);
-    const fragment = range.extractContents();
-    const parent = mark.parentNode;
-    parent.insertBefore(fragment, mark);
-    parent.removeChild(mark);
+    try {
+      const range = document.createRange();
+      range.selectNodeContents(mark);
+      const fragment = range.extractContents();
+      const parent = mark.parentNode;
+      parent.insertBefore(fragment, mark);
+      parent.removeChild(mark);
+    } catch (_) {}
   }
 };
 
