@@ -32,7 +32,6 @@ export default class Word {
 
     if (/["\\(“‘]/.test(firstChar)) {
       this.hasLeadingQuote = true
-      this.hasOtherPunc = true
     }
 
     if (/[.!?]/.test(lastChar)) {

@@ -1,4 +1,3 @@
-/* global DOMParser */
 import Readability from './lib/Readability.cjs'
 import Stutter from './lib/stutter'
 import UI from './lib/ui'
@@ -28,12 +27,7 @@ function onMessage (request) {
         // close document switch Readability is destructive
         var documentClone = document.cloneNode(true)
         var article = new Readability(documentClone).parse()
-        // Readability gives html output. strip it to plain text
-        var div = document.createElement('div')
-        var dom = new DOMParser().parseFromString('<template>' + article.content + '</template>', 'text/html').head
-        div.appendChild(dom.firstElementChild.content)
-        var pureText = div.textContent
-        // Pass article content to Stutter
+        var pureText = article.textContent
         playStutter(pureText, request.locale)
       }
       break

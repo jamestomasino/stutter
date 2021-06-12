@@ -131,6 +131,10 @@ export default class UI extends EventEmitter {
     return (document.querySelector('.__stutter_text'))
   }
 
+  get progress () {
+    return this.holder.dataset.progress
+  }
+
   set progress (val) {
     this.holder.dataset.progress = val
   }
