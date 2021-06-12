@@ -8,3 +8,8 @@ plugins:
   eslint:
     enabled: true
     channel: "eslint-7"
+exclude_patterns:
+  - "**/node_modules/"
+  - "**/vendor/"
+  - "**/Readability.cjs"
+  - "**/text-fragment-utils.js"
