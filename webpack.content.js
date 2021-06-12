@@ -1,4 +1,13 @@
 var path = require('path')
+const ESLintPlugin = require('eslint-webpack-plugin')
+
+const options = {
+  'extensions': [`js`],
+  'context': '/src-content',
+  'exclude': [
+    `/node_modules/`,
+  ],
+}
 
 module.exports = {
   'mode': 'development',
@@ -8,14 +17,9 @@ module.exports = {
     'filename': 'index.js'
   },
   'devtool': 'source-map',
+  'plugins': [new ESLintPlugin(options)],
   'module': {
     'rules': [
-      {
-        'enforce': 'pre',
-        'test': /src-content\/.*\.js$/,
-        'exclude': /node_modules/,
-        'use': 'eslint-loader'
-      },
       {
         'test': /src-content\/.*\.js$/,
         'exclude': /node_modules/,

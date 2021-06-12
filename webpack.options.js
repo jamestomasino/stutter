@@ -1,6 +1,15 @@
 var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
+
+const options = {
+  'extensions': [`js`],
+  'context': '/src-bg',
+  'exclude': [
+    `/node_modules/`,
+  ],
+}
 
 module.exports = {
   'mode': 'development',
@@ -17,16 +26,11 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'style.css',
     }),
+    new ESLintPlugin(options)
   ],
   'devtool': 'source-map',
   'module': {
     'rules': [
-      {
-        'enforce': 'pre',
-        'test': /src-options\/.*\.js$/,
-        'exclude': /node_modules/,
-        'use': 'eslint-loader'
-      },
       {
         'test': /src-options\/.*\.js$/,
         'exclude': /node_modules/,
