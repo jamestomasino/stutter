@@ -3,3 +3,8 @@ plugins:
     enabled: true
   markdownlint:
     enabled: true
+  fixme:
+    enabled: true
+  eslint:
+    enabled: true
+    channel: "eslint-7"
