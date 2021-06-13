@@ -1,6 +1,7 @@
 import Readability from './lib/Readability.cjs'
 import Stutter from './lib/stutter'
 import UI from './lib/ui'
+const { convert } = require('html-to-text')
 
 function playStutter (text, locale) {
   if (stutter) {
@@ -27,7 +28,24 @@ function onMessage (request) {
         // close document switch Readability is destructive
         var documentClone = document.cloneNode(true)
         var article = new Readability(documentClone).parse()
-        var pureText = article.textContent
+        var pureText = convert(article.content, {
+          selectors: [
+            {
+              selector: 'a',
+              options: {
+                ignoreHref: true,
+                noAnchorUrl: true,
+                noLinkBrackets: true
+              }
+            },
+            {
+              selector: 'img',
+              format: 'skip'
+            }
+          ],
+          wordwrap: false
+        })
+        // Pass article content to Stutter
         playStutter(pureText, request.locale)
       }
       break

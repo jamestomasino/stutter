@@ -35,7 +35,7 @@ export default class Block {
     rawWords.map(word => {
       // retroactively apply phrase to words in queue
       if (purgeQueue) {
-        this.setTextFragmentToWords(wordQueue, phrase)
+        this.setTextFragmentToWords(wordQueue, phrase.trim())
         purgeQueue = false
         phrase = ''
       }

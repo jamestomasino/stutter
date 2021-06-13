@@ -224,7 +224,7 @@ export default class UI extends EventEmitter {
         removeMarks(this.marks)
         this.marks = null
       }
-      if (tf.length > 10 && /\w/.test(tf)) {
+      if (tf.length > 6 && /\w/.test(tf)) {
         let p = parseFragmentDirectives({ text: [encodeURI(tf)] })
         let r = processFragmentDirectives(p)
         if (r.text.length) {
