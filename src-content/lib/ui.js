@@ -56,6 +56,7 @@ export default class UI extends EventEmitter {
     this.progress = 0
     this.bindDOM()
     this.marks = null
+    this.wakeLock = null
     this.currentTextFragment = ''
   }
 
@@ -247,13 +248,23 @@ export default class UI extends EventEmitter {
         removeMarks(this.marks)
         this.marks = null
       }
+      if (this.wakeLock) {
+        wakeLock.release().then(() => { wakeLock = null })
+      }
     }
   }
 
-  reveal () {
+  async reveal () {
     if (!this.holder.parentNode) {
       document.body.insertBefore(this.holder, document.body.childNodes[0])
       this.marks = null
+
+      // prevent screen timeout when stutter runs if supported
+      if ('wakeLock' in navigator) {
+        try {
+          wakeLock = await navigator.wakeLock.request('screen')
+        } catch (_) {}
+      }
     }
   }
 
