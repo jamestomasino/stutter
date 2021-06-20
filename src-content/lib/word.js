@@ -41,7 +41,7 @@ export default class Word {
       this.hasPeriod = true
     }
 
-    if (!this.hasPeriod && !this.hasLeadingQuote && !this.hasTrailingQuote && locale.puncRegex.test(this.val)) {
+    if (!this.hasPeriod && locale.puncRegex.test(this.val)) {
       this.hasOtherPunc = true
     }
   }
