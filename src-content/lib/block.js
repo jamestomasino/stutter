@@ -1,10 +1,11 @@
 import Word from './word'
 import Parts from './parts'
+import Locale from './locales.js'
+const locale = new Locale()
 
 export default class Block {
-  constructor (val, settings, locale) {
-    this.locale = locale
-    this.parts = new Parts(locale)
+  constructor (val, settings) {
+    this.parts = new Parts()
     this.words = []
     this.index = 0
     this.settings = settings
@@ -25,7 +26,7 @@ export default class Block {
     val = val.replace(/([.?!,:;])“(?=\w)/ig, '$1 “')
 
     // Build word chain
-    let rawWords = val.match(this.parts.wordRegex)
+    let rawWords = val.match(locale.wordRegex)
 
     // temporary variables for building up text fragment phrases
     let phrase = ''
@@ -48,14 +49,14 @@ export default class Block {
         phrase += (phrase) ? ' ' + brokenWord : '' + brokenWord
       }
 
-      let subWords = brokenWord.match(this.parts.wordRegex)
+      let subWords = brokenWord.match(locale.wordRegex)
       subWords.map(subWord => {
         // break long words
         let maxWordLength = (settings.getProp('maxWordLength') || 13)
         let w
         if (subWord.length > maxWordLength) {
           let brokenSubWord = this.parts.breakLongWord(subWord, maxWordLength)
-          let subSubWords = brokenSubWord.match(this.parts.wordRegex)
+          let subSubWords = brokenSubWord.match(locale.wordRegex)
           subSubWords.map(subSubWord => {
             w = new Word(subSubWord)
             this.words.push(w)
