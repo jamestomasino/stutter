@@ -1,18 +1,22 @@
 # stutter ![status](https://travis-ci.com/jamestomasino/stutter.svg?branch=master) ![GitHub](https://img.shields.io/github/license/jamestomasino/stutter.svg) [![Maintainability](https://api.codeclimate.com/v1/badges/a4d5b54b3cf91c6a2b3e/maintainability)](https://codeclimate.com/github/jamestomasino/stutter/maintainability)
 
-[![Firefox Get Extension](https://img.shields.io/badge/Firefox-Get%20Extension!-lightgrey.svg?style=popout&logo=mozilla-firefox)](https://addons.mozilla.org/en-US/firefox/addon/stutter/) [![Chrome Get Extension](https://img.shields.io/badge/Chrome-Get%20Extension!-lightgrey.svg?style=popout&logo=google-chrome)](https://chrome.google.com/webstore/detail/stutter/fbapmaboedchhgjolcnpfgoanbfajchl) [![Edge Get Extension](https://img.shields.io/badge/Edge-Get%20Extension!-lightgrey.svg?style=popout&logo=microsoft-edge)](https://microsoftedge.microsoft.com/addons/detail/stutter/aonlnjdopgkofbgipdnfdclfpaindajj)
-
 <a href="https://addons.mozilla.org/en-US/firefox/addon/stutter/"><img src="./icons/stutter.svg" width="100"></a>
 
-**stutter** _(noun)_
+## About Stutter
 
-1. Distorted speech characterized principally by blocks or spasms interrupting the rhythm.
+**stutter**
 
-2. A [Rapid Serial Visual Presentation](https://en.wikipedia.org/wiki/Rapid_serial_visual_presentation) (RSVP) extension for modern web browsers. RSVP is a way to read faster with less eye movement.
+Stutter is a [Rapid Serial Visual Presentation](https://en.wikipedia.org/wiki/Rapid_serial_visual_presentation) (RSVP) extension for modern web browsers. RSVP is a way to read faster with less eye movement.
+
+[See a Stutter demonstration here.](https://www.youtube.com/watch?v=TKgZAOQctzo)
 
 [![stutter demonstration](https://i.ytimg.com/vi_webp/TKgZAOQctzo/maxresdefault.webp)](https://www.youtube.com/watch?v=TKgZAOQctzo)
 
-[See a Stutter demonstration here.](https://www.youtube.com/watch?v=TKgZAOQctzo)
+## Get Stutter
+
+* [![Firefox Get Extension](https://img.shields.io/badge/Firefox-Get%20Extension!-lightgrey.svg?style=popout&logo=mozilla-firefox)](https://addons.mozilla.org/en-US/firefox/addon/stutter/)
+* [![Chrome Get Extension](https://img.shields.io/badge/Chrome-Get%20Extension!-lightgrey.svg?style=popout&logo=google-chrome)](https://chrome.google.com/webstore/detail/stutter/fbapmaboedchhgjolcnpfgoanbfajchl)
+* [![Edge Get Extension](https://img.shields.io/badge/Edge-Get%20Extension!-lightgrey.svg?style=popout&logo=microsoft-edge)](https://microsoftedge.microsoft.com/addons/detail/stutter/aonlnjdopgkofbgipdnfdclfpaindajj)
 
 ## Usage
 
