@@ -8,7 +8,7 @@
 
 1. Distorted speech characterized principally by blocks or spasms interrupting the rhythm.
 
-2. A [Rapid Serial Visual Presentation](https://en.wikipedia.org/wiki/Rapid_serial_visual_presentation) (RSVP) extension for modern web browsers. It is based upon my initial work in a Google Chrome extension, [read](https://github.com/jamestomasino/read_plugin). This is an attempt to modernize the code and offer cross-browser support.
+2. A [Rapid Serial Visual Presentation](https://en.wikipedia.org/wiki/Rapid_serial_visual_presentation) (RSVP) extension for modern web browsers. RSVP is a way to read faster with less eye movement.
 
 [![stutter demonstration](https://i.ytimg.com/vi_webp/TKgZAOQctzo/maxresdefault.webp)](https://www.youtube.com/watch?v=TKgZAOQctzo)
 
