@@ -2,6 +2,20 @@
 
 <a href="https://addons.mozilla.org/en-US/firefox/addon/stutter/"><img src="./icons/stutter.svg" width="100"></a>
 
+Table of contents
+=================
+
+<!--ts-->
+   * [About Stutter](#about-stutter)
+   * [Installation](#installation)
+   * [Usage](#usage)
+   * [Getting Help](#getting-help)
+   * [Contributing](#contributing)
+   * [Research](#research)
+   * [Privacy Policy](#privacy-policy)
+   * [License](#license)
+<!--te-->
+
 ## About Stutter
 
 **stutter**
@@ -10,13 +24,13 @@ Stutter is a [Rapid Serial Visual Presentation](https://en.wikipedia.org/wiki/Ra
 
 [See a Stutter demonstration here.](https://www.youtube.com/watch?v=TKgZAOQctzo)
 
-[![stutter demonstration](https://i.ytimg.com/vi_webp/TKgZAOQctzo/maxresdefault.webp)](https://www.youtube.com/watch?v=TKgZAOQctzo)
-
-## Get Stutter
+## Installation
 
 * [![Firefox Get Extension](https://img.shields.io/badge/Firefox-Get%20Extension!-lightgrey.svg?style=popout&logo=mozilla-firefox)](https://addons.mozilla.org/en-US/firefox/addon/stutter/)
 * [![Chrome Get Extension](https://img.shields.io/badge/Chrome-Get%20Extension!-lightgrey.svg?style=popout&logo=google-chrome)](https://chrome.google.com/webstore/detail/stutter/fbapmaboedchhgjolcnpfgoanbfajchl)
 * [![Edge Get Extension](https://img.shields.io/badge/Edge-Get%20Extension!-lightgrey.svg?style=popout&logo=microsoft-edge)](https://microsoftedge.microsoft.com/addons/detail/stutter/aonlnjdopgkofbgipdnfdclfpaindajj)
+
+[![stutter demonstration](https://i.ytimg.com/vi_webp/TKgZAOQctzo/maxresdefault.webp)](https://www.youtube.com/watch?v=TKgZAOQctzo)
 
 ## Usage
 
