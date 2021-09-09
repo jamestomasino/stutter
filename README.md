@@ -12,6 +12,8 @@
 
 [![stutter demonstration](https://i.ytimg.com/vi_webp/TKgZAOQctzo/maxresdefault.webp)](https://www.youtube.com/watch?v=TKgZAOQctzo)
 
+[See a Stutter demonstration here.](https://www.youtube.com/watch?v=TKgZAOQctzo)
+
 ## Usage
 
 You can begin running Stutter in one of three ways:
