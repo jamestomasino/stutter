@@ -13,7 +13,14 @@ let defaults = {
   'pos': 0.5,
   'maxWordLength': 13,
   'skipCount': 10,
-  'showFlankers': false
+  'showFlankers': false,
+  'keybindPause': { 'modifier': 'Alt', 'key': 'p' },
+  'keybindRestart': { 'modifier': 'Alt', 'key': 'r' },
+  'keybindPrevious': { 'modifier': 'Alt', 'key': 'ArrowLeft' },
+  'keybindForward': { 'modifier': 'Alt', 'key': 'ArrowRight' },
+  'keybindSpeedUp': { 'modifier': 'Alt', 'key': 'ArrowUp' },
+  'keybindSpeedDown': { 'modifier': 'Alt', 'key': 'ArrowDown' },
+  'keybindClose': { 'modifier': '', 'key': 'Escape' }
 }
 
 let instance = null

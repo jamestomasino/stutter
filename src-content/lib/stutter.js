@@ -30,6 +30,9 @@ export default class Stutter {
     this.ui.addListener('pause', () => {
       this.pause()
     })
+    this.ui.addListener('restart', () => {
+      this.restart()
+    })
 
     this.options = new StutterOptions()
     this.onOptionsUpdate = this.onOptionsUpdate.bind(this)

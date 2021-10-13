@@ -92,37 +92,35 @@ export default class UI extends EventEmitter {
   }
 
   onKeypress (e) {
-    if (e.defaultPrevented || ['Fn', 'Hyper', 'OS', 'Super', 'Control', 'Meta', 'Win']
-      .some(s => e.getModifierState(s))) return
+    var keybindPause = this.stutterOptions.getProp('keybindPause')
+    var keybindRestart = this.stutterOptions.getProp('keybindRestart')
+    var keybindPrevious = this.stutterOptions.getProp('keybindPrevious')
+    var keybindForward = this.stutterOptions.getProp('keybindForward')
+    var keybindSpeedUp = this.stutterOptions.getProp('keybindSpeedUp')
+    var keybindSpeedDown = this.stutterOptions.getProp('keybindSpeedDown')
+    var keybindClose = this.stutterOptions.getProp('keybindClose')
 
-    var alt = e.getModifierState('Alt')
+    var anyModifier = ['Alt', 'Fn', 'Hyper', 'OS', 'Super', 'Control', 'Meta', 'Win'].some(s => e.getModifierState(s))
 
-    if (alt) {
-      switch (e.key) {
-        case 'ArrowDown':
-          this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') - 50)
-          e.preventDefault()
-          break
-        case 'ArrowUp':
-          this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') + 50)
-          e.preventDefault()
-          break
-        case 'ArrowLeft':
-          this.emit('skipPrevious')
-          e.preventDefault()
-          break
-        case 'ArrowRight':
-          this.emit('skipForward')
-          e.preventDefault()
-          break
-        case 'p':
-          this.onPauseToggle()
-          e.preventDefault()
-          break
-      }
-    }
-
-    if (e.key === 'Escape') {
+    if ((keybindPause.modifier ? e.getModifierState(keybindPause.modifier) : !anyModifier) && e.key === keybindPause.key) {
+      this.onPauseToggle()
+      e.preventDefault()
+    } else if ((keybindRestart.modifier ? e.getModifierState(keybindRestart.modifier) : !anyModifier) && e.key === keybindRestart.key) {
+      this.emit('restart')
+      e.preventDefault()
+    } else if ((keybindPrevious.modifier ? e.getModifierState(keybindPrevious.modifier) : !anyModifier) && e.key === keybindPrevious.key) {
+      this.emit('skipPrevious')
+      e.preventDefault()
+    } else if ((keybindForward.modifier ? e.getModifierState(keybindForward.modifier) : !anyModifier) && e.key === keybindForward.key) {
+      this.emit('skipForward')
+      e.preventDefault()
+    } else if ((keybindSpeedUp.modifier ? e.getModifierState(keybindSpeedUp.modifier) : !anyModifier) && e.key === keybindSpeedUp.key) {
+      this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') + 50)
+      e.preventDefault()
+    } else if ((keybindSpeedDown.modifier ? e.getModifierState(keybindSpeedDown.modifier) : !anyModifier) && e.key === keybindSpeedDown.key) {
+      this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') - 50)
+      e.preventDefault()
+    } else if ((keybindClose.modifier ? e.getModifierState(keybindClose.modifier) : !anyModifier) && e.key === keybindClose.key) {
       this.emit('close')
       e.preventDefault()
     }
