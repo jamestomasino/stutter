@@ -40,6 +40,6 @@
     "web-ext": "^6.2.0",
     "webextension-polyfill": "^0.4.0",
     "webpack": "^5.38.1",
-    "webpack-cli": "^3.3.7"
+    "webpack-cli": "^4.9.0"
   }
 }
