@@ -19,23 +19,126 @@ function drawSettings () {
   document.getElementById('skipCount').value = options.getProp('skipCount')
   document.getElementById('theme').value = options.getProp('theme')
   document.getElementById('showFlankers').checked = options.getProp('showFlankers')
+  document.getElementById('keybindPauseModifier').value = options.getProp('keybindPauseModifier') ? options.getProp('keybindPauseModifier') : ''
+  document.getElementById('keybindRestartModifier').value = options.getProp('keybindRestartModifier') ? options.getProp('keybindRestartModifier') : ''
+  document.getElementById('keybindPreviousModifier').value = options.getProp('keybindPreviousModifier') ? options.getProp('keybindPreviousModifier') : ''
+  document.getElementById('keybindForwardModifier').value = options.getProp('keybindForwardModifier') ? options.getProp('keybindForwardModifier') : ''
+  document.getElementById('keybindSpeedUpModifier').value = options.getProp('keybindSpeedUpModifier') ? options.getProp('keybindSpeedUpModifier') : ''
+  document.getElementById('keybindSpeedDownModifier').value = options.getProp('keybindSpeedDownModifier') ? options.getProp('keybindSpeedDownModifier') : ''
+  document.getElementById('keybindCloseModifier').value = options.getProp('keybindCloseModifier') ? options.getProp('keybindCloseModifier') : ''
+  document.getElementById('keybindPauseKey').value = options.getProp('keybindPauseKey')
+  document.getElementById('keybindRestartKey').value = options.getProp('keybindRestartKey')
+  document.getElementById('keybindPreviousKey').value = options.getProp('keybindPreviousKey')
+  document.getElementById('keybindForwardKey').value = options.getProp('keybindForwardKey')
+  document.getElementById('keybindSpeedUpKey').value = options.getProp('keybindSpeedUpKey')
+  document.getElementById('keybindSpeedDownKey').value = options.getProp('keybindSpeedDownKey')
+  document.getElementById('keybindCloseKey').value = options.getProp('keybindCloseKey')
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   drawSettings()
-
   document.querySelector('form').addEventListener('submit', e => {
     e.preventDefault()
-    options.setProp('wpm', document.getElementById('wpm').value)
-    options.setProp('slowStartCount', document.getElementById('slowStartCount').value)
-    options.setProp('sentenceDelay', document.getElementById('sentenceDelay').value)
-    options.setProp('otherPuncDelay', document.getElementById('otherPuncDelay').value)
-    options.setProp('shortWordDelay', document.getElementById('shortWordDelay').value)
-    options.setProp('longWordDelay', document.getElementById('longWordDelay').value)
-    options.setProp('numericDelay', document.getElementById('numericDelay').value)
-    options.setProp('maxWordLength', document.getElementById('maxWordLength').value)
-    options.setProp('skipCount', document.getElementById('skipCount').value)
-    options.setProp('theme', document.getElementById('theme').value)
-    options.setProp('showFlankers', document.getElementById('showFlankers').checked)
+    clearListeners()
+    var settings = {}
+    settings.wpm = document.getElementById('wpm').value
+    settings.slowStartCount = document.getElementById('slowStartCount').value
+    settings.sentenceDelay = document.getElementById('sentenceDelay').value
+    settings.otherPuncDelay = document.getElementById('otherPuncDelay').value
+    settings.shortWordDelay = document.getElementById('shortWordDelay').value
+    settings.longWordDelay = document.getElementById('longWordDelay').value
+    settings.numericDelay = document.getElementById('numericDelay').value
+    settings.maxWordLength = document.getElementById('maxWordLength').value
+    settings.skipCount = document.getElementById('skipCount').value
+    settings.theme = document.getElementById('theme').value
+    settings.showFlankers = document.getElementById('showFlankers').checked
+    settings.keybindPauseModifier = document.getElementById('keybindPauseModifier').value
+    settings.keybindRestartModifier = document.getElementById('keybindRestartModifier').value
+    settings.keybindPreviousModifier = document.getElementById('keybindPreviousModifier').value
+    settings.keybindForwardModifier = document.getElementById('keybindForwardModifier').value
+    settings.keybindSpeedUpModifier = document.getElementById('keybindSpeedUpModifier').value
+    settings.keybindSpeedDownModifier = document.getElementById('keybindSpeedDownModifier').value
+    settings.keybindCloseModifier = document.getElementById('keybindCloseModifier').value
+    settings.keybindPauseKey = document.getElementById('keybindPauseKey').value
+    settings.keybindRestartKey = document.getElementById('keybindRestartKey').value
+    settings.keybindPreviousKey = document.getElementById('keybindPreviousKey').value
+    settings.keybindForwardKey = document.getElementById('keybindForwardKey').value
+    settings.keybindSpeedUpKey = document.getElementById('keybindSpeedUpKey').value
+    settings.keybindSpeedDownKey = document.getElementById('keybindSpeedDownKey').value
+    settings.keybindCloseKey = document.getElementById('keybindCloseKey').value
+    options.settings = settings
   })
+  document.getElementById('keybindPause').addEventListener('click', updateKey)
+  document.getElementById('keybindRestart').addEventListener('click', updateKey)
+  document.getElementById('keybindPrevious').addEventListener('click', updateKey)
+  document.getElementById('keybindForward').addEventListener('click', updateKey)
+  document.getElementById('keybindSpeedUp').addEventListener('click', updateKey)
+  document.getElementById('keybindSpeedDown').addEventListener('click', updateKey)
+  document.getElementById('keybindClose').addEventListener('click', updateKey)
 })
+
+function updateKey(e) {
+  var label = e.target
+  var mod = label.querySelector('.modifier')
+  var key = label.querySelector('.key')
+  if (label.classList.contains('update')) {
+    clearListeners()
+    return
+  }
+  clearListeners()
+  label.classList.add('update')
+  mod.dataset.value = mod.value
+  key.dataset.value = key.value
+  mod.value = ''
+  key.value = ''
+  document.addEventListener('keydown', listenForKey, true)
+}
+
+function clearListeners() {
+  document.querySelectorAll('.update').forEach(el => {
+
+    var mod = el.querySelector('.modifier')
+    var key = el.querySelector('.key')
+    if (mod.value === '' && mod.dataset.value !== '') {
+      mod.value = mod.dataset.value
+      mod.dataset.value = ''
+    }
+    if (key.value === '' && key.dataset.value !== '') {
+      key.value = key.dataset.value
+      key.dataset.value = ''
+    }
+    el.classList.remove('update')
+  })
+  document.removeEventListener('keydown', listenForKey, true)
+}
+
+function listenForKey (keyboardEvent) {
+  keyboardEvent.stopPropagation()
+  var key = keyboardEvent.key || ''
+  if (['Alt', 'OS', 'Control', 'Meta', 'Shift'].some(s => key === s)) return
+  var modifier = ''
+  switch (true) {
+    case keyboardEvent.getModifierState('OS'):
+      modifier = 'OS'
+      break
+    case keyboardEvent.getModifierState('Alt'):
+      modifier = 'Alt'
+      break
+    case keyboardEvent.getModifierState('Control'):
+      modifier = 'Control'
+      break
+    case keyboardEvent.getModifierState('Meta'):
+      modifier = 'Meta'
+      break
+  }
+  if (key) {
+    var label = document.querySelector('.update')
+    var modEl = label.querySelector('.modifier')
+    var keyEl = label.querySelector('.key')
+    modEl.value = modifier ? modifier : ''
+    modEl.dataset.value = ''
+    keyEl.value = key
+    keyEl.dataset.value = ''
+    clearListeners()
+  }
+}

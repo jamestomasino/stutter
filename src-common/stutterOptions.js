@@ -14,13 +14,20 @@ let defaults = {
   'maxWordLength': 13,
   'skipCount': 10,
   'showFlankers': false,
-  'keybindPause': { 'modifier': 'Alt', 'key': 'p' },
-  'keybindRestart': { 'modifier': 'Alt', 'key': 'r' },
-  'keybindPrevious': { 'modifier': 'Alt', 'key': 'ArrowLeft' },
-  'keybindForward': { 'modifier': 'Alt', 'key': 'ArrowRight' },
-  'keybindSpeedUp': { 'modifier': 'Alt', 'key': 'ArrowUp' },
-  'keybindSpeedDown': { 'modifier': 'Alt', 'key': 'ArrowDown' },
-  'keybindClose': { 'modifier': '', 'key': 'Escape' }
+  'keybindPauseModifier': 'Alt',
+  'keybindPauseKey': 'p',
+  'keybindRestartModifier': 'Alt',
+  'keybindRestartKey': 'r',
+  'keybindPreviousModifier':'Alt',
+  'keybindPreviousKey': 'ArrowLeft',
+  'keybindForwardModifier': 'Alt',
+  'keybindForwardKey': 'ArrowRight',
+  'keybindSpeedUpModifier': 'Alt',
+  'keybindSpeedUpKey': 'ArrowUp',
+  'keybindSpeedDownModifier': 'Alt',
+  'keybindSpeedDownKey': 'ArrowDown',
+  'keybindCloseModifier': '',
+  'keybindCloseKey': 'Escape'
 }
 
 let instance = null
@@ -114,7 +121,7 @@ export default class StutterOptions extends EventEmitter {
   set settings (val) {
     let invalidate = false
     Object.keys(defaults).map(setting => {
-      if (val.hasOwnProperty(setting) && this['_' + setting] !== val[setting]) {
+      if (Object.hasOwn(val, setting) && this['_' + setting] !== val[setting]) {
         this['_' + setting] = val[setting]
         invalidate = true
       }
@@ -151,7 +158,7 @@ export default class StutterOptions extends EventEmitter {
         val = !!val
         break
     }
-    if (this.hasOwnProperty('_' + prop) && this['_' + prop] !== val) {
+    if (Object.hasOwn(this, '_' + prop) && this['_' + prop] !== val) {
       this['_' + prop] = val
       this.update()
     }

@@ -74,35 +74,57 @@
 				<input type="text" id="numericDelay">
 			</label>
 
-			<p>Keybindings <i>(restart Stutter to take effect)</i></p>
-			<label>
+			<p class="keybind-label">Keybindings</p>
+			<p>To change a binding click on a row below, press the key combination you prefer, then save.</p>
+			<div class="keybind" id="keybindPause">
 				<span class="attribute">Pause</span>
-				<input type="text" id="keybindPause">
-			</label>
-			<label>
+				<div>
+					<input type="text" class="modifier" id="keybindPauseModifier" readonly>
+					<input type="text" class="key" id="keybindPauseKey" readonly>
+				</div>
+			</div>
+			<div class="keybind" id="keybindRestart">
 				<span class="attribute">Restart</span>
-				<input type="text" id="keybindRestart">
-			</label>
-			<label>
+				<div>
+					<input type="text" class="modifier" id="keybindRestartModifier" readonly>
+					<input type="text" class="key" id="keybindRestartKey" readonly>
+				</div>
+			</div>
+			<div class="keybind" id="keybindPrevious">
 				<span class="attribute">Skip Backwards</span>
-				<input type="text" id="keybindPrevious">
-			</label>
-			<label>
+				<div>
+					<input type="text" class="modifier" id="keybindPreviousModifier" readonly>
+					<input type="text" class="key" id="keybindPreviousKey" readonly>
+				</div>
+			</div>
+			<div class="keybind" id="keybindForward">
 				<span class="attribute">Skip Forward</span>
-				<input type="text" id="keybindForward">
-			</label>
-			<label>
+				<div>
+					<input type="text" class="modifier" id="keybindForwardModifier" readonly>
+					<input type="text" class="key" id="keybindForwardKey" readonly>
+				</div>
+			</div>
+			<div class="keybind" id="keybindSpeedUp">
 				<span class="attribute">WPM Speed Up</span>
-				<input type="text" id="keybindSpeedUp">
-			</label>
-			<label>
+				<div>
+					<input type="text" class="modifier" id="keybindSpeedUpModifier" readonly>
+					<input type="text" class="key" id="keybindSpeedUpKey" readonly>
+				</div>
+			</div>
+			<div class="keybind" id="keybindSpeedDown">
 				<span class="attribute">WPM Speed Down</span>
-				<input type="text" id="keybindSpeedDown">
-			</label>
-			<label>
+				<div>
+					<input type="text" class="modifier" id="keybindSpeedDownModifier" readonly>
+					<input type="text" class="key" id="keybindSpeedDownKey" readonly>
+				</div>
+			</div>
+			<div class="keybind" id="keybindClose">
 				<span class="attribute">Close Stutter</span>
-				<input type="text" id="keybindClose">
-			</label>
+				<div>
+					<input type="text" class="modifier" id="keybindCloseModifier" readonly>
+					<input type="text" class="key" id="keybindCloseKey" readonly>
+				</div>
+			</div>
 		</form>
 	</body>
 </html>

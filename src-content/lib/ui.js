@@ -92,35 +92,42 @@ export default class UI extends EventEmitter {
   }
 
   onKeypress (e) {
-    var keybindPause = this.stutterOptions.getProp('keybindPause')
-    var keybindRestart = this.stutterOptions.getProp('keybindRestart')
-    var keybindPrevious = this.stutterOptions.getProp('keybindPrevious')
-    var keybindForward = this.stutterOptions.getProp('keybindForward')
-    var keybindSpeedUp = this.stutterOptions.getProp('keybindSpeedUp')
-    var keybindSpeedDown = this.stutterOptions.getProp('keybindSpeedDown')
-    var keybindClose = this.stutterOptions.getProp('keybindClose')
+    var keybindPauseModifier = this.stutterOptions.getProp('keybindPauseModifier')
+    var keybindRestartModifier = this.stutterOptions.getProp('keybindRestartModifier')
+    var keybindPreviousModifier = this.stutterOptions.getProp('keybindPreviousModifier')
+    var keybindForwardModifier = this.stutterOptions.getProp('keybindForwardModifier')
+    var keybindSpeedUpModifier = this.stutterOptions.getProp('keybindSpeedUpModifier')
+    var keybindSpeedDownModifier = this.stutterOptions.getProp('keybindSpeedDownModifier')
+    var keybindCloseModifier = this.stutterOptions.getProp('keybindCloseModifier')
+    var keybindPauseKey = this.stutterOptions.getProp('keybindPauseKey')
+    var keybindRestartKey = this.stutterOptions.getProp('keybindRestartKey')
+    var keybindPreviousKey = this.stutterOptions.getProp('keybindPreviousKey')
+    var keybindForwardKey = this.stutterOptions.getProp('keybindForwardKey')
+    var keybindSpeedUpKey = this.stutterOptions.getProp('keybindSpeedUpKey')
+    var keybindSpeedDownKey = this.stutterOptions.getProp('keybindSpeedDownKey')
+    var keybindCloseKey = this.stutterOptions.getProp('keybindCloseKey')
 
-    var anyModifier = ['Alt', 'Fn', 'Hyper', 'OS', 'Super', 'Control', 'Meta', 'Win'].some(s => e.getModifierState(s))
+    var anyModifier = ['Alt', 'OS', 'Control'].some(s => e.getModifierState(s))
 
-    if ((keybindPause.modifier ? e.getModifierState(keybindPause.modifier) : !anyModifier) && e.key === keybindPause.key) {
+    if ((keybindPauseModifier ? e.getModifierState(keybindPauseModifier) : !anyModifier) && e.key === keybindPauseKey) {
       this.onPauseToggle()
       e.preventDefault()
-    } else if ((keybindRestart.modifier ? e.getModifierState(keybindRestart.modifier) : !anyModifier) && e.key === keybindRestart.key) {
+    } else if ((keybindRestartModifier ? e.getModifierState(keybindRestartModifier) : !anyModifier) && e.key === keybindRestartKey) {
       this.emit('restart')
       e.preventDefault()
-    } else if ((keybindPrevious.modifier ? e.getModifierState(keybindPrevious.modifier) : !anyModifier) && e.key === keybindPrevious.key) {
+    } else if ((keybindPreviousModifier ? e.getModifierState(keybindPreviousModifier) : !anyModifier) && e.key === keybindPreviousKey) {
       this.emit('skipPrevious')
       e.preventDefault()
-    } else if ((keybindForward.modifier ? e.getModifierState(keybindForward.modifier) : !anyModifier) && e.key === keybindForward.key) {
+    } else if ((keybindForwardModifier ? e.getModifierState(keybindForwardModifier) : !anyModifier) && e.key === keybindForwardKey) {
       this.emit('skipForward')
       e.preventDefault()
-    } else if ((keybindSpeedUp.modifier ? e.getModifierState(keybindSpeedUp.modifier) : !anyModifier) && e.key === keybindSpeedUp.key) {
+    } else if ((keybindSpeedUpModifier ? e.getModifierState(keybindSpeedUpModifier) : !anyModifier) && e.key === keybindSpeedUpKey) {
       this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') + 50)
       e.preventDefault()
-    } else if ((keybindSpeedDown.modifier ? e.getModifierState(keybindSpeedDown.modifier) : !anyModifier) && e.key === keybindSpeedDown.key) {
+    } else if ((keybindSpeedDownModifier ? e.getModifierState(keybindSpeedDownModifier) : !anyModifier) && e.key === keybindSpeedDownKey) {
       this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') - 50)
       e.preventDefault()
-    } else if ((keybindClose.modifier ? e.getModifierState(keybindClose.modifier) : !anyModifier) && e.key === keybindClose.key) {
+    } else if ((keybindCloseModifier ? e.getModifierState(keybindCloseModifier) : !anyModifier) && e.key === keybindCloseKey) {
       this.emit('close')
       e.preventDefault()
     }
