@@ -223,6 +223,12 @@ export default class UI extends EventEmitter {
     this.center.textContent = word.val.substr(word.index, 1)
     this.remainder.textContent = word.val.substr(word.index + 1)
 
+    /* TODO: make this optional using a setting checkbox, or some method to
+     * disable it on very long pages. It causes memory issues and freezes on
+     * long content because of the redraws.
+     */
+
+    /*
     let tf = word.textFragment
     if (this.currentTextFragment !== tf) {
       this.currentTextFragment = tf
@@ -238,6 +244,7 @@ export default class UI extends EventEmitter {
         }
       }
     }
+    */
 
     if (this.stutterOptions.getProp('showFlankers') && nextword) {
       this.flanker.textContent = ' ' + nextword.val
@@ -254,7 +261,7 @@ export default class UI extends EventEmitter {
         this.marks = null
       }
       if (this.wakeLock) {
-        wakeLock.release().then(() => { wakeLock = null })
+        this.wakeLock.release().then(() => { this.wakeLock = null })
       }
     }
   }
@@ -267,7 +274,7 @@ export default class UI extends EventEmitter {
       // prevent screen timeout when stutter runs if supported
       if ('wakeLock' in navigator) {
         try {
-          wakeLock = await navigator.wakeLock.request('screen')
+          this.wakeLock = await navigator.wakeLock.request('screen')
         } catch (_) {}
       }
     }
