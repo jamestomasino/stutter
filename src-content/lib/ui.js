@@ -2,7 +2,6 @@
 import '../style.scss'
 import { EventEmitter } from 'events'
 import StutterOptions from '../../src-common/stutterOptions'
-import { parseFragmentDirectives, processFragmentDirectives, removeMarks } from './text-fragment-utils'
 var browser = require('webextension-polyfill')
 
 var template = `
@@ -55,7 +54,6 @@ export default class UI extends EventEmitter {
     this.holder.appendChild(dom.firstElementChild.content)
     this.progress = 0
     this.bindDOM()
-    this.marks = null
     this.wakeLock = null
     this.currentTextFragment = ''
   }
@@ -223,29 +221,6 @@ export default class UI extends EventEmitter {
     this.center.textContent = word.val.substr(word.index, 1)
     this.remainder.textContent = word.val.substr(word.index + 1)
 
-    /* TODO: make this optional using a setting checkbox, or some method to
-     * disable it on very long pages. It causes memory issues and freezes on
-     * long content because of the redraws.
-     */
-
-    /*
-    let tf = word.textFragment
-    if (this.currentTextFragment !== tf) {
-      this.currentTextFragment = tf
-      if (this.marks) {
-        removeMarks(this.marks)
-        this.marks = null
-      }
-      if (tf.length > 6 && /\w/.test(tf)) {
-        let p = parseFragmentDirectives({ text: [encodeURI(tf)] })
-        let r = processFragmentDirectives(p)
-        if (r.text.length) {
-          this.marks = r.text[0]
-        }
-      }
-    }
-    */
-
     if (this.stutterOptions.getProp('showFlankers') && nextword) {
       this.flanker.textContent = ' ' + nextword.val
     } else {
@@ -256,10 +231,6 @@ export default class UI extends EventEmitter {
   hide () {
     if (this.holder.parentNode) {
       this.holder.parentNode.removeChild(this.holder)
-      if (this.marks) {
-        removeMarks(this.marks)
-        this.marks = null
-      }
       if (this.wakeLock) {
         this.wakeLock.release().then(() => { this.wakeLock = null })
       }
@@ -269,7 +240,6 @@ export default class UI extends EventEmitter {
   async reveal () {
     if (!this.holder.parentNode) {
       document.body.insertBefore(this.holder, document.body.childNodes[0])
-      this.marks = null
 
       // prevent screen timeout when stutter runs if supported
       if ('wakeLock' in navigator) {
