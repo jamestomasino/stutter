@@ -1,6 +1,7 @@
 @import "themes/themes";
 
 #__stutter {
+	all: initial;
 	background: var(--barBG);
 	border-radius: 15px;
 	border: 2px solid var(--barBorder);
@@ -16,6 +17,10 @@
 	max-width: calc(100vw - 35px);
 	z-index: 999999999;
 	box-sizing: border-box;
+
+	* {
+		all: unset;
+	}
 
 	@for $i from 0 through 100 {
 		&[data-progress='#{$i}'] {
@@ -165,6 +170,7 @@
 			.__stutter_duration_time,
 			.__stutter_duration_wpm {
 				display: block;
+				color: var(--buttonColor) !important;
 				box-sizing: border-box;
 				font-family: Arial, sans-serif !important;
 				font-size: 11px !important;
