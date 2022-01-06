@@ -18,7 +18,7 @@ let defaults = {
   'keybindPauseKey': 'p',
   'keybindRestartModifier': 'Alt',
   'keybindRestartKey': 'r',
-  'keybindPreviousModifier':'Alt',
+  'keybindPreviousModifier': 'Alt',
   'keybindPreviousKey': 'ArrowLeft',
   'keybindForwardModifier': 'Alt',
   'keybindForwardKey': 'ArrowRight',
@@ -136,6 +136,7 @@ export default class StutterOptions extends EventEmitter {
   setProp (prop, val) {
     switch (prop) {
       case 'wpm':
+        console.log('set wpm:', val)
         val = this.numericContain(100, 1800, val)
         break
       case 'sentenceDelay':

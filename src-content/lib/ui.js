@@ -122,10 +122,10 @@ export default class UI extends EventEmitter {
       this.emit('skipForward')
       e.preventDefault()
     } else if ((keybindSpeedUpModifier ? e.getModifierState(keybindSpeedUpModifier) : !anyModifier) && e.key === keybindSpeedUpKey) {
-      this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') + 50)
+      this.stutterOptions.setProp('wpm', parseInt(this.stutterOptions.getProp('wpm'), 10) + 50)
       e.preventDefault()
     } else if ((keybindSpeedDownModifier ? e.getModifierState(keybindSpeedDownModifier) : !anyModifier) && e.key === keybindSpeedDownKey) {
-      this.stutterOptions.setProp('wpm', this.stutterOptions.getProp('wpm') - 50)
+      this.stutterOptions.setProp('wpm', parseInt(this.stutterOptions.getProp('wpm'), 10) - 50)
       e.preventDefault()
     } else if ((keybindCloseModifier ? e.getModifierState(keybindCloseModifier) : !anyModifier) && e.key === keybindCloseKey) {
       this.emit('close')

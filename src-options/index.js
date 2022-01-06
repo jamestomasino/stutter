@@ -41,15 +41,15 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault()
     clearListeners()
     var settings = {}
-    settings.wpm = document.getElementById('wpm').value
-    settings.slowStartCount = document.getElementById('slowStartCount').value
-    settings.sentenceDelay = document.getElementById('sentenceDelay').value
-    settings.otherPuncDelay = document.getElementById('otherPuncDelay').value
-    settings.shortWordDelay = document.getElementById('shortWordDelay').value
-    settings.longWordDelay = document.getElementById('longWordDelay').value
-    settings.numericDelay = document.getElementById('numericDelay').value
-    settings.maxWordLength = document.getElementById('maxWordLength').value
-    settings.skipCount = document.getElementById('skipCount').value
+    settings.wpm = parseInt(document.getElementById('wpm').value, 10)
+    settings.slowStartCount = parseFloat(document.getElementById('slowStartCount').value)
+    settings.sentenceDelay = parseFloat(document.getElementById('sentenceDelay').value)
+    settings.otherPuncDelay = parseFloat(document.getElementById('otherPuncDelay').value)
+    settings.shortWordDelay = parseFloat(document.getElementById('shortWordDelay').value)
+    settings.longWordDelay = parseFloat(document.getElementById('longWordDelay').value)
+    settings.numericDelay = parseFloat(document.getElementById('numericDelay').value)
+    settings.maxWordLength = parseInt(document.getElementById('maxWordLength').value, 10)
+    settings.skipCount = parseInt(document.getElementById('skipCount').value, 10)
     settings.theme = document.getElementById('theme').value
     settings.showFlankers = document.getElementById('showFlankers').checked
     settings.keybindPauseModifier = document.getElementById('keybindPauseModifier').value
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('keybindClose').addEventListener('click', updateKey)
 })
 
-function updateKey(e) {
+function updateKey (e) {
   var label = e.target
   var mod = label.querySelector('.modifier')
   var key = label.querySelector('.key')
@@ -94,9 +94,8 @@ function updateKey(e) {
   document.addEventListener('keydown', listenForKey, true)
 }
 
-function clearListeners() {
+function clearListeners () {
   document.querySelectorAll('.update').forEach(el => {
-
     var mod = el.querySelector('.modifier')
     var key = el.querySelector('.key')
     if (mod.value === '' && mod.dataset.value !== '') {
