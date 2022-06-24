@@ -121,7 +121,7 @@ export default class StutterOptions extends EventEmitter {
   set settings (val) {
     let invalidate = false
     Object.keys(defaults).map(setting => {
-      if (Object.hasOwn(val, setting) && this['_' + setting] !== val[setting]) {
+      if (val && val.hasOwnProperty(setting) && this['_' + setting] !== val[setting]) {
         this['_' + setting] = val[setting]
         invalidate = true
       }
@@ -159,7 +159,7 @@ export default class StutterOptions extends EventEmitter {
         val = !!val
         break
     }
-    if (Object.hasOwn(this, '_' + prop) && this['_' + prop] !== val) {
+    if (this.hasOwnProperty('_' + prop) && this['_' + prop] !== val) {
       this['_' + prop] = val
       this.update()
     }
