@@ -5,7 +5,7 @@ import StutterOptions from '../../src-common/stutterOptions'
 export default class Stutter {
   constructor (ui, locale) {
     // Instantiate new Locale object and set its locale from the start
-    new Locale(locale || window.navigator.language)
+    new Locale(locale || window.navigator.language) // eslint-disable-line
     this.block = null
     this.currentWord = null
     this.nextWord = null
