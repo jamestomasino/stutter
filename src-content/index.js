@@ -3,12 +3,12 @@ import Stutter from './lib/stutter'
 import UI from './lib/ui'
 const { convert } = require('html-to-text')
 
-function playStutter (text, locale) {
+function playStutter (text) {
   if (stutter) {
     stutter.destroy()
   }
 
-  stutter = new Stutter(ui, locale)
+  stutter = new Stutter(ui)
   stutter.setText(text)
   stutter.play()
 }
@@ -17,13 +17,13 @@ function onMessage (request) {
   switch (request.functiontoInvoke) {
     case 'stutterSelectedText':
       // pass selection to Stutter
-      playStutter(request.selectedText, request.locale)
+      playStutter(request.selectedText)
       break
     case 'stutterFullPage':
       let selection = getSelectionText()
       if (selection) {
         console.log('Selection:', selection)
-        playStutter(selection, request.locale)
+        playStutter(selection)
       } else {
         // close document switch Readability is destructive
         var documentClone = document.cloneNode(true)
@@ -46,7 +46,7 @@ function onMessage (request) {
           wordwrap: false
         })
         // Pass article content to Stutter
-        playStutter(pureText, request.locale)
+        playStutter(pureText)
       }
       break
     default:

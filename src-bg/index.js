@@ -10,8 +10,7 @@ function onContextClick (info) {
       .then(() => {
         browser.tabs.sendMessage(tabs[0].id, {
           'functiontoInvoke': 'stutterSelectedText',
-          'selectedText': info.selectionText,
-          'locale': browser.i18n.getUILanguage()
+          'selectedText': info.selectionText
         })
       })
       .catch(e => {
@@ -30,8 +29,7 @@ function onIconClick () {
     browser.tabs.executeScript({ file: '/dist-content/index.js' })
       .then(() => {
         browser.tabs.sendMessage(tabs[0].id, {
-          'functiontoInvoke': 'stutterFullPage',
-          'locale': browser.i18n.getUILanguage()
+          'functiontoInvoke': 'stutterFullPage'
         })
       })
       .catch(e => {
