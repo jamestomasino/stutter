@@ -6,6 +6,7 @@
   "description": "RSVP for browsers",
   "version": "1.13.3",
   "homepage_url": "https://github.com/jamestomasino/stutter",
+  "offline_enabled": true,
   "icons": {
     "16": "icons/stutter16.png",
     "48": "icons/stutter48.png",
@@ -24,20 +25,9 @@
     "default_title": "stutter"
   },
   "background": {
+    "service_worker": "dist-bg/index.js",
     "scripts": ["dist-bg/index.js"]
   },
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "dist-bg/*",
-        "dist-content/*",
-        "dist-options/*"
-      ],
-      "matches": [
-        "<all_urls>"
-      ]
-    }
-  ],
   "browser_specific_settings": {
     "gecko": {
       "id": "{8cc45662-d58a-4a06-bf7b-4fcdf1d54b8d}"
