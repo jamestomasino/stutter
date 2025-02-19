@@ -1,66 +1,50 @@
-const browser = require('webextension-polyfill')
+/* global browser */
+if (typeof browser === 'undefined') {
+  // Chrome does not support the browser namespace yet.
+  globalThis.browser = chrome /* eslint-disable-line no-undef */
+}
 
-function onContextClick (info) {
-  const q = browser.tabs.query({
-    active: true,
-    currentWindow: true
+try {
+  browser.action.onClicked.addListener(async (tab) => {
+    await browser.scripting.executeScript({
+      target: { tabId: tab.id, allFrames: true },
+      files: ['/dist-content/index.js'],
+    })
+    const response = await browser.tabs.sendMessage(tab.id, {
+      functiontoInvoke: 'stutterFullPage'
+    })
+    console.log(response)
   })
-  q.then(tabs => {
-    browser.tabs.executeScript({ file: '/dist-content/index.js' })
-      .then(() => {
-        browser.tabs.sendMessage(tabs[0].id, {
-          functiontoInvoke: 'stutterSelectedText',
-          selectedText: info.selectionText
-        })
-      })
-      .catch(e => {
-        console.log('Error:', e)
-      })
+
+  browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    switch (request.functiontoInvoke) {
+      case 'openSettings':
+        browser.runtime.openOptionsPage()
+        break
+    }
   })
-}
 
-function onIconClick () {
-  const q = browser.tabs.query({
-    active: true,
-    currentWindow: true
-  })
-  q.then(tabs => {
-    q.stutter = true
-    browser.tabs.executeScript({ file: '/dist-content/index.js' })
-      .then(() => {
-        browser.tabs.sendMessage(tabs[0].id, {
-          functiontoInvoke: 'stutterFullPage'
-        })
-      })
-      .catch(e => {
-        console.log('Error:', e)
-      })
-  })
-}
-
-function onMessage (request) {
-  switch (request.functiontoInvoke) {
-    case 'openSettings':
-      browser.runtime.openOptionsPage()
-      break
-  }
-}
-
-// Handle clicking on the browser icon
-if (browser.browserAction) {
-  browser.browserAction.onClicked.addListener(onIconClick)
-}
-
-// Handle messages from UI
-if (browser.runtime) {
-  browser.runtime.onMessage.addListener(onMessage)
-}
-
-// Context menu "Stutter Selection" option
-if (browser.contextMenus) {
   browser.contextMenus.create({
+    id: 'stutterSelection',
     title: 'Stutter Selection',
-    contexts: ['selection'],
-    onclick: onContextClick
+    contexts: ['selection']
   })
+
+  browser.contextMenus.onClicked.addListener(async (info, tab) => {
+    const { menuItemId } = info
+
+    if (menuItemId === 'stutterSelection') {
+      await browser.scripting.executeScript({
+        target: { tabId: tab.id, allFrames: true },
+        files: ['/dist-content/index.js'],
+      })
+      const response = await browser.tabs.sendMessage(tab.id, {
+        functiontoInvoke: 'stutterSelectedText',
+        selectedText: info.selectionText
+      })
+      console.log(response)
+    }
+  })
+} catch (e) {
+  console.warn(e)
 }

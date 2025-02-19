@@ -1,6 +1,6 @@
 {
   "author": "James Tomasino",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "stutter",
   "short_name": "stutter",
   "description": "RSVP for browsers",
@@ -20,26 +20,37 @@
       }
     }
   },
-  "browser_action": {
-    "default_icon": {
-      "64": "icons/stutter-64.png"
-    },
+  "action": {
+    "default_icon": "icons/stutter-64.png",
     "default_title": "stutter"
   },
   "background": {
-    "scripts": [
-      "dist-bg/index.js"
-    ]
+    "scripts": ["dist-bg/index.js"]
   },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/*",
+        "dist-bg/*",
+        "dist-content/*",
+        "dist-options/*"
+      ],
+      "matches": [
+        "*://*/*"
+      ]
+    }
+  ],
   "browser_specific_settings": {
     "gecko": {
       "id": "{8cc45662-d58a-4a06-bf7b-4fcdf1d54b8d}"
     }
   },
   "permissions": [
+    "tabs",
     "contextMenus",
     "activeTab",
-    "storage"
+    "storage",
+    "scripting"
   ],
   "options_ui": {
     "page": "dist-options/index.html",
