@@ -136,7 +136,6 @@ export default class StutterOptions extends EventEmitter {
   setProp (prop, val) {
     switch (prop) {
       case 'wpm':
-        console.log('set wpm:', val)
         val = this.numericContain(100, 1800, val)
         break
       case 'sentenceDelay':

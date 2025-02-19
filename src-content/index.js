@@ -22,7 +22,7 @@ function onMessage (request) {
     case 'stutterFullPage':
       let selection = getSelectionText()
       if (selection) {
-        console.log('Selection:', selection)
+        // console.log('Selection:', selection)
         playStutter(selection)
       } else {
         // close document switch Readability is destructive
