@@ -26,14 +26,14 @@ export default class Block {
     val = val.replace(/([.?!,:;])“(?=\w)/ig, '$1 “')
 
     // Build word chain
-    let rawWords = val.match(locale.wordRegex)
+    const rawWords = val.match(locale.wordRegex)
 
     // temporary variables for building up text fragment phrases
     let phrase = ''
-    let wordQueue = []
+    const wordQueue = []
     let purgeQueue = false
 
-    rawWords.map(word => {
+    rawWords.forEach(word => {
       // retroactively apply phrase to words in queue
       if (purgeQueue) {
         this.setTextFragmentToWords(wordQueue, phrase.trim())
@@ -42,26 +42,30 @@ export default class Block {
       }
 
       // Extra splits on odd punctuation situations
-      let brokenWord = this.parts.puncBreak(word)
+      const brokenWord = this.parts.puncBreak(word)
 
       // Calculate phrase or sentence fragment
       if (brokenWord !== '\n') {
         phrase += (phrase) ? ' ' + brokenWord : '' + brokenWord
       }
 
-      let subWords = brokenWord.match(locale.wordRegex)
-      subWords.map(subWord => {
+      const subWords = brokenWord.match(locale.wordRegex)
+      subWords.forEach(subWord => {
         // break long words
-        let maxWordLength = (settings.getProp('maxWordLength') || 13)
+        const maxWordLength = (settings.getProp('maxWordLength') || 13)
         let w
         if (subWord.length > maxWordLength) {
-          let brokenSubWord = this.parts.breakLongWord(subWord, maxWordLength)
-          let subSubWords = brokenSubWord.match(locale.wordRegex)
-          subSubWords.map(subSubWord => {
-            w = new Word(subSubWord)
-            this.words.push(w)
-            wordQueue.push(w)
-          })
+          const brokenSubWord = this.parts.breakLongWord(subWord, maxWordLength)
+          const subSubWords = brokenSubWord.match(locale.wordRegex)
+          if (subSubWords) {
+            subSubWords.forEach(subSubWord => {
+              w = new Word(subSubWord)
+              this.words.push(w)
+              wordQueue.push(w)
+            })
+          } else {
+            w = ''
+          }
         } else {
           w = new Word(subWord)
           this.words.push(w)
@@ -69,7 +73,7 @@ export default class Block {
         }
 
         // If this word contains punctuation, set the phrase to end
-        if (w.hasPeriod || w.hasOtherPunc) {
+        if (w && (w.hasPeriod || w.hasOtherPunc)) {
           purgeQueue = true
         }
       })
@@ -81,7 +85,7 @@ export default class Block {
 
   setTextFragmentToWords (wordQueue, fragment) {
     while (wordQueue.length) {
-      let retroWord = wordQueue.pop()
+      const retroWord = wordQueue.pop()
       retroWord.textFragment = fragment
     }
   }
@@ -113,7 +117,7 @@ export default class Block {
   }
 
   getTime (word) {
-    var time = this.settings.delay
+    let time = this.settings.delay
     if (word.hasPeriod) time *= this.settings.getProp('sentenceDelay')
     if (word.hasOtherPunc) time *= this.settings.getProp('otherPuncDelay')
     if (word.isShort) time *= this.settings.getProp('shortWordDelay')
