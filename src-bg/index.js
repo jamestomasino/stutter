@@ -45,6 +45,10 @@ try {
       console.log(response)
     }
   })
+
+  browser.commands.onCommand.addListener((command) => {
+    console.log(`Command: ${command}`)
+  })
 } catch (e) {
   console.warn(e)
 }

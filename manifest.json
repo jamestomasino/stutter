@@ -14,10 +14,13 @@
     "96": "icons/stutter96.png",
     "128": "icons/stutter128.png"
   },
-  "commands":{
-    "_execute_browser_action": {
+  "commands": {
+    "_execute_action": {
       "suggested_key": {
-        "default": "Alt+R"
+        "windows": "Alt+R",
+        "mac": "Alt+R",
+        "chromeos": "Alt+R",
+        "linux": "Alt+R"
       }
     }
   },
