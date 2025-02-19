@@ -1,16 +1,16 @@
-var browser = require('webextension-polyfill')
+const browser = require('webextension-polyfill')
 
 function onContextClick (info) {
-  let q = browser.tabs.query({
-    'active': true,
-    'currentWindow': true
+  const q = browser.tabs.query({
+    active: true,
+    currentWindow: true
   })
   q.then(tabs => {
     browser.tabs.executeScript({ file: '/dist-content/index.js' })
       .then(() => {
         browser.tabs.sendMessage(tabs[0].id, {
-          'functiontoInvoke': 'stutterSelectedText',
-          'selectedText': info.selectionText
+          functiontoInvoke: 'stutterSelectedText',
+          selectedText: info.selectionText
         })
       })
       .catch(e => {
@@ -20,16 +20,16 @@ function onContextClick (info) {
 }
 
 function onIconClick () {
-  let q = browser.tabs.query({
-    'active': true,
-    'currentWindow': true
+  const q = browser.tabs.query({
+    active: true,
+    currentWindow: true
   })
   q.then(tabs => {
     q.stutter = true
     browser.tabs.executeScript({ file: '/dist-content/index.js' })
       .then(() => {
         browser.tabs.sendMessage(tabs[0].id, {
-          'functiontoInvoke': 'stutterFullPage'
+          functiontoInvoke: 'stutterFullPage'
         })
       })
       .catch(e => {
@@ -59,8 +59,8 @@ if (browser.runtime) {
 // Context menu "Stutter Selection" option
 if (browser.contextMenus) {
   browser.contextMenus.create({
-    'title': 'Stutter Selection',
-    'contexts': ['selection'],
-    'onclick': onContextClick
+    title: 'Stutter Selection',
+    contexts: ['selection'],
+    onclick: onContextClick
   })
 }

@@ -1,8 +1,8 @@
 import './main.scss'
 import StutterOptions from '../src-common/stutterOptions'
-var options = new StutterOptions()
+const options = new StutterOptions()
 options.addListener(StutterOptions.UPDATE, () => { drawSettings() })
-var resetbtn = document.getElementById('reset')
+const resetbtn = document.getElementById('reset')
 resetbtn.addEventListener('click', () => {
   options.reset()
 })
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('form').addEventListener('submit', e => {
     e.preventDefault()
     clearListeners()
-    var settings = {}
+    const settings = {}
     settings.wpm = parseInt(document.getElementById('wpm').value, 10)
     settings.slowStartCount = parseFloat(document.getElementById('slowStartCount').value)
     settings.sentenceDelay = parseFloat(document.getElementById('sentenceDelay').value)
@@ -78,9 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function updateKey (e) {
-  var label = e.target
-  var mod = label.querySelector('.modifier')
-  var key = label.querySelector('.key')
+  const label = e.target
+  const mod = label.querySelector('.modifier')
+  const key = label.querySelector('.key')
   if (label.classList.contains('update')) {
     clearListeners()
     return
@@ -96,8 +96,8 @@ function updateKey (e) {
 
 function clearListeners () {
   document.querySelectorAll('.update').forEach(el => {
-    var mod = el.querySelector('.modifier')
-    var key = el.querySelector('.key')
+    const mod = el.querySelector('.modifier')
+    const key = el.querySelector('.key')
     if (mod.value === '' && mod.dataset.value !== '') {
       mod.value = mod.dataset.value
       mod.dataset.value = ''
@@ -113,9 +113,9 @@ function clearListeners () {
 
 function listenForKey (keyboardEvent) {
   keyboardEvent.stopPropagation()
-  var key = keyboardEvent.key || ''
+  const key = keyboardEvent.key || ''
   if (['Alt', 'OS', 'Control', 'Meta', 'Shift'].some(s => key === s)) return
-  var modifier = ''
+  let modifier = ''
   switch (true) {
     case keyboardEvent.getModifierState('OS'):
       modifier = 'OS'
@@ -131,10 +131,10 @@ function listenForKey (keyboardEvent) {
       break
   }
   if (key) {
-    var label = document.querySelector('.update')
-    var modEl = label.querySelector('.modifier')
-    var keyEl = label.querySelector('.key')
-    modEl.value = modifier ? modifier : ''
+    const label = document.querySelector('.update')
+    const modEl = label.querySelector('.modifier')
+    const keyEl = label.querySelector('.key')
+    modEl.value = modifier
     modEl.dataset.value = ''
     keyEl.value = key
     keyEl.dataset.value = ''

@@ -1,33 +1,33 @@
 import { EventEmitter } from 'events'
-var browser = require('webextension-polyfill')
+const browser = require('webextension-polyfill')
 
-let defaults = {
-  'wpm': 400,
-  'slowStartCount': 5,
-  'sentenceDelay': 2.5,
-  'otherPuncDelay': 1.5,
-  'shortWordDelay': 1.3,
-  'longWordDelay': 1.4,
-  'numericDelay': 1.8,
-  'theme': 'default',
-  'pos': 0.5,
-  'maxWordLength': 13,
-  'skipCount': 10,
-  'showFlankers': false,
-  'keybindPauseModifier': 'Alt',
-  'keybindPauseKey': 'p',
-  'keybindRestartModifier': 'Alt',
-  'keybindRestartKey': 'r',
-  'keybindPreviousModifier': 'Alt',
-  'keybindPreviousKey': 'ArrowLeft',
-  'keybindForwardModifier': 'Alt',
-  'keybindForwardKey': 'ArrowRight',
-  'keybindSpeedUpModifier': 'Alt',
-  'keybindSpeedUpKey': 'ArrowUp',
-  'keybindSpeedDownModifier': 'Alt',
-  'keybindSpeedDownKey': 'ArrowDown',
-  'keybindCloseModifier': '',
-  'keybindCloseKey': 'Escape'
+const defaults = {
+  wpm: 400,
+  slowStartCount: 5,
+  sentenceDelay: 2.5,
+  otherPuncDelay: 1.5,
+  shortWordDelay: 1.3,
+  longWordDelay: 1.4,
+  numericDelay: 1.8,
+  theme: 'default',
+  pos: 0.5,
+  maxWordLength: 13,
+  skipCount: 10,
+  showFlankers: false,
+  keybindPauseModifier: 'Alt',
+  keybindPauseKey: 'p',
+  keybindRestartModifier: 'Alt',
+  keybindRestartKey: 'r',
+  keybindPreviousModifier: 'Alt',
+  keybindPreviousKey: 'ArrowLeft',
+  keybindForwardModifier: 'Alt',
+  keybindForwardKey: 'ArrowRight',
+  keybindSpeedUpModifier: 'Alt',
+  keybindSpeedUpKey: 'ArrowUp',
+  keybindSpeedDownModifier: 'Alt',
+  keybindSpeedDownKey: 'ArrowDown',
+  keybindCloseModifier: '',
+  keybindCloseKey: 'Escape'
 }
 
 let instance = null
@@ -41,7 +41,7 @@ export default class StutterOptions extends EventEmitter {
     } else {
       instance = this
 
-      Object.keys(defaults).map(setting => {
+      Object.keys(defaults).forEach(setting => {
         this['_' + setting] = defaults[setting]
       })
 
@@ -91,9 +91,9 @@ export default class StutterOptions extends EventEmitter {
     // Inform the other tabs StutterOptions instances
     if (browser && browser.tabs && browser.tabs.query) {
       browser.tabs.query({}).then(tabs => {
-        for (let tab of tabs) {
+        for (const tab of tabs) {
           browser.tabs.sendMessage(tab.id, {
-            'functiontoInvoke': 'stutterOptionsUpdate'
+            functiontoInvoke: 'stutterOptionsUpdate'
           }).then(() => {}).catch(() => {})
         }
       }).catch(() => {})
@@ -111,8 +111,8 @@ export default class StutterOptions extends EventEmitter {
   }
 
   get settings () {
-    let returnObj = {}
-    Object.keys(defaults).map(setting => {
+    const returnObj = {}
+    Object.keys(defaults).forEach(setting => {
       returnObj[setting] = this['_' + setting]
     })
     return returnObj
@@ -120,8 +120,8 @@ export default class StutterOptions extends EventEmitter {
 
   set settings (val) {
     let invalidate = false
-    Object.keys(defaults).map(setting => {
-      if (val && val.hasOwnProperty(setting) && this['_' + setting] !== val[setting]) {
+    Object.keys(defaults).forEach(setting => {
+      if (val && Object.prototype.hasOwnProperty.call(val, setting) && this['_' + setting] !== val[setting]) {
         this['_' + setting] = val[setting]
         invalidate = true
       }
@@ -158,7 +158,7 @@ export default class StutterOptions extends EventEmitter {
         val = !!val
         break
     }
-    if (this.hasOwnProperty('_' + prop) && this['_' + prop] !== val) {
+    if (Object.prototype.hasOwnProperty.call(this, '_' + prop) && this['_' + prop] !== val) {
       this['_' + prop] = val
       this.update()
     }

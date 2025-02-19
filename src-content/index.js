@@ -2,6 +2,8 @@ import Readability from './lib/Readability.cjs'
 import Stutter from './lib/stutter'
 import UI from './lib/ui'
 const { convert } = require('html-to-text')
+let stutter
+let ui
 
 function playStutter (text) {
   if (stutter) {
@@ -14,21 +16,22 @@ function playStutter (text) {
 }
 
 function onMessage (request) {
+  let selection
   switch (request.functiontoInvoke) {
     case 'stutterSelectedText':
       // pass selection to Stutter
       playStutter(request.selectedText)
       break
     case 'stutterFullPage':
-      let selection = getSelectionText()
+      selection = getSelectionText()
       if (selection) {
         // console.log('Selection:', selection)
         playStutter(selection)
       } else {
         // close document switch Readability is destructive
-        var documentClone = document.cloneNode(true)
-        var article = new Readability(documentClone).parse()
-        var pureText = convert(article.content, {
+        const documentClone = document.cloneNode(true)
+        const article = new Readability(documentClone).parse()
+        const pureText = convert(article.content, {
           selectors: [
             {
               selector: 'a',
@@ -55,9 +58,9 @@ function onMessage (request) {
 }
 
 function getSelectionText () {
-  var text = ''
-  var activeEl = document.activeElement
-  var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null
+  let text = ''
+  const activeEl = document.activeElement
+  const activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null
   if (activeElTagName === 'textarea') {
     text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd)
   } else if (window.getSelection) {
@@ -81,8 +84,7 @@ function getSelectionText () {
  */
 if (!UI.INIT && !window.__stutter) {
   window.__stutter = true
-  var browser = require('webextension-polyfill')
-  var stutter
-  var ui = new UI()
+  const browser = require('webextension-polyfill')
+  ui = new UI()
   browser.runtime.onMessage.addListener(onMessage)
 }
