@@ -7,11 +7,11 @@
   "version": "1.13.3",
   "homepage_url": "https://github.com/jamestomasino/stutter",
   "icons": {
-    "16": "icons/stutter-16.png",
-    "48": "icons/stutter-48.png",
-    "64": "icons/stutter-64.png",
-    "96": "icons/stutter-96.png",
-    "128": "icons/stutter-128.png"
+    "16": "icons/stutter16.png",
+    "48": "icons/stutter48.png",
+    "64": "icons/stutter64.png",
+    "96": "icons/stutter96.png",
+    "128": "icons/stutter128.png"
   },
   "commands":{
     "_execute_browser_action": {
@@ -21,7 +21,6 @@
     }
   },
   "action": {
-    "default_icon": "icons/stutter-64.png",
     "default_title": "stutter"
   },
   "background": {
@@ -30,13 +29,12 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "icons/*",
         "dist-bg/*",
         "dist-content/*",
         "dist-options/*"
       ],
       "matches": [
-        "*://*/*"
+        "<all_urls>"
       ]
     }
   ],
@@ -52,6 +50,7 @@
     "storage",
     "scripting"
   ],
+  "options_page": "dist-options/index.html",
   "options_ui": {
     "page": "dist-options/index.html",
     "open_in_tab":true

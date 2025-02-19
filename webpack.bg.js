@@ -12,7 +12,7 @@ const options = {
 module.exports = {
   mode: 'development',
   entry: {
-    index: './src-bg/index'
+    index: './src-bg/index',
   },
   output: {
     path: path.resolve(__dirname, './dist-bg'),
