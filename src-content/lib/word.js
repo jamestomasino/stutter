@@ -1,8 +1,6 @@
-import Locale from './locales.js'
-const locale = new Locale()
-
-function initLocaleStrings() {
-}
+const puncRegex = /[/\s,.…?!¡‽:;‘’“”'’`><+=@&#~*^()[\]{}<>«»·•¤¢$€£¥₩₪†‡°]/g
+const textRegex = /[^/\s,.…?!¡‽:;‘’“”'’`><+=@&#~*^()[\]{}<>«»·•¤¢$€£¥₩₪†‡°]/g
+const numRegex = /\d/
 
 export default class Word {
   constructor (val) {
@@ -21,12 +19,12 @@ export default class Word {
   }
 
   parseWord () {
-    let match = this.val.match(locale.textRegex)
+    const match = this.val.match(textRegex)
     this.length = (match) ? match.length : 0
     let lastChar = this.val.substr(-1)
-    let firstChar = this.val[0]
+    const firstChar = this.val[0]
 
-    this.isNumeric = locale.numRegex.test(this.val)
+    this.isNumeric = numRegex.test(this.val)
 
     if (/["\\)”’]/.test(lastChar)) {
       this.hasTrailingQuote = true
@@ -41,7 +39,7 @@ export default class Word {
       this.hasPeriod = true
     }
 
-    if (!this.hasPeriod && locale.puncRegex.test(this.val)) {
+    if (!this.hasPeriod && puncRegex.test(this.val)) {
       this.hasOtherPunc = true
     }
   }

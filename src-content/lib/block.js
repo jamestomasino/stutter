@@ -1,11 +1,23 @@
 import Word from './word'
-import Parts from './parts'
-import Locale from './locales.js'
-const locale = new Locale()
+
+const puncSplit = /(.+?\.|.*?,|.*?—)([a-z].+\b)/ig
+const wordRegex = /([^\s/]+|[\r\n]+)/g
+// document.documentElement.lang
+
+function puncBreak (word) {
+  const parts = puncSplit.exec(word)
+  let ret = []
+  if (parts) {
+    ret.push(parts[1])
+    ret.push(parts[2])
+  } else {
+    ret = [word]
+  }
+  return ret.join(' ')
+}
 
 export default class Block {
   constructor (val, settings) {
-    this.parts = new Parts()
     this.words = []
     this.index = 0
     this.settings = settings
@@ -26,7 +38,7 @@ export default class Block {
     val = val.replace(/([.?!,:;])“(?=\w)/ig, '$1 “')
 
     // Build word chain
-    const rawWords = val.match(locale.wordRegex)
+    const rawWords = val.match(wordRegex)
 
     // temporary variables for building up text fragment phrases
     let phrase = ''
@@ -42,35 +54,36 @@ export default class Block {
       }
 
       // Extra splits on odd punctuation situations
-      const brokenWord = this.parts.puncBreak(word)
+      const brokenWord = puncBreak(word)
 
       // Calculate phrase or sentence fragment
       if (brokenWord !== '\n') {
         phrase += (phrase) ? ' ' + brokenWord : '' + brokenWord
       }
 
-      const subWords = brokenWord.match(locale.wordRegex)
+      const subWords = brokenWord.match(wordRegex)
       subWords.forEach(subWord => {
         // break long words
-        const maxWordLength = (settings.getProp('maxWordLength') || 13)
+        // const maxWordLength = (settings.getProp('maxWordLength') || 13)
         let w
-        if (subWord.length > maxWordLength) {
-          const brokenSubWord = this.parts.breakLongWord(subWord, maxWordLength)
-          const subSubWords = brokenSubWord.match(locale.wordRegex)
-          if (subSubWords) {
-            subSubWords.forEach(subSubWord => {
-              w = new Word(subSubWord)
-              this.words.push(w)
-              wordQueue.push(w)
-            })
-          } else {
-            w = ''
-          }
-        } else {
-          w = new Word(subWord)
-          this.words.push(w)
-          wordQueue.push(w)
-        }
+        w = ''
+        // if (subWord.length > maxWordLength) {
+        //   const brokenSubWord = this.parts.breakLongWord(subWord, maxWordLength)
+        //   const subSubWords = brokenSubWord.match(wordRegex)
+        //   if (subSubWords) {
+        //     subSubWords.forEach(subSubWord => {
+        //       w = new Word(subSubWord)
+        //       this.words.push(w)
+        //       wordQueue.push(w)
+        //     })
+        //   } else {
+        //     w = ''
+        //   }
+        // } else {
+        w = new Word(subWord)
+        this.words.push(w)
+        wordQueue.push(w)
+        // }
 
         // If this word contains punctuation, set the phrase to end
         if (w && (w.hasPeriod || w.hasOtherPunc)) {

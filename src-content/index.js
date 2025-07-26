@@ -1,7 +1,7 @@
 import Readability from './lib/Readability.cjs'
 import Stutter from './lib/stutter'
 import UI from './lib/ui'
-const { convert } = require('html-to-text')
+
 let stutter
 let ui
 
@@ -29,27 +29,25 @@ function onMessage (request) {
         playStutter(selection)
       } else {
         // close document switch Readability is destructive
-        const documentClone = document.cloneNode(true)
-        const article = new Readability(documentClone).parse()
-        const pureText = convert(article.content, {
-          selectors: [
-            {
-              selector: 'a',
-              options: {
-                ignoreHref: true,
-                noAnchorUrl: true,
-                noLinkBrackets: true
-              }
-            },
-            {
-              selector: 'img',
-              format: 'skip'
+        const doc = document.cloneNode(true)
+
+        const supTags = doc.querySelectorAll('sup')
+        supTags.forEach(sup => sup.remove())
+
+        // Add a space after certain block-level elements to prevent word collisions
+        const blockElements = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'li', 'dt', 'dd']
+        blockElements.forEach(tag => {
+          doc.querySelectorAll(tag).forEach(el => {
+            // Only if it doesn't already end in whitespace
+            if (!el.textContent.endsWith(' ')) {
+              el.textContent += ' '
             }
-          ],
-          wordwrap: false
+          })
         })
+
+        const article = new Readability(doc).parse()
         // Pass article content to Stutter
-        playStutter(pureText)
+        playStutter(article.textContent.replace(/\s+/g, ' ').trim())
       }
       break
     default:
