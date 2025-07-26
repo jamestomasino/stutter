@@ -19,14 +19,11 @@ package: build ## package for upload
 	$(WEBEXT) build --overwrite-dest
 	git archive --format zip --output "./web-ext-artifacts/$(current_dir)-$(VERSION)-src.zip" master
 
-test: ## linting tests
-	npm run test
-
-test-webext: ## web extension tests
+test: ## web extension tests
 	npm run webext-test
 
-test-browser: ## launch test browser
+serve: ## launch test browser
 	npm run extension
 
-.PHONY: help build package test test-webext test-browser
+.PHONY: help build package test serve
 
