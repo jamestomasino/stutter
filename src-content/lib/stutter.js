@@ -1,11 +1,8 @@
 import Block from './block'
-import Locale from './locales'
 import StutterOptions from '../../src-common/stutterOptions'
 
 export default class Stutter {
   constructor (ui) {
-    // Instantiate new Locale object and set its locale from the start
-    new Locale(document.documentElement.lang) // eslint-disable-line
     this.block = null
     this.currentWord = null
     this.nextWord = null

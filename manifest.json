@@ -4,7 +4,7 @@
   "name": "stutter",
   "short_name": "stutter",
   "description": "RSVP for browsers",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "homepage_url": "https://github.com/jamestomasino/stutter",
   "offline_enabled": true,
   "icons": {
@@ -28,7 +28,8 @@
     "default_title": "stutter"
   },
   "background": {
-    "service_worker": "dist-bg/index.js"
+    "service_worker": "dist-bg/index.js",
+    "scripts": ["dist-bg/index.js"]
   },
   "browser_specific_settings": {
     "gecko": {
