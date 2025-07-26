@@ -24,6 +24,9 @@ Stutter is a [Rapid Serial Visual Presentation](https://en.wikipedia.org/wiki/Ra
 
 [See a Stutter demonstration here.](https://www.youtube.com/watch?v=TKgZAOQctzo)
 
+Stutter supports full internationalization for basic usage. Long word
+hyphenization is supported in 40+ languages.
+
 ## Installation
 
 * [![Firefox Get Extension](https://img.shields.io/badge/Firefox-Get%20Extension!-lightgrey.svg?style=popout&logo=mozilla-firefox)](https://addons.mozilla.org/en-US/firefox/addon/stutter/)
