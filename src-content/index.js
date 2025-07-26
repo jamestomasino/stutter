@@ -1,6 +1,8 @@
 import Readability from './lib/Readability.cjs'
 import Stutter from './lib/stutter'
 import UI from './lib/ui'
+import hyphenate from './lib/hyphen'
+import StutterOptions from '../src-common/stutterOptions'
 
 let stutter
 let ui
@@ -15,7 +17,7 @@ function playStutter (text) {
   stutter.play()
 }
 
-function onMessage (request) {
+async function onMessage (request) {
   let selection
   switch (request.functiontoInvoke) {
     case 'stutterSelectedText':
@@ -25,7 +27,6 @@ function onMessage (request) {
     case 'stutterFullPage':
       selection = getSelectionText()
       if (selection) {
-        // console.log('Selection:', selection)
         playStutter(selection)
       } else {
         // close document switch Readability is destructive
@@ -45,9 +46,14 @@ function onMessage (request) {
           })
         })
 
-        const article = new Readability(doc).parse()
-        // Pass article content to Stutter
-        playStutter(article.textContent.replace(/\s+/g, ' ').trim())
+        const options = new StutterOptions()
+        let article = new Readability(doc).parse()
+        article = article.textContent.replace(/\s+/g, ' ').trim()
+        article = await hyphenate(article, document.documentElement.lang, {
+          hyphenChar: '- ',
+          minWordLength: options.getProp('maxWordLength')
+        })
+        playStutter(article)
       }
       break
     default:
