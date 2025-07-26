@@ -1,50 +1,51 @@
-const puncRegex = /[/\s,.…?!¡‽:;‘’“”'’`><+=@&#~*^()[\]{}<>«»·•¤¢$€£¥₩₪†‡°]/g
-const textRegex = /[^/\s,.…?!¡‽:;‘’“”'’`><+=@&#~*^()[\]{}<>«»·•¤¢$€£¥₩₪†‡°]/g
-const numRegex = /\d/
-
 export default class Word {
-  constructor (val) {
+  constructor(val, lang = 'en') {
     this.val = val
-    this.hasLeadingQuote = false
-    this.hasTrailingQuote = false
-    this.hasPeriod = false
+    this.lang = lang
+    this.endsSentence = false
     this.hasOtherPunc = false
     this.isShort = false
     this.isLong = false
     this.isNumeric = false
     this.index = 0
+    this.textFragment = ''
+    this.length = 0
+
     this.parseWord()
     this.findIndex()
-    this.textFragment = ''
   }
 
-  parseWord () {
-    const match = this.val.match(textRegex)
-    this.length = (match) ? match.length : 0
-    let lastChar = this.val.substr(-1)
-    const firstChar = this.val[0]
+  parseWord() {
+    const segmenter = new Intl.Segmenter(this.lang, { granularity: 'word' })
+    const segments = Array.from(segmenter.segment(this.val))
 
-    this.isNumeric = numRegex.test(this.val)
+    const wordLikeSegments = segments.filter(s => s.isWordLike)
+    this.length = wordLikeSegments.reduce((sum, s) => sum + s.segment.length, 0)
 
-    if (/["\\)”’]/.test(lastChar)) {
-      this.hasTrailingQuote = true
-      lastChar = this.val.substr(-2, 1)
+    this.prefixLength = 0
+    for (const s of segments) {
+      if (s.isWordLike || /\p{White_Space}/u.test(s.segment)) break
+      this.prefixLength += s.segment.length
     }
 
-    if (/["\\(“‘]/.test(firstChar)) {
-      this.hasLeadingQuote = true
-    }
+    const last = segments[segments.length - 1]?.segment ?? ''
+    this.isNumeric =
+      wordLikeSegments.length > 0 &&
+      wordLikeSegments.every(s => /^\d+$/.test(s.segment))
 
-    if (/[.!?]/.test(lastChar)) {
-      this.hasPeriod = true
-    }
+    this.endsSentence = /[.!?]|[。！？؟]/u.test(last)
 
-    if (!this.hasPeriod && puncRegex.test(this.val)) {
+    const nonWordPunc = segments
+      .filter(s => !s.isWordLike && !/\p{White_Space}/u.test(s.segment))
+      .map(s => s.segment)
+      .join('')
+
+    if (nonWordPunc && !this.endsSentence) {
       this.hasOtherPunc = true
     }
   }
 
-  findIndex () {
+  findIndex() {
     switch (true) {
       case (this.length < 2):
         this.index = 0
@@ -67,8 +68,8 @@ export default class Word {
         break
     }
 
-    // Adjust index for leading quote
-    if (this.hasLeadingQuote) {
+    // Adjust for prefix characters like “(¿ etc.
+    if (this.prefixLength > 0) {
       this.index++
     }
   }

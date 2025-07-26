@@ -1,19 +1,35 @@
 import Word from './word'
 
-const puncSplit = /(.+?\.|.*?,|.*?—)([a-z].+\b)/ig
-const wordRegex = /([^\s/]+|[\r\n]+)/g
-// document.documentElement.lang
+function bundleWords(val, lang = 'en') {
+  const segmenter = new Intl.Segmenter(lang, { granularity: 'word' })
+  const segments = Array.from(segmenter.segment(val))
 
-function puncBreak (word) {
-  const parts = puncSplit.exec(word)
-  let ret = []
-  if (parts) {
-    ret.push(parts[1])
-    ret.push(parts[2])
-  } else {
-    ret = [word]
+  const result = []
+  let currentGroup = []
+  let hasWordLike = false
+
+  for (const { segment, isWordLike } of segments) {
+    // If this is whitespace, flush the current group
+    if (/\p{White_Space}/u.test(segment)) {
+      if (currentGroup.length > 0) {
+        result.push(currentGroup.join(''))
+        currentGroup = []
+        hasWordLike = false
+      }
+      continue
+    }
+
+    // Add to the current group
+    currentGroup.push(segment)
+    if (isWordLike) hasWordLike = true
   }
-  return ret.join(' ')
+
+  // Push any remaining group
+  if (currentGroup.length > 0) {
+    result.push(currentGroup.join(''))
+  }
+
+  return result
 }
 
 export default class Block {
@@ -22,85 +38,11 @@ export default class Block {
     this.index = 0
     this.settings = settings
 
-    // textContent collapses some sentences which were separated by DOM
-    // elements alone. We attempt to restore spaces between paragraphs.
-
-    // punctution sandwiched between two words
-    val = val.replace(/([.?!,:;])(?=[a-z][a-z])/ig, '$1 ')
-
-    // two quotes in a row
-    val = val.replace(/([”"])(?=["“])/ig, '$1 ')
-
-    // punctuation close-quote word
-    val = val.replace(/([.?!,:;])(["”])(?=\w)/ig, '$1$2 ')
-
-    // punctuation open-quote word
-    val = val.replace(/([.?!,:;])“(?=\w)/ig, '$1 “')
-
-    // Build word chain
-    const rawWords = val.match(wordRegex)
-
-    // temporary variables for building up text fragment phrases
-    let phrase = ''
-    const wordQueue = []
-    let purgeQueue = false
-
-    rawWords.forEach(word => {
-      // retroactively apply phrase to words in queue
-      if (purgeQueue) {
-        this.setTextFragmentToWords(wordQueue, phrase.trim())
-        purgeQueue = false
-        phrase = ''
-      }
-
-      // Extra splits on odd punctuation situations
-      const brokenWord = puncBreak(word)
-
-      // Calculate phrase or sentence fragment
-      if (brokenWord !== '\n') {
-        phrase += (phrase) ? ' ' + brokenWord : '' + brokenWord
-      }
-
-      const subWords = brokenWord.match(wordRegex)
-      subWords.forEach(subWord => {
-        // break long words
-        // const maxWordLength = (settings.getProp('maxWordLength') || 13)
-        let w
-        w = ''
-        // if (subWord.length > maxWordLength) {
-        //   const brokenSubWord = this.parts.breakLongWord(subWord, maxWordLength)
-        //   const subSubWords = brokenSubWord.match(wordRegex)
-        //   if (subSubWords) {
-        //     subSubWords.forEach(subSubWord => {
-        //       w = new Word(subSubWord)
-        //       this.words.push(w)
-        //       wordQueue.push(w)
-        //     })
-        //   } else {
-        //     w = ''
-        //   }
-        // } else {
-        w = new Word(subWord)
-        this.words.push(w)
-        wordQueue.push(w)
-        // }
-
-        // If this word contains punctuation, set the phrase to end
-        if (w && (w.hasPeriod || w.hasOtherPunc)) {
-          purgeQueue = true
-        }
-      })
+    const bundledWords = bundleWords(val, document.documentElement.lang)
+    console.log(bundledWords)
+    bundledWords.forEach(word => {
+      this.words.push(new Word(word, document.documentElement.lang))
     })
-
-    // Handle text fragments in the final phrase
-    this.setTextFragmentToWords(wordQueue, phrase)
-  }
-
-  setTextFragmentToWords (wordQueue, fragment) {
-    while (wordQueue.length) {
-      const retroWord = wordQueue.pop()
-      retroWord.textFragment = fragment
-    }
   }
 
   get word () {
@@ -131,7 +73,7 @@ export default class Block {
 
   getTime (word) {
     let time = this.settings.delay
-    if (word.hasPeriod) time *= this.settings.getProp('sentenceDelay')
+    if (word.endsSentence) time *= this.settings.getProp('sentenceDelay')
     if (word.hasOtherPunc) time *= this.settings.getProp('otherPuncDelay')
     if (word.isShort) time *= this.settings.getProp('shortWordDelay')
     if (word.isLong) time *= this.settings.getProp('longWordDelay')

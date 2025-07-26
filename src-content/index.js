@@ -46,10 +46,11 @@ async function onMessage (request) {
           })
         })
 
+        const lang = document.documentElement.lang || 'en'
         const options = new StutterOptions()
         let article = new Readability(doc).parse()
         article = article.textContent.replace(/\s+/g, ' ').trim()
-        article = await hyphenate(article, document.documentElement.lang, {
+        article = await hyphenate(article, lang, {
           hyphenChar: '- ',
           minWordLength: options.getProp('maxWordLength')
         })
