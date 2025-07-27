@@ -36,6 +36,7 @@
 		left: -100vw;
 		background-color: var(--bgScreen);
 		pointer-events: none;
+    backdrop-filter: blur(var(--bgFilter));
 		z-index: -1;
 	}
 

@@ -56,6 +56,7 @@ export default class UI extends EventEmitter {
     this.bindDOM()
     this.wakeLock = null
     this.currentTextFragment = ''
+    document.documentElement.style.setProperty('--bgFilter', '0')
   }
 
   bindDOM () {
@@ -206,6 +207,11 @@ export default class UI extends EventEmitter {
       }
     })
     this.holder.classList.add('theme-' + theme)
+    if (this.stutterOptions.getProp('bgBlur')) {
+      document.documentElement.style.setProperty('--bgFilter', '4px')
+    } else {
+      document.documentElement.style.setProperty('--bgFilter', '0')
+    }
   }
 
   pause () {

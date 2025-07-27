@@ -18,6 +18,7 @@ function drawSettings () {
   document.getElementById('maxWordLength').value = options.getProp('maxWordLength')
   document.getElementById('skipCount').value = options.getProp('skipCount')
   document.getElementById('theme').value = options.getProp('theme')
+  document.getElementById('bgBlur').checked = options.getProp('bgBlur')
   document.getElementById('showFlankers').checked = options.getProp('showFlankers')
   document.getElementById('keybindPauseModifier').value = options.getProp('keybindPauseModifier') ? options.getProp('keybindPauseModifier') : ''
   document.getElementById('keybindRestartModifier').value = options.getProp('keybindRestartModifier') ? options.getProp('keybindRestartModifier') : ''
@@ -51,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     settings.maxWordLength = parseInt(document.getElementById('maxWordLength').value, 10)
     settings.skipCount = parseInt(document.getElementById('skipCount').value, 10)
     settings.theme = document.getElementById('theme').value
+    settings.bgBlur = document.getElementById('bgBlur').checked
     settings.showFlankers = document.getElementById('showFlankers').checked
     settings.keybindPauseModifier = document.getElementById('keybindPauseModifier').value
     settings.keybindRestartModifier = document.getElementById('keybindRestartModifier').value

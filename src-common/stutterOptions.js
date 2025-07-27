@@ -13,6 +13,7 @@ const defaults = {
   pos: 0.5,
   maxWordLength: 13,
   skipCount: 10,
+  bgBlur: false,
   showFlankers: false,
   keybindPauseModifier: 'Alt',
   keybindPauseKey: 'p',
@@ -153,6 +154,9 @@ export default class StutterOptions extends EventEmitter {
         break
       case 'skipCount':
         val = parseInt(this.numericContain(0, 100, val), 10)
+        break
+      case 'bgBlur':
+        val = !!val
         break
       case 'showFlankers':
         val = !!val
