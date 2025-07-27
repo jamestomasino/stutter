@@ -3,30 +3,57 @@ import Word from './word'
 function bundleWords(val, lang = 'en') {
   const segmenter = new Intl.Segmenter(lang, { granularity: 'word' })
   const segments = Array.from(segmenter.segment(val))
-
+  const noSpaceLanguages = new Set(['ja', 'zh', 'th', 'lo', 'km', 'my'])
+  const isSpaceDelimited = !noSpaceLanguages.has(lang.split('-')[0])
   const result = []
-  let currentGroup = []
-  let hasWordLike = false
 
-  for (const { segment, isWordLike } of segments) {
-    // If this is whitespace, flush the current group
-    if (/\p{White_Space}/u.test(segment)) {
-      if (currentGroup.length > 0) {
-        result.push(currentGroup.join(''))
-        currentGroup = []
-        hasWordLike = false
-      }
+  let i = 0
+
+  while (i < segments.length) {
+    const current = segments[i]
+
+    if (/\p{White_Space}/u.test(current.segment)) {
+      i++
       continue
     }
 
-    // Add to the current group
-    currentGroup.push(segment)
-    if (isWordLike) hasWordLike = true
-  }
+    if (!isSpaceDelimited) {
+      // For CJK/Thai/etc.
+      if (current.isWordLike) {
+        let token = current.segment
+        while (
+          segments[i + 1] &&
+          !segments[i + 1].isWordLike &&
+          !/\p{White_Space}/u.test(segments[i + 1].segment)
+        ) {
+          token += segments[++i].segment
+        }
+        result.push(token)
+      } else {
+        result.push(current.segment)
+      }
+      i++
+      continue
+    }
 
-  // Push any remaining group
-  if (currentGroup.length > 0) {
-    result.push(currentGroup.join(''))
+    // For space-delimited languages
+    let token = ''
+    let hasWord = false
+
+    while (
+      i < segments.length &&
+      !/\p{White_Space}/u.test(segments[i].segment)
+    ) {
+      token += segments[i].segment
+      if (segments[i].isWordLike) hasWord = true
+      i++
+    }
+
+    if (token && hasWord) {
+      result.push(token)
+    } else if (token) {
+      result.push(token)
+    }
   }
 
   return result
