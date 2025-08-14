@@ -67,7 +67,6 @@ This is an open source project and we welcome contributions. See the [Wiki](http
 
 - [Install from Source](https://github.com/jamestomasino/stutter/wiki/Install)
 - [Themes](https://github.com/jamestomasino/stutter/wiki/Themes)
-- [Localization](https://github.com/jamestomasino/stutter/wiki/Locale)
 - [Third Party Libraries](https://github.com/jamestomasino/stutter/wiki/ThirdParty)
 - [Browser Permissions](https://github.com/jamestomasino/stutter/wiki/Permissions)
 
