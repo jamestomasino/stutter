@@ -35,7 +35,7 @@ async function onMessage (request) {
         supTags.forEach(sup => sup.remove())
 
         // Add a space after certain block-level elements to prevent word collisions
-        const blockElements = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'li', 'dt', 'dd']
+        const blockElements = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'li', 'dt', 'dd', 'br']
         blockElements.forEach(tag => {
           doc.querySelectorAll(tag).forEach(el => {
             // Only if it doesn't already end in whitespace
