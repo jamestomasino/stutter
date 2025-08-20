@@ -1,4 +1,4 @@
-import { bundleWords, hasProtectedNumericSeparator, parseWordMetadata } from './tokenizer.mjs'
+import { bundleWords, getSafeLocale, hasProtectedNumericSeparator, parseWordMetadata } from './tokenizer.mjs'
 
 const HYPHEN_CHARS = new Set([
   '-',
@@ -192,6 +192,7 @@ function splitLongTokens(tokens, lang, maxWordLength, hyphenateWordFn) {
 
 export function buildWordEntries(text, lang = 'en', maxWordLength = Infinity, hyphenateWordFn = null) {
   if (!text || !text.trim()) return []
+  lang = getSafeLocale(lang)
 
   const paragraphs = splitParagraphs(text)
   const combined = []

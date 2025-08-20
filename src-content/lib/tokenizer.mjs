@@ -5,6 +5,18 @@ const NUMERIC_GROUP_SEPARATOR_REGEX = /.*\p{Nd}\.(?=[\p{Nd}\p{Ll}]).*/u
 const NUMERIC_TOKEN_REGEX = /^[+-]?(?:\p{Nd}+(?:[.,]\p{Nd}+)*|\p{Nd}{1,3}(?:[ '\u00A0\u202F\u2019]\p{Nd}{3})+)$/u
 const HYPHEN_REGEX = /[-\u2010\u2011\u2012\u2013\u2014\u2015\u2212\u2043\uFE63\uFF0D]/u
 
+export function getSafeLocale(lang) {
+  const fallback = document.documentElement.lang || navigator.language || 'en'
+  const candidate = lang || fallback
+
+  try {
+    Intl.getCanonicalLocales(candidate)
+    return candidate
+  } catch (_) {
+    return 'en'
+  }
+}
+
 export function isWhiteSpace(str) {
   return /\p{White_Space}/u.test(str)
 }
@@ -25,6 +37,7 @@ export function isNumericToken(text, wordLikeSegments) {
 }
 
 export function parseWordMetadata(val, lang = 'en') {
+  lang = getSafeLocale(lang)
   const segmenter = new Intl.Segmenter(lang, { granularity: 'word' })
   const segments = Array.from(segmenter.segment(val))
   const wordLikeSegments = segments.filter(s => s.isWordLike)
@@ -98,6 +111,7 @@ function tokenizeNonSpaceLang(segments) {
 }
 
 export function bundleWords(val, lang = 'en', maxLen = Infinity) {
+  lang = getSafeLocale(lang)
   const segmenter = new Intl.Segmenter(lang, { granularity: 'word' })
   const segments = Array.from(segmenter.segment(val))
   const isSpaceDelimited = !NO_SPACE_LANGUAGES.has(lang.split('-')[0])

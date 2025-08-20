@@ -2,6 +2,7 @@ import Word from './word'
 import { hyphenateWord } from './hyphen.js'
 import StutterOptions from '../../src-common/stutterOptions'
 import { buildWordEntries } from './tokenPipeline.mjs'
+import { getSafeLocale } from './tokenizer.mjs'
 const options = new StutterOptions()
 
 export default class Block {
@@ -9,15 +10,16 @@ export default class Block {
     this.words = []
     this.index = 0
     this.settings = settings
+    const lang = getSafeLocale(document.documentElement.lang)
 
     const wordEntries = buildWordEntries(
       val,
-      document.documentElement.lang,
+      lang,
       options.getProp('maxWordLength') ?? Infinity,
       hyphenateWord
     )
     wordEntries.forEach(entry => {
-      this.words.push(new Word(entry.text, document.documentElement.lang, entry.isParagraphEnd))
+      this.words.push(new Word(entry.text, lang, entry.isParagraphEnd))
     })
   }
 
