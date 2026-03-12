@@ -1,3 +1,5 @@
+import { parseWordMetadata } from './tokenizer.mjs'
+
 export default class Word {
   constructor(val, lang = 'en') {
     this.val = val
@@ -16,33 +18,12 @@ export default class Word {
   }
 
   parseWord() {
-    const segmenter = new Intl.Segmenter(this.lang, { granularity: 'word' })
-    const segments = Array.from(segmenter.segment(this.val))
-
-    const wordLikeSegments = segments.filter(s => s.isWordLike)
-    this.length = wordLikeSegments.reduce((sum, s) => sum + s.segment.length, 0)
-
-    this.prefixLength = 0
-    for (const s of segments) {
-      if (s.isWordLike || /\p{White_Space}/u.test(s.segment)) break
-      this.prefixLength += s.segment.length
-    }
-
-    const last = segments[segments.length - 1]?.segment ?? ''
-    this.isNumeric =
-      wordLikeSegments.length > 0 &&
-      wordLikeSegments.every(s => /^\d+$/.test(s.segment))
-
-    this.endsSentence = /[.!?]|[。！？؟]/u.test(last)
-
-    const nonWordPunc = segments
-      .filter(s => !s.isWordLike && !/\p{White_Space}/u.test(s.segment))
-      .map(s => s.segment)
-      .join('')
-
-    if (nonWordPunc && !this.endsSentence) {
-      this.hasOtherPunc = true
-    }
+    const meta = parseWordMetadata(this.val, this.lang)
+    this.length = meta.length
+    this.prefixLength = meta.prefixLength
+    this.isNumeric = meta.isNumeric
+    this.endsSentence = meta.endsSentence
+    this.hasOtherPunc = meta.hasOtherPunc
   }
 
   findIndex() {
