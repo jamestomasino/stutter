@@ -68,79 +68,90 @@ import { hyphenateSync as hyphenate_tk } from "hyphen/tk";
 import { hyphenateSync as hyphenate_tr } from "hyphen/tr";
 import { hyphenateSync as hyphenate_uk } from "hyphen/uk";
 
-export default function hyphenate (doc, lang, options) {
-  let ret = ''
+function getHyphenator(lang) {
+  let ret = null
   switch (lang.substr(0,2)) {
-    case 'en': ret = hyphenate_en(doc, options); break
-    case 'de': ret = hyphenate_de(doc, options); break
-    case 'el': ret = hyphenate_el(doc, options); break
-    case 'mn': ret = hyphenate_mn(doc, options); break
-    case 'sh': ret = hyphenate_sh(doc, options); break
-    case 'sr': ret = hyphenate_sr(doc, options); break
-    case 'zh': ret = hyphenate_zh(doc, options); break
-    case 'af': ret = hyphenate_af(doc, options); break
-    case 'as': ret = hyphenate_as(doc, options); break
-    case 'be': ret = hyphenate_be(doc, options); break
-    case 'bg': ret = hyphenate_bg(doc, options); break
-    case 'bn': ret = hyphenate_bn(doc, options); break
-    case 'ca': ret = hyphenate_ca(doc, options); break
-    case 'co': ret = hyphenate_co(doc, options); break
-    case 'cs': ret = hyphenate_cs(doc, options); break
-    case 'cy': ret = hyphenate_cy(doc, options); break
-    case 'cu': ret = hyphenate_cu(doc, options); break
-    case 'da': ret = hyphenate_da(doc, options); break
-    case 'es': ret = hyphenate_es(doc, options); break
-    case 'et': ret = hyphenate_et(doc, options); break
-    case 'eu': ret = hyphenate_eu(doc, options); break
-    case 'fi': ret = hyphenate_fi(doc, options); break
-    case 'fr': ret = hyphenate_fr(doc, options); break
-    case 'fu': ret = hyphenate_fu(doc, options); break
-    case 'ga': ret = hyphenate_ga(doc, options); break
-    case 'gl': ret = hyphenate_gl(doc, options); break
-    case 'gr': ret = hyphenate_gr(doc, options); break
-    case 'gu': ret = hyphenate_gu(doc, options); break
-    case 'hi': ret = hyphenate_hi(doc, options); break
-    case 'hr': ret = hyphenate_hr(doc, options); break
-    case 'hs': ret = hyphenate_hs(doc, options); break
-    case 'hu': ret = hyphenate_hu(doc, options); break
-    case 'hy': ret = hyphenate_hy(doc, options); break
-    case 'ia': ret = hyphenate_ia(doc, options); break
-    case 'id': ret = hyphenate_id(doc, options); break
-    case 'is': ret = hyphenate_is(doc, options); break
-    case 'it': ret = hyphenate_it(doc, options); break
-    case 'ka': ret = hyphenate_ka(doc, options); break
-    case 'km': ret = hyphenate_km(doc, options); break
-    case 'kn': ret = hyphenate_kn(doc, options); break
-    case 'la': ret = hyphenate_la(doc, options); break
-    case 'lt': ret = hyphenate_lt(doc, options); break
-    case 'lv': ret = hyphenate_lv(doc, options); break
-    case 'ml': ret = hyphenate_ml(doc, options); break
-    case 'mr': ret = hyphenate_mr(doc, options); break
-    case 'nb': ret = hyphenate_nb(doc, options); break
-    case 'nl': ret = hyphenate_nl(doc, options); break
-    case 'nn': ret = hyphenate_nn(doc, options); break
-    case 'no': ret = hyphenate_no(doc, options); break
-    case 'oc': ret = hyphenate_oc(doc, options); break
-    case 'or': ret = hyphenate_or(doc, options); break
-    case 'pa': ret = hyphenate_pa(doc, options); break
-    case 'pi': ret = hyphenate_pi(doc, options); break
-    case 'pl': ret = hyphenate_pl(doc, options); break
-    case 'pm': ret = hyphenate_pm(doc, options); break
-    case 'pt': ret = hyphenate_pt(doc, options); break
-    case 'rm': ret = hyphenate_rm(doc, options); break
-    case 'ro': ret = hyphenate_ro(doc, options); break
-    case 'ru': ret = hyphenate_ru(doc, options); break
-    case 'sa': ret = hyphenate_sa(doc, options); break
-    case 'sk': ret = hyphenate_sk(doc, options); break
-    case 'sl': ret = hyphenate_sl(doc, options); break
-    case 'sv': ret = hyphenate_sv(doc, options); break
-    case 'ta': ret = hyphenate_ta(doc, options); break
-    case 'te': ret = hyphenate_te(doc, options); break
-    case 'th': ret = hyphenate_th(doc, options); break
-    case 'tk': ret = hyphenate_tk(doc, options); break
-    case 'tr': ret = hyphenate_tr(doc, options); break
-    case 'uk': ret = hyphenate_uk(doc, options); break
-    default: ret = doc
+    case 'en': ret = hyphenate_en; break
+    case 'de': ret = hyphenate_de; break
+    case 'el': ret = hyphenate_el; break
+    case 'mn': ret = hyphenate_mn; break
+    case 'sh': ret = hyphenate_sh; break
+    case 'sr': ret = hyphenate_sr; break
+    case 'zh': ret = hyphenate_zh; break
+    case 'af': ret = hyphenate_af; break
+    case 'as': ret = hyphenate_as; break
+    case 'be': ret = hyphenate_be; break
+    case 'bg': ret = hyphenate_bg; break
+    case 'bn': ret = hyphenate_bn; break
+    case 'ca': ret = hyphenate_ca; break
+    case 'co': ret = hyphenate_co; break
+    case 'cs': ret = hyphenate_cs; break
+    case 'cy': ret = hyphenate_cy; break
+    case 'cu': ret = hyphenate_cu; break
+    case 'da': ret = hyphenate_da; break
+    case 'es': ret = hyphenate_es; break
+    case 'et': ret = hyphenate_et; break
+    case 'eu': ret = hyphenate_eu; break
+    case 'fi': ret = hyphenate_fi; break
+    case 'fr': ret = hyphenate_fr; break
+    case 'fu': ret = hyphenate_fu; break
+    case 'ga': ret = hyphenate_ga; break
+    case 'gl': ret = hyphenate_gl; break
+    case 'gr': ret = hyphenate_gr; break
+    case 'gu': ret = hyphenate_gu; break
+    case 'hi': ret = hyphenate_hi; break
+    case 'hr': ret = hyphenate_hr; break
+    case 'hs': ret = hyphenate_hs; break
+    case 'hu': ret = hyphenate_hu; break
+    case 'hy': ret = hyphenate_hy; break
+    case 'ia': ret = hyphenate_ia; break
+    case 'id': ret = hyphenate_id; break
+    case 'is': ret = hyphenate_is; break
+    case 'it': ret = hyphenate_it; break
+    case 'ka': ret = hyphenate_ka; break
+    case 'km': ret = hyphenate_km; break
+    case 'kn': ret = hyphenate_kn; break
+    case 'la': ret = hyphenate_la; break
+    case 'lt': ret = hyphenate_lt; break
+    case 'lv': ret = hyphenate_lv; break
+    case 'ml': ret = hyphenate_ml; break
+    case 'mr': ret = hyphenate_mr; break
+    case 'nb': ret = hyphenate_nb; break
+    case 'nl': ret = hyphenate_nl; break
+    case 'nn': ret = hyphenate_nn; break
+    case 'no': ret = hyphenate_no; break
+    case 'oc': ret = hyphenate_oc; break
+    case 'or': ret = hyphenate_or; break
+    case 'pa': ret = hyphenate_pa; break
+    case 'pi': ret = hyphenate_pi; break
+    case 'pl': ret = hyphenate_pl; break
+    case 'pm': ret = hyphenate_pm; break
+    case 'pt': ret = hyphenate_pt; break
+    case 'rm': ret = hyphenate_rm; break
+    case 'ro': ret = hyphenate_ro; break
+    case 'ru': ret = hyphenate_ru; break
+    case 'sa': ret = hyphenate_sa; break
+    case 'sk': ret = hyphenate_sk; break
+    case 'sl': ret = hyphenate_sl; break
+    case 'sv': ret = hyphenate_sv; break
+    case 'ta': ret = hyphenate_ta; break
+    case 'te': ret = hyphenate_te; break
+    case 'th': ret = hyphenate_th; break
+    case 'tk': ret = hyphenate_tk; break
+    case 'tr': ret = hyphenate_tr; break
+    case 'uk': ret = hyphenate_uk; break
+    default: ret = null
   }
   return ret
+}
+
+export function hyphenateWord(word, lang, options) {
+  const hyphenator = getHyphenator(lang)
+  if (!hyphenator) return word
+  return hyphenator(word, options)
+}
+
+export default function hyphenate(doc, lang, options) {
+  const hyphenated = hyphenateWord(doc, lang, options)
+  return hyphenated || doc
 }

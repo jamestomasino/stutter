@@ -1,9 +1,10 @@
 import { parseWordMetadata } from './tokenizer.mjs'
 
 export default class Word {
-  constructor(val, lang = 'en') {
+  constructor(val, lang = 'en', isParagraphEnd = false) {
     this.val = val
     this.lang = lang
+    this.isParagraphEnd = isParagraphEnd
     this.endsSentence = false
     this.hasOtherPunc = false
     this.isShort = false

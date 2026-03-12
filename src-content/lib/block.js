@@ -1,6 +1,7 @@
 import Word from './word'
+import { hyphenateWord } from './hyphen.js'
 import StutterOptions from '../../src-common/stutterOptions'
-import { bundleWords } from './tokenizer.mjs'
+import { buildWordEntries } from './tokenPipeline.mjs'
 const options = new StutterOptions()
 
 export default class Block {
@@ -9,13 +10,14 @@ export default class Block {
     this.index = 0
     this.settings = settings
 
-    const bundledWords = bundleWords(
+    const wordEntries = buildWordEntries(
       val,
       document.documentElement.lang,
-      options.getProp('maxWordLength') ?? Infinity
+      options.getProp('maxWordLength') ?? Infinity,
+      hyphenateWord
     )
-    bundledWords.forEach(word => {
-      this.words.push(new Word(word, document.documentElement.lang))
+    wordEntries.forEach(entry => {
+      this.words.push(new Word(entry.text, document.documentElement.lang, entry.isParagraphEnd))
     })
   }
 

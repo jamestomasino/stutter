@@ -1,8 +1,6 @@
 import Readability from './lib/Readability.cjs'
 import Stutter from './lib/stutter'
 import UI from './lib/ui'
-import hyphenate from './lib/hyphen'
-import StutterOptions from '../src-common/stutterOptions'
 
 let stutter
 let ui
@@ -46,14 +44,8 @@ async function onMessage (request) {
           })
         })
 
-        const lang = document.documentElement.lang || 'en'
-        const options = new StutterOptions()
         let article = new Readability(doc).parse()
         article = article.textContent.replace(/\s+/g, ' ').trim()
-        article = await hyphenate(article, lang, {
-          hyphenChar: '- ',
-          minWordLength: options.getProp('maxWordLength')
-        })
         playStutter(article)
       }
       break
