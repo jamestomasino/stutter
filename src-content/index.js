@@ -1,6 +1,7 @@
 import Readability from './lib/Readability.cjs'
 import Stutter from './lib/stutter'
 import UI from './lib/ui'
+import { normalizeExtractedText } from './lib/text.mjs'
 
 let stutter
 let ui
@@ -38,14 +39,14 @@ async function onMessage (request) {
         blockElements.forEach(tag => {
           doc.querySelectorAll(tag).forEach(el => {
             // Only if it doesn't already end in whitespace
-            if (!el.textContent.endsWith(' ')) {
-              el.textContent += ' '
+            if (!/\s$/.test(el.textContent)) {
+              el.textContent += '\n\n'
             }
           })
         })
 
         let article = new Readability(doc).parse()
-        article = article.textContent.replace(/\s+/g, ' ').trim()
+        article = normalizeExtractedText(article.textContent)
         playStutter(article)
       }
       break
