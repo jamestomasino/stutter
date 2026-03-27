@@ -2,7 +2,37 @@
 import '../style.scss'
 import { EventEmitter } from 'events'
 import StutterOptions from '../../src-common/stutterOptions'
+import { DEFAULT_FONT_ID, getFontFamilyStack, getFontStylesheet } from '../../src-common/fonts'
 var browser = require('webextension-polyfill')
+
+const STUTTER_LOCAL_FONT_STYLE_ID = '__stutter_local_fontface'
+const STUTTER_GOOGLE_FONT_LINK_PREFIX = '__stutter_google_font_'
+
+function getGoogleFontLinkId(fontId) {
+  return `${STUTTER_GOOGLE_FONT_LINK_PREFIX}${String(fontId || '').replace(/[^a-z0-9_-]/gi, '')}`
+}
+
+function ensureLocalAtkinsonFontFace() {
+  if (!document.head || document.getElementById(STUTTER_LOCAL_FONT_STYLE_ID)) return
+  const style = document.createElement('style')
+  style.id = STUTTER_LOCAL_FONT_STYLE_ID
+  const fontUrl = browser && browser.runtime && browser.runtime.getURL
+    ? browser.runtime.getURL('fonts/atkinson_hyperlegible_regular.ttf')
+    : 'fonts/atkinson_hyperlegible_regular.ttf'
+  style.textContent = `@font-face { font-family: "Stutter Atkinson Hyperlegible"; src: url("${fontUrl}") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }`
+  document.head.appendChild(style)
+}
+
+function ensureGoogleFontStylesheet(fontId, stylesheetUrl) {
+  if (!stylesheetUrl || !document.head) return
+  const linkId = getGoogleFontLinkId(fontId)
+  if (document.getElementById(linkId)) return
+  const link = document.createElement('link')
+  link.id = linkId
+  link.rel = 'stylesheet'
+  link.href = stylesheetUrl
+  document.head.appendChild(link)
+}
 
 var template = `
   <div class="__stutter_screen"></div>
@@ -47,6 +77,7 @@ function toHHMMSS (t) {
 export default class UI extends EventEmitter {
   constructor () {
     super()
+    ensureLocalAtkinsonFontFace()
     this.holder = document.createElement('div')
     this.holder.classList.add('__stutter')
     this.holder.id = '__stutter'
@@ -90,6 +121,7 @@ export default class UI extends EventEmitter {
     this.stutterOptions = new StutterOptions()
     this.stutterOptions.addListener(StutterOptions.UPDATE, this.onOptionsUpdate)
     document.addEventListener('keydown', this.onKeypress, true)
+    this.onOptionsUpdate()
   }
 
   onKeypress (e) {
@@ -196,6 +228,11 @@ export default class UI extends EventEmitter {
   }
 
   onOptionsUpdate () {
+    ensureLocalAtkinsonFontFace()
+    const selectedFont = this.stutterOptions.getProp('fontFamily') || DEFAULT_FONT_ID
+    this.holder.style.setProperty('--stutterFontFamily', getFontFamilyStack(selectedFont))
+    ensureGoogleFontStylesheet(selectedFont, getFontStylesheet(selectedFont))
+
     if (this.stutterOptions.getProp('pos')) {
       this.holder.style.top = (this.stutterOptions.getProp('pos') * 100) + 'vh'
     }

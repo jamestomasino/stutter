@@ -33,4 +33,7 @@ test: ## web extension tests
 serve: ## launch test browser
 	npm run extension
 
-.PHONY: help build package package-chrome package-firefox package-edge test serve
+serve-chromium: ## launch test browser (Chromium)
+	npm run extension:chromium
+
+.PHONY: help build package package-chrome package-firefox package-edge test serve serve-chromium

@@ -15,6 +15,7 @@ const defaults = {
   skipCount: 10,
   bgBlur: false,
   showFlankers: false,
+  fontFamily: 'atkinson-hyperlegible',
   keybindPauseModifier: 'Alt',
   keybindPauseKey: 'p',
   keybindRestartModifier: 'Alt',

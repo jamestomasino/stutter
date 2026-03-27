@@ -35,6 +35,16 @@
     "storage",
     "scripting"
   ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "fonts/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
   "options_page": "dist-options/index.html",
   "options_ui": {
     "page": "dist-options/index.html",

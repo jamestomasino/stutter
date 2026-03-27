@@ -15,7 +15,9 @@
     "build:chrome": "npm run manifest:chrome && npm run build",
     "build:firefox": "npm run manifest:firefox && npm run build",
     "build:edge": "npm run manifest:edge && npm run build",
-    "extension": "npm run manifest:firefox && web-ext run --verbose",
+    "extension": "npm run extension:firefox",
+    "extension:firefox": "npm run build:firefox && web-ext run --verbose",
+    "extension:chromium": "npm run build:chrome && web-ext run --target chromium --chromium-binary chromium --verbose",
     "package:chrome": "npm run build:chrome && web-ext build --overwrite-dest --filename \"stutter-chrome-$npm_package_version.zip\"",
     "package:firefox": "npm run build:firefox && web-ext build --overwrite-dest --filename \"stutter-firefox-$npm_package_version.zip\"",
     "package:edge": "npm run build:edge && web-ext build --overwrite-dest --filename \"stutter-edge-$npm_package_version.zip\"",
@@ -28,7 +30,7 @@
     "release:tag": "node scripts/release-tag.cjs",
     "release:tag:push": "node scripts/release-tag.cjs --push",
     "build": "webpack --config 'webpack.bg.js' && webpack --config 'webpack.content.js' && webpack --config 'webpack.options.js'",
-    "webext-test": "npm run manifest:firefox && web-ext lint"
+    "webext-test": "npm run manifest:firefox && node scripts/webext-lint.cjs"
   },
   "browserslist": "> 0.25%, not dead",
   "devDependencies": {

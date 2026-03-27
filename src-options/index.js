@@ -1,5 +1,6 @@
 import './main.scss'
 import StutterOptions from '../src-common/stutterOptions'
+import { DEFAULT_FONT_ID, STUTTER_FONTS } from '../src-common/fonts'
 const options = new StutterOptions()
 options.addListener(StutterOptions.UPDATE, () => { drawSettings() })
 const resetbtn = document.getElementById('reset')
@@ -18,6 +19,9 @@ function drawSettings () {
   document.getElementById('maxWordLength').value = options.getProp('maxWordLength')
   document.getElementById('skipCount').value = options.getProp('skipCount')
   document.getElementById('theme').value = options.getProp('theme')
+  const selectedFont = options.getProp('fontFamily') || DEFAULT_FONT_ID
+  document.getElementById('fontFamily').value =
+    STUTTER_FONTS.some(font => font.id === selectedFont) ? selectedFont : DEFAULT_FONT_ID
   document.getElementById('bgBlur').checked = options.getProp('bgBlur')
   document.getElementById('showFlankers').checked = options.getProp('showFlankers')
   document.getElementById('keybindPauseModifier').value = options.getProp('keybindPauseModifier') ? options.getProp('keybindPauseModifier') : ''
@@ -36,7 +40,19 @@ function drawSettings () {
   document.getElementById('keybindCloseKey').value = options.getProp('keybindCloseKey')
 }
 
+function renderFontOptions () {
+  const fontSelect = document.getElementById('fontFamily')
+  fontSelect.innerHTML = ''
+  STUTTER_FONTS.forEach(font => {
+    const option = document.createElement('option')
+    option.value = font.id
+    option.textContent = font.label
+    fontSelect.appendChild(option)
+  })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  renderFontOptions()
   drawSettings()
   document.querySelector('form').addEventListener('submit', e => {
     e.preventDefault()
@@ -52,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     settings.maxWordLength = parseInt(document.getElementById('maxWordLength').value, 10)
     settings.skipCount = parseInt(document.getElementById('skipCount').value, 10)
     settings.theme = document.getElementById('theme').value
+    settings.fontFamily = document.getElementById('fontFamily').value || DEFAULT_FONT_ID
     settings.bgBlur = document.getElementById('bgBlur').checked
     settings.showFlankers = document.getElementById('showFlankers').checked
     settings.keybindPauseModifier = document.getElementById('keybindPauseModifier').value
