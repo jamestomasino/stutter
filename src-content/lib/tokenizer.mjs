@@ -6,7 +6,9 @@ const NUMERIC_TOKEN_REGEX = /^[+-]?(?:\p{Nd}+(?:[.,]\p{Nd}+)*|\p{Nd}{1,3}(?:[ '\
 const HYPHEN_REGEX = /[-\u2010\u2011\u2012\u2013\u2014\u2015\u2212\u2043\uFE63\uFF0D]/u
 
 export function getSafeLocale(lang) {
-  const fallback = document.documentElement.lang || navigator.language || 'en'
+  const documentLang = globalThis.document?.documentElement?.lang || ''
+  const navigatorLang = globalThis.navigator?.language || ''
+  const fallback = documentLang || navigatorLang || 'en'
   const candidate = lang || fallback
 
   try {

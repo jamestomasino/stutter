@@ -6,6 +6,7 @@ var browser = require('webextension-polyfill')
 
 var template = `
   <div class="__stutter_screen"></div>
+  <div class="__stutter_notice" role="status" aria-live="polite"></div>
   <div class="__stutter_text">
     <span class="__stutter_pausebtn"></span>
     <span class="__stutter_drag">&#x2195;</span>
@@ -62,6 +63,7 @@ export default class UI extends EventEmitter {
   bindDOM () {
     // UI Elements
     this.text = this.holder.getElementsByClassName('__stutter_text')[0]
+    this.notice = this.holder.getElementsByClassName('__stutter_notice')[0]
     this.left = this.holder.getElementsByClassName('__stutter_left')[0]
     this.center = this.holder.getElementsByClassName('__stutter_center')[0]
     this.remainder = this.holder.getElementsByClassName('__stutter_remainder')[0]
@@ -223,6 +225,7 @@ export default class UI extends EventEmitter {
   }
 
   show (word, nextword = null) {
+    this.clearNotice()
     this.left.textContent = word.val.substr(0, word.index)
     this.center.textContent = word.val.substr(word.index, 1)
     this.remainder.textContent = word.val.substr(word.index + 1)
@@ -254,6 +257,17 @@ export default class UI extends EventEmitter {
         } catch (_) {}
       }
     }
+  }
+
+  async showNotice (message) {
+    await this.reveal()
+    this.notice.textContent = message
+    this.holder.classList.add('__stutter_notice_visible')
+  }
+
+  clearNotice () {
+    this.notice.textContent = ''
+    this.holder.classList.remove('__stutter_notice_visible')
   }
 
   get pos () {

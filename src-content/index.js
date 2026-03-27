@@ -1,6 +1,7 @@
 import Readability from './lib/Readability.cjs'
 import Stutter from './lib/stutter'
 import UI from './lib/ui'
+import { extractFallbackPageText } from './lib/extraction.mjs'
 import { normalizeExtractedText } from './lib/text.mjs'
 
 let stutter
@@ -8,6 +9,11 @@ let ui
 
 function normalizeText (text) {
   return text ? text.replace(/\s+/g, ' ').trim() : ''
+}
+
+function showFailureNotice (message) {
+  console.error(message)
+  ui.showNotice(message)
 }
 
 function playStutter (text) {
@@ -27,6 +33,7 @@ function safePlayStutter (text) {
   }
 
   try {
+    ui.clearNotice()
     playStutter(normalized)
     return true
   } catch (error) {
@@ -36,7 +43,7 @@ function safePlayStutter (text) {
 }
 
 function getFallbackPageText () {
-  return normalizeText(document.body?.innerText)
+  return extractFallbackPageText(document)
 }
 
 async function onMessage (request) {
@@ -44,12 +51,16 @@ async function onMessage (request) {
   switch (request.functiontoInvoke) {
     case 'stutterSelectedText':
       // pass selection to Stutter
-      safePlayStutter(request.selectedText)
+      if (!safePlayStutter(request.selectedText)) {
+        showFailureNotice('Stutter could not read the selected text.')
+      }
       break
     case 'stutterFullPage':
       selection = getSelectionText()
       if (selection) {
-        safePlayStutter(selection)
+        if (!safePlayStutter(selection)) {
+          showFailureNotice('Stutter could not read the selected text.')
+        }
       } else {
         try {
           // close document switch Readability is destructive
@@ -80,7 +91,9 @@ async function onMessage (request) {
           }
         } catch (error) {
           console.error('Stutter failed to extract article content.', error)
-          safePlayStutter(getFallbackPageText())
+          if (!safePlayStutter(getFallbackPageText())) {
+            showFailureNotice('Stutter could not find readable text on this page.')
+          }
         }
       }
       break

@@ -40,6 +40,20 @@
 		z-index: -1;
 	}
 
+	.__stutter_notice {
+		display: none;
+		position: absolute;
+		inset: 0;
+		z-index: 95;
+		padding: 12px 56px 12px 56px;
+		color: var(--textColor) !important;
+		font-family: Arial, sans-serif !important;
+		font-size: 14px !important;
+		line-height: 1.35em !important;
+		text-align: center;
+		background: var(--barBG);
+	}
+
 	.__stutter_text {
 		display: block;
 		line-height: 1em !important;
@@ -224,6 +238,14 @@
 			}
 		}
 	}
+
+	&.__stutter_notice_visible {
+		.__stutter_notice {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
 }
 
 @media screen and (min-width: 700px) {
@@ -267,6 +289,10 @@
 					line-height: 1em !important;
 				}
 			}
+		}
+
+		.__stutter_notice {
+			font-size: 18px !important;
 		}
 
 		.__stutter_pause {
