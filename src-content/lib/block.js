@@ -3,6 +3,7 @@ import { hyphenateWord } from './hyphen.js'
 import StutterOptions from '../../src-common/stutterOptions'
 import { buildWordEntries } from './tokenPipeline.mjs'
 import { getSafeLocale } from './tokenizer.mjs'
+import { clampIndex, indexToProgress, progressToIndex } from './playbackProgress.mjs'
 const options = new StutterOptions()
 
 export default class Block {
@@ -71,7 +72,25 @@ export default class Block {
     this.index = 0
   }
 
+  seekToIndex (index) {
+    if (!this.words.length) {
+      this.index = 0
+      return this.index
+    }
+    this.index = clampIndex(index, this.words.length)
+    return this.index
+  }
+
+  seekToProgress (progress) {
+    if (!this.words.length) {
+      this.index = 0
+      return this.index
+    }
+    this.index = progressToIndex(progress, this.words.length)
+    return this.index
+  }
+
   get progress () {
-    return this.index / this.words.length
+    return indexToProgress(this.index, this.words.length)
   }
 }

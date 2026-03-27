@@ -18,15 +18,19 @@
 	z-index: 999999999;
 	box-sizing: border-box;
 	--stutterFontFamily: "Stutter Atkinson Hyperlegible", Arial, sans-serif;
+	--stutterProgress: 0%;
+	--stutterScrubberProgress: 0%;
+	background: linear-gradient(
+		to right,
+		var(--barBG) 0%,
+		var(--barBG) var(--stutterProgress),
+		var(--progressColor) var(--stutterProgress),
+		var(--progressColor) 100%
+	);
+	transition: background 140ms linear;
 
 	* {
 		all: unset;
-	}
-
-	@for $i from 0 through 100 {
-		&[data-progress='#{$i}'] {
-			background: linear-gradient(to right, var(--barBG) 0%, var(--barBG) #{$i+'%'}, var(--progressColor) #{$i+'%'}, var(--progressColor) 100%);
-		}
 	}
 
 	.__stutter_screen {
@@ -72,7 +76,8 @@
 			left: 0;
 			top: 0;
 			width: 100%;
-			height: 50px;
+			height: 36px;
+			z-index: 80;
 		}
 
 		.__stutter_left {
@@ -208,6 +213,127 @@
 			user-select: none;
 			z-index: 100;
 		}
+
+	}
+
+	.__stutter_scrubber_hitbox {
+		display: block;
+		position: absolute;
+		left: 40px;
+		right: 40px;
+		bottom: -28px;
+		height: 28px;
+		z-index: 180;
+		pointer-events: auto;
+		background: transparent;
+	}
+
+	.__stutter_scrubber {
+		display: block;
+		position: absolute;
+		box-sizing: border-box;
+		left: 48px;
+		right: 48px;
+		bottom: -20px;
+		height: 18px;
+		cursor: pointer;
+		pointer-events: auto;
+		z-index: 200;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		background: transparent;
+		touch-action: none;
+	}
+
+	.__stutter_scrubber_visual {
+		display: block;
+		position: absolute;
+		box-sizing: border-box;
+		left: 48px;
+		right: 48px;
+		bottom: -20px;
+		height: 18px;
+		pointer-events: none;
+		z-index: 190;
+	}
+
+	.__stutter_scrubber_track {
+		display: block;
+		position: absolute;
+		top: 50%;
+		height: 6px;
+		border-radius: 999px;
+		transform: translateY(-50%);
+		left: 0;
+		right: 0;
+		background: var(--barBorder);
+	}
+
+	.__stutter_scrubber_thumb {
+		display: block;
+		position: absolute;
+		top: 50%;
+		left: var(--stutterScrubberProgress);
+		width: 18px;
+		height: 18px;
+		transform: translate(-50%, -50%);
+		border-radius: 50%;
+		background: var(--textHighlight);
+		border: 1px solid var(--barBorder);
+		box-sizing: border-box;
+		transition: left 140ms linear;
+	}
+
+	.__stutter_scrubber_preview {
+		display: none;
+		position: absolute;
+		bottom: -2px;
+		transform: translateX(-50%);
+		padding: 2px 6px;
+		border-radius: 4px;
+		font-family: var(--stutterFontFamily) !important;
+		font-size: 10px !important;
+		line-height: 1.2em !important;
+		color: var(--textColor) !important;
+		background: var(--barBG);
+		border: 1px solid var(--barBorder);
+		z-index: 160;
+		pointer-events: none;
+		white-space: nowrap;
+	}
+
+	.__stutter_scrubber_preview_visible {
+		display: block;
+	}
+
+	.__stutter_scrubber::-webkit-slider-runnable-track {
+		height: 6px;
+		background: transparent;
+	}
+
+	.__stutter_scrubber::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 18px;
+		height: 18px;
+		margin-top: -6px;
+		border-radius: 50%;
+		background: transparent;
+		border: 0;
+	}
+
+	.__stutter_scrubber::-moz-range-track {
+		height: 6px;
+		background: transparent;
+	}
+
+	.__stutter_scrubber::-moz-range-thumb {
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		background: transparent;
+		border: 0;
 	}
 
 	.__stutter_pause {
@@ -259,7 +385,7 @@
 			font-size: 60px !important;
 
 			.__stutter_pausebtn {
-				height: 80px;
+				height: 62px;
 			}
 
 			.__stutter_left {
@@ -290,6 +416,33 @@
 					line-height: 1em !important;
 				}
 			}
+
+		}
+
+		.__stutter_scrubber_hitbox {
+			left: 56px;
+			right: 56px;
+			bottom: -30px;
+			height: 30px;
+		}
+
+		.__stutter_scrubber {
+			left: 64px;
+			right: 64px;
+			bottom: -20px;
+			height: 20px;
+		}
+
+		.__stutter_scrubber_visual {
+			left: 64px;
+			right: 64px;
+			bottom: -20px;
+			height: 20px;
+		}
+
+		.__stutter_scrubber_preview {
+			bottom: -2px;
+			font-size: 12px !important;
 		}
 
 		.__stutter_notice {

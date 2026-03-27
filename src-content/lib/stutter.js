@@ -30,11 +30,21 @@ export default class Stutter {
     this.ui.addListener('restart', () => {
       this.restart()
     })
+    this.ui.addListener('seek', progress => {
+      this.seekToProgress(progress)
+    })
+    this.ui.addListener('seekStart', () => {
+      this.onSeekStart()
+    })
+    this.ui.addListener('seekEnd', () => {
+      this.onSeekEnd()
+    })
 
     this.options = new StutterOptions()
     this.onOptionsUpdate = this.onOptionsUpdate.bind(this)
     this.options.addListener(StutterOptions.UPDATE, this.onOptionsUpdate)
     this.timer = null
+    this.wasPlayingBeforeSeek = false
   }
 
   onOptionsUpdate () {
@@ -103,6 +113,63 @@ export default class Stutter {
     clearTimeout(this.timer)
     this.isPlaying = false
     this.ui.pause()
+  }
+
+  onSeekStart () {
+    this.wasPlayingBeforeSeek = this.isPlaying
+    if (this.isPlaying) {
+      this.pause()
+    }
+  }
+
+  onSeekEnd () {
+    if (!this.block || !this.currentWord) {
+      this.wasPlayingBeforeSeek = false
+      return
+    }
+
+    if (this.wasPlayingBeforeSeek) {
+      this.ui.resume()
+      this.isPlaying = true
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => { this.next() }, this.getTime())
+    } else {
+      this.ui.pause()
+      this.isPlaying = false
+    }
+
+    this.wasPlayingBeforeSeek = false
+  }
+
+  seekToIndex (index) {
+    if (!this.block) return
+
+    const wasPlaying = this.isPlaying
+    clearTimeout(this.timer)
+    this.block.seekToIndex(index)
+    this.currentWord = this.block.word
+    this.nextWord = this.block.nextWord
+    this.isEnded = false
+
+    if (!this.currentWord) {
+      return
+    }
+
+    if (wasPlaying) {
+      this.display()
+      this.ui.resume()
+      this.isPlaying = true
+    } else {
+      this.showWord()
+      this.ui.pause()
+      this.isPlaying = false
+    }
+  }
+
+  seekToProgress (progress) {
+    if (!this.block) return
+    const targetIndex = this.block.seekToProgress(progress)
+    this.seekToIndex(targetIndex)
   }
 
   destroy () {

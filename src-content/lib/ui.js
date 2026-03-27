@@ -37,6 +37,13 @@ function ensureGoogleFontStylesheet(fontId, stylesheetUrl) {
 var template = `
   <div class="__stutter_screen"></div>
   <div class="__stutter_notice" role="status" aria-live="polite"></div>
+  <span class="__stutter_scrubber_hitbox" aria-hidden="true"></span>
+  <span class="__stutter_scrubber_visual" aria-hidden="true">
+    <span class="__stutter_scrubber_track"></span>
+    <span class="__stutter_scrubber_thumb"></span>
+  </span>
+  <input class="__stutter_scrubber" type="range" min="0" max="1000" value="0" aria-label="Stutter playback position">
+  <span class="__stutter_scrubber_preview" aria-hidden="true"></span>
   <div class="__stutter_text">
     <span class="__stutter_pausebtn"></span>
     <span class="__stutter_drag">&#x2195;</span>
@@ -105,6 +112,9 @@ export default class UI extends EventEmitter {
     this.drag = this.holder.getElementsByClassName('__stutter_drag')[0]
     this.options = this.holder.getElementsByClassName('__stutter_options')[0]
     this.pausebtn = this.holder.getElementsByClassName('__stutter_pausebtn')[0]
+    this.scrubberHitbox = this.holder.getElementsByClassName('__stutter_scrubber_hitbox')[0]
+    this.scrubber = this.holder.getElementsByClassName('__stutter_scrubber')[0]
+    this.scrubberPreview = this.holder.getElementsByClassName('__stutter_scrubber_preview')[0]
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onDragStart = this.onDragStart.bind(this)
     this.onDragEnd = this.onDragEnd.bind(this)
@@ -113,11 +123,27 @@ export default class UI extends EventEmitter {
     this.onOptions = this.onOptions.bind(this)
     this.onOptionsUpdate = this.onOptionsUpdate.bind(this)
     this.onKeypress = this.onKeypress.bind(this)
+    this.onScrubStart = this.onScrubStart.bind(this)
+    this.onScrubInput = this.onScrubInput.bind(this)
+    this.onScrubEnd = this.onScrubEnd.bind(this)
+    this.onScrubHitboxPointer = this.onScrubHitboxPointer.bind(this)
+    this.onDocumentVisibilityChange = this.onDocumentVisibilityChange.bind(this)
+    this.isScrubbing = false
+    this.totalDurationMs = 0
     this.close.addEventListener('click', this.onClose)
     this.pausebtn.addEventListener('click', this.onPauseToggle)
     this.drag.addEventListener('mousedown', this.onDragStart)
     this.drag.addEventListener('ontouchstart', this.onDragStart)
     this.options.addEventListener('click', this.onOptions)
+    this.scrubberHitbox.addEventListener('mousedown', this.onScrubHitboxPointer)
+    this.scrubberHitbox.addEventListener('touchstart', this.onScrubHitboxPointer, { passive: false })
+    this.scrubber.addEventListener('mousedown', this.onScrubStart)
+    this.scrubber.addEventListener('touchstart', this.onScrubStart, { passive: true })
+    this.scrubber.addEventListener('input', this.onScrubInput)
+    this.scrubber.addEventListener('change', this.onScrubEnd)
+    this.scrubber.addEventListener('mouseup', this.onScrubEnd)
+    this.scrubber.addEventListener('touchend', this.onScrubEnd)
+    this.scrubber.addEventListener('blur', this.onScrubEnd)
     this.stutterOptions = new StutterOptions()
     this.stutterOptions.addListener(StutterOptions.UPDATE, this.onOptionsUpdate)
     document.addEventListener('keydown', this.onKeypress, true)
@@ -175,10 +201,18 @@ export default class UI extends EventEmitter {
   }
 
   set progress (val) {
-    this.holder.dataset.progress = val
+    const numeric = Number(val)
+    const normalized = Number.isFinite(numeric) ? Math.min(Math.max(numeric, 0), 100) : 0
+    this.holder.dataset.progress = normalized
+    this.holder.style.setProperty('--stutterProgress', `${normalized}%`)
+    this.holder.style.setProperty('--stutterScrubberProgress', `${normalized}%`)
+    if (this.scrubber && !this.isScrubbing) {
+      this.scrubber.value = String(Math.round(normalized * 10))
+    }
   }
 
   updateTime (d) {
+    this.totalDurationMs = Number.isFinite(Number(d)) ? Number(d) : 0
     this.durationTime.textContent = toHHMMSS(d)
     this.durationWPM.textContent = '@' + this.stutterOptions.getProp('wpm') + 'wpm'
   }
@@ -217,6 +251,67 @@ export default class UI extends EventEmitter {
 
   onPauseToggle () {
     this.emit('pauseToggle')
+  }
+
+  onScrubStart (e) {
+    e.stopPropagation()
+    if (this.isScrubbing) return
+    this.isScrubbing = true
+    window.addEventListener('mouseup', this.onScrubEnd)
+    window.addEventListener('touchend', this.onScrubEnd)
+    window.addEventListener('touchcancel', this.onScrubEnd)
+    window.addEventListener('blur', this.onScrubEnd)
+    document.addEventListener('visibilitychange', this.onDocumentVisibilityChange)
+    this.emit('seekStart')
+    this.showScrubPreview(Number(this.scrubber.value) / 1000)
+  }
+
+  onScrubHitboxPointer (e) {
+    e.stopPropagation()
+    if (e.cancelable) {
+      e.preventDefault()
+    }
+  }
+
+  onScrubInput (e) {
+    e.stopPropagation()
+    const value = Number(e.target.value)
+    if (!Number.isFinite(value)) return
+    const progress = Math.min(Math.max(value / 1000, 0), 1)
+    this.holder.style.setProperty('--stutterScrubberProgress', `${progress * 100}%`)
+    this.showScrubPreview(progress)
+    this.emit('seek', progress)
+  }
+
+  onScrubEnd (e) {
+    if (e && e.stopPropagation) e.stopPropagation()
+    if (!this.isScrubbing) return
+    window.removeEventListener('mouseup', this.onScrubEnd)
+    window.removeEventListener('touchend', this.onScrubEnd)
+    window.removeEventListener('touchcancel', this.onScrubEnd)
+    window.removeEventListener('blur', this.onScrubEnd)
+    document.removeEventListener('visibilitychange', this.onDocumentVisibilityChange)
+    this.isScrubbing = false
+    this.emit('seekEnd')
+    this.hideScrubPreview()
+  }
+
+  onDocumentVisibilityChange () {
+    if (document.hidden) {
+      this.onScrubEnd()
+    }
+  }
+
+  showScrubPreview (progress) {
+    const safeProgress = Math.min(Math.max(Number(progress) || 0, 0), 1)
+    const preview = Math.round(this.totalDurationMs * safeProgress)
+    this.scrubberPreview.textContent = toHHMMSS(preview)
+    this.scrubberPreview.style.left = `${safeProgress * 100}%`
+    this.scrubberPreview.classList.add('__stutter_scrubber_preview_visible')
+  }
+
+  hideScrubPreview () {
+    this.scrubberPreview.classList.remove('__stutter_scrubber_preview_visible')
   }
 
   onOptions (e) {
