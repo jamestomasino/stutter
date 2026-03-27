@@ -56,3 +56,19 @@ test('uses unicode dash boundaries before fallback splitting', () => {
 
   assert.deepEqual(entries.map(entry => entry.text), ['alpha—', 'beta—', 'gamma'])
 })
+
+test('splits long hyphen-bounded segments and preserves boundary punctuation', () => {
+  const entries = buildWordEntries('supercalifragilistic-beta', 'en', 6, hyphenateWord)
+  const tokens = entries.map(entry => entry.text)
+
+  assert.equal(tokens.at(-1), 'beta')
+  assert.equal(tokens.length > 2, true)
+  assert.deepEqual(tokens.slice(0, -1).map(token => token.endsWith('-')), new Array(tokens.length - 1).fill(true))
+  assert.equal(entries.at(-1).isParagraphEnd, true)
+})
+
+test('does not split long tokens when maxWordLength is zero', () => {
+  const entries = buildWordEntries('supercalifragilistic', 'en', 0, hyphenateWord)
+
+  assert.deepEqual(entries.map(entry => entry.text), ['supercalifragilistic'])
+})
