@@ -4,13 +4,6 @@ const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process')
 
-const target = (process.argv[2] || 'chrome').toLowerCase()
-const rootDir = path.resolve(__dirname, '..')
-const basePath = path.join(rootDir, 'manifest.base.json')
-const packagePath = path.join(rootDir, 'package.json')
-const overridePath = path.join(rootDir, 'manifest.overrides', `${target}.json`)
-const outputPath = path.join(rootDir, 'manifest.json')
-
 const readJson = filePath => JSON.parse(fs.readFileSync(filePath, 'utf8'))
 
 const isObject = value => value !== null && typeof value === 'object' && !Array.isArray(value)
@@ -29,7 +22,7 @@ const mergeDeep = (base, override) => {
 
 const normalizeVersion = version => String(version || '').trim().replace(/^v/, '')
 
-const getExactTagVersion = () => {
+const getExactTagVersion = rootDir => {
   try {
     const tag = execSync('git describe --tags --exact-match --match "v*"', {
       cwd: rootDir,
@@ -49,26 +42,59 @@ const toManifestVersion = version => {
   return core
 }
 
-const baseManifest = readJson(basePath)
-const packageJson = readJson(packagePath)
-const overrideManifest = fs.existsSync(overridePath) ? readJson(overridePath) : {}
-const manifest = mergeDeep(baseManifest, overrideManifest)
-const packageVersion = normalizeVersion(packageJson.version)
-const tagVersion = getExactTagVersion()
-const sourceVersion = tagVersion && tagVersion === packageVersion ? tagVersion : packageVersion || tagVersion
+function buildManifest(targetArg = 'chrome', options = {}) {
+  const target = String(targetArg || 'chrome').toLowerCase()
+  const rootDir = options.rootDir || path.resolve(__dirname, '..')
+  const writeOutput = options.writeOutput !== false
 
-if (!sourceVersion) {
-  throw new Error('Unable to resolve extension version from package.json or git tag')
+  const basePath = path.join(rootDir, 'manifest.base.json')
+  const packagePath = path.join(rootDir, 'package.json')
+  const overridePath = path.join(rootDir, 'manifest.overrides', `${target}.json`)
+  const outputPath = path.join(rootDir, 'manifest.json')
+
+  const baseManifest = readJson(basePath)
+  const packageJson = readJson(packagePath)
+  const overrideManifest = fs.existsSync(overridePath) ? readJson(overridePath) : {}
+  const manifest = mergeDeep(baseManifest, overrideManifest)
+  const packageVersion = normalizeVersion(packageJson.version)
+  const tagVersion = getExactTagVersion(rootDir)
+  const sourceVersion = tagVersion && tagVersion === packageVersion ? tagVersion : packageVersion || tagVersion
+
+  if (!sourceVersion) {
+    throw new Error('Unable to resolve extension version from package.json or git tag')
+  }
+
+  if (tagVersion && tagVersion !== packageVersion) {
+    console.warn(`Tag version (${tagVersion}) differs from package.json version (${packageVersion}). Using package.json version.`)
+  }
+
+  if (
+    target === 'firefox' &&
+    manifest.background &&
+    typeof manifest.background === 'object' &&
+    typeof manifest.background.service_worker === 'string' &&
+    (!Array.isArray(manifest.background.scripts) || manifest.background.scripts.length === 0)
+  ) {
+    manifest.background.scripts = [manifest.background.service_worker]
+  }
+
+  manifest.version = toManifestVersion(sourceVersion)
+  if (sourceVersion !== manifest.version) {
+    manifest.version_name = sourceVersion
+  }
+
+  if (writeOutput) {
+    fs.writeFileSync(outputPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
+    console.log(`Generated manifest.json for target: ${target} (version ${manifest.version}${manifest.version_name ? `; version_name ${manifest.version_name}` : ''})`)
+  }
+
+  return manifest
 }
 
-if (tagVersion && tagVersion !== packageVersion) {
-  console.warn(`Tag version (${tagVersion}) differs from package.json version (${packageVersion}). Using package.json version.`)
+if (require.main === module) {
+  buildManifest(process.argv[2] || 'chrome')
 }
 
-manifest.version = toManifestVersion(sourceVersion)
-if (sourceVersion !== manifest.version) {
-  manifest.version_name = sourceVersion
+module.exports = {
+  buildManifest
 }
-
-fs.writeFileSync(outputPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
-console.log(`Generated manifest.json for target: ${target} (version ${manifest.version}${manifest.version_name ? `; version_name ${manifest.version_name}` : ''})`)

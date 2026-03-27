@@ -36,6 +36,11 @@ jobs:
             exit 1
           fi
 
+      - name: Verify Firefox manifest background fallback
+        run: |
+          npm run manifest:firefox
+          node -e "const m=require('./manifest.json'); if (!Array.isArray(m.background?.scripts) || m.background.scripts.length === 0) { throw new Error('Firefox manifest missing background.scripts fallback') }"
+
       - name: Build browser packages
         run: |
           npm run package:chrome

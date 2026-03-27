@@ -27,7 +27,10 @@
     "default_title": "stutter"
   },
   "background": {
-    "service_worker": "dist-bg/index.js"
+    "service_worker": "dist-bg/index.js",
+    "scripts": [
+      "dist-bg/index.js"
+    ]
   },
   "permissions": [
     "contextMenus",
@@ -55,5 +58,5 @@
       "id": "{8cc45662-d58a-4a06-bf7b-4fcdf1d54b8d}"
     }
   },
-  "version": "2.5.0"
+  "version": "2.6.1"
 }
