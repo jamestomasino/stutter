@@ -92,6 +92,21 @@ Useful commands:
 - `npm run package:edge`
 - `npm run package:all`
 
+Protected-branch release workflow:
+
+1. Create a release branch from latest `master`:
+   - `git checkout master && git pull --ff-only`
+   - `git checkout -b release/vNEXT`
+2. Prepare the version bump and release commit on that branch:
+   - `npm run release:prepare:minor` (or `:patch` / `:major`)
+3. Open PR and merge after required checks pass:
+   - `git push -u origin release/vNEXT`
+   - `gh pr create --base master --head release/vNEXT --fill`
+4. After merge, tag from up-to-date `master` and push tag:
+   - `git checkout master && git pull --ff-only`
+   - `npm run release:tag:push`
+5. The tag push triggers GitHub Actions to publish browser ZIPs and source ZIP.
+
 ## Research
 
 [Read some of the research](https://github.com/jamestomasino/stutter/wiki/Research) that influences Stutter.
