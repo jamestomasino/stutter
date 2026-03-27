@@ -73,6 +73,25 @@ This is an open source project and we welcome contributions. See the [Wiki](http
 Pull requests are welcome. For major changes, please open an issue first to
 discuss what you would like to change.
 
+### Development
+
+Manifest generation is browser-aware:
+
+- `manifest.base.json` contains shared MV3 fields.
+- `manifest.overrides/firefox.json` contains Firefox-only settings.
+- `manifest.json` is generated for a target browser by `scripts/build-manifest.cjs`.
+- Manifest `version` is generated from `package.json`; if `HEAD` is exactly tagged as `v*`, that tag version is used.
+
+Useful commands:
+
+- `npm run build:chrome`
+- `npm run build:firefox`
+- `npm run build:edge`
+- `npm run package:chrome`
+- `npm run package:firefox`
+- `npm run package:edge`
+- `npm run package:all`
+
 ## Research
 
 [Read some of the research](https://github.com/jamestomasino/stutter/wiki/Research) that influences Stutter.

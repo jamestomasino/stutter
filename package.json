@@ -1,6 +1,6 @@
 {
   "name": "stutter",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "RSVP for browsers",
   "main": "index.js",
   "repository": "https://github.com/jamestomasino/stutter",
@@ -9,10 +9,21 @@
   "private": false,
   "scripts": {
     "test": "node --test",
-    "extension": "web-ext run --verbose",
-    "package": "npm run build && web-ext build --overwrite-dest && git archive --format zip --output \"./web-ext-artifacts/$(basename \"$(pwd)\")-\"$(awk -F\": \" '/\"version\"/ {print $2}' manifest.json | sed 's/^\"//' | sed 's/\".*//')\"-src.zip\" master",
+    "manifest:chrome": "node scripts/build-manifest.cjs chrome",
+    "manifest:firefox": "node scripts/build-manifest.cjs firefox",
+    "manifest:edge": "node scripts/build-manifest.cjs edge",
+    "build:chrome": "npm run manifest:chrome && npm run build",
+    "build:firefox": "npm run manifest:firefox && npm run build",
+    "build:edge": "npm run manifest:edge && npm run build",
+    "extension": "npm run manifest:firefox && web-ext run --verbose",
+    "package:chrome": "npm run build:chrome && web-ext build --overwrite-dest --filename \"stutter-chrome-$npm_package_version.zip\"",
+    "package:firefox": "npm run build:firefox && web-ext build --overwrite-dest --filename \"stutter-firefox-$npm_package_version.zip\"",
+    "package:edge": "npm run build:edge && web-ext build --overwrite-dest --filename \"stutter-edge-$npm_package_version.zip\"",
+    "package:src": "git archive --format zip --output \"./web-ext-artifacts/$(basename \"$(pwd)\")-$npm_package_version-src.zip\" master",
+    "package:all": "npm run package:chrome && npm run package:firefox && npm run package:edge && npm run package:src",
+    "package": "npm run package:all",
     "build": "webpack --config 'webpack.bg.js' && webpack --config 'webpack.content.js' && webpack --config 'webpack.options.js'",
-    "webext-test": "web-ext lint"
+    "webext-test": "npm run manifest:firefox && web-ext lint"
   },
   "browserslist": "> 0.25%, not dead",
   "devDependencies": {

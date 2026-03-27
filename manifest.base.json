@@ -38,12 +38,6 @@
   "options_page": "dist-options/index.html",
   "options_ui": {
     "page": "dist-options/index.html",
-    "open_in_tab": true
-  },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "{8cc45662-d58a-4a06-bf7b-4fcdf1d54b8d}"
-    }
-  },
-  "version": "2.4.0"
+    "open_in_tab":true
+  }
 }

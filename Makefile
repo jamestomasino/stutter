@@ -13,11 +13,19 @@ help:
 	| column -t  -s '|'
 
 build: ## build project
-	npm run build
+	npm run build:firefox
 
 package: build ## package for upload
-	$(WEBEXT) build --overwrite-dest
-	git archive --format zip --output "./web-ext-artifacts/$(current_dir)-$(VERSION)-src.zip" master
+	npm run package:all
+
+package-chrome: ## package for Chrome upload
+	npm run package:chrome
+
+package-firefox: ## package for Firefox upload
+	npm run package:firefox
+
+package-edge: ## package for Edge upload
+	npm run package:edge
 
 test: ## web extension tests
 	npm run webext-test
@@ -25,5 +33,4 @@ test: ## web extension tests
 serve: ## launch test browser
 	npm run extension
 
-.PHONY: help build package test serve
-
+.PHONY: help build package package-chrome package-firefox package-edge test serve
