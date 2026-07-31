@@ -1,20 +1,19 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process')
+const { execSync, execFileSync } = require('child_process')
 const path = require('path')
+const fs = require('fs')
 
 const rootDir = path.resolve(__dirname, '..')
 const bump = (process.argv[2] || 'patch').toLowerCase()
 const validBumps = new Set(['patch', 'minor', 'major'])
-
-const run = cmd => execSync(cmd, { cwd: rootDir, stdio: 'pipe' }).toString().trim()
 
 if (!validBumps.has(bump)) {
   console.error(`Invalid bump "${bump}". Use one of: patch, minor, major`)
   process.exit(1)
 }
 
-const branch = run('git rev-parse --abbrev-ref HEAD')
+const branch = execFileSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], { cwd: rootDir, stdio: 'pipe' }).toString().trim()
 if (branch === 'master') {
   console.error('Refusing to prepare release on master. Create or switch to a release branch first.')
   process.exit(1)
@@ -37,7 +36,7 @@ if (hasUncommitted) {
 execSync(`npm version ${bump} --no-git-tag-version`, { cwd: rootDir, stdio: 'inherit' })
 execSync('npm run manifest:firefox', { cwd: rootDir, stdio: 'inherit' })
 
-const version = run("node -p \"require('./package.json').version\"")
+const version = JSON.parse(fs.readFileSync(path.join(rootDir, 'package.json'), 'utf8')).version
 execSync('git add package.json package-lock.json manifest.json', { cwd: rootDir, stdio: 'inherit' })
 execSync(`git commit -m "chore(release): v${version}"`, { cwd: rootDir, stdio: 'inherit' })
 
