@@ -1,6 +1,6 @@
 {
   "name": "stutter",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "description": "RSVP for browsers",
   "main": "index.js",
   "repository": "https://github.com/jamestomasino/stutter",
